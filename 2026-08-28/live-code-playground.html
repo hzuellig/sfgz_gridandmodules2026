@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Code Playground</title>
+  <link rel="stylesheet" href="playground.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="title">
+      <h1>Live Code Playground</h1>
+      <span class="dot"></span>
+    </div>
+    <span class="status">Änderungen werden sofort gerendert</span>
+  </header>
+
+  <main>
+    <section class="pane" id="pane-html">
+      <div class="pane-header"><span class="badge"></span> HTML</div>
+      <textarea id="html-input" spellcheck="false">&lt;h1&gt;HTML&lt;/h1&gt;
+&lt;p&gt;HTML (HyperText Markup Language) ist der grundlegendste Baustein des Webs. Es definiert die Bedeutung und Struktur von Webinhalten. HTML verwendet "Markup", um Text, Bilder und andere Inhalte für die Anzeige in einem Webbrowser zu kennzeichnen. &lt;/p&gt;
+&lt;a href="https://developer.mozilla.org/de/docs/Web/HTML" target="_blank"&gt;MDN: HTML-Dokumentation&lt;/a&gt;
+
+&lt;h1&gt;CSS&lt;/h1&gt;
+&lt;p&gt;Cascading Style Sheets (CSS) ist eine Stylesheet-Sprache, die verwendet wird, um die Darstellung eines Dokuments zu beschreiben, das in HTML oder XML (einschließlich XML-Dialekten wie SVG, MathML oder XHTML) geschrieben ist. CSS beschreibt, wie Elemente auf dem Bildschirm, auf Papier, in Sprachwiedergabe oder auf anderen Medien dargestellt werden sollen. &lt;/p&gt;
+&lt;a href="https://developer.mozilla.org/de/docs/Web/CSS" target="_blank"&gt;MDN: CSS-Dokumentation&lt;/a&gt;
+</textarea>
+    </section>
+
+    <section class="pane" id="pane-css">
+      <div class="pane-header"><span class="badge"></span> CSS</div>
+      <textarea id="css-input" spellcheck="false">body {
+  font-family: sans-serif;
+  padding: 24px;
+  color: #222;
+}
+
+h1 {
+  color: #d85a30;
+}
+
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #378ade;
+  color: white;
+  cursor: pointer;
+}</textarea>
+    </section>
+
+    <section class="pane" id="pane-preview">
+      <div class="pane-header"><span class="badge"></span> Ergebnis</div>
+      <iframe id="preview" title="Live-Vorschau" sandbox="allow-scripts"></iframe>
+    </section>
+  </main>
+
+  <footer>
+    Tipp: HTML links, CSS mittig, Ergebnis rechts. Auf schmalen Bildschirmen werden die Bereiche gestapelt.
+  </footer>
+
+  <script>
+    const htmlInput = document.getElementById('html-input');
+    const cssInput = document.getElementById('css-input');
+    const preview = document.getElementById('preview');
+
+    function render() {
+      const doc = `<!DOCTYPE html>
+<html>
+<head><style>${cssInput.value}</style></head>
+<body>${htmlInput.value}<\/body>
+</html>`;
+      preview.srcdoc = doc;
+    }
+
+    let timeout;
+    function scheduleRender() {
+      clearTimeout(timeout);
+      timeout = setTimeout(render, 200);
+    }
+
+    htmlInput.addEventListener('input', scheduleRender);
+    cssInput.addEventListener('input', scheduleRender);
+
+    render();
+  </script>
+
+</body>
+
+</html>

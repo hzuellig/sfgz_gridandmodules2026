@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML & CSS – Kurzeinführung</title>
+
+  <style>
+   /* body {
+  cursor: url("assets/ghost.jpg") 8 8, auto;
+}*/
+    :root {
+      --text: #2b2a27;
+      --text-dim: #6b6a65;
+      --accent: #1be07d;
+      --accent-soft: rgba(215, 220, 221, 0.618);
+      --code-bg: #24262b;
+      --code-text: rgba(56, 255, 156, 1);
+      --border: rgba(215, 220, 221, 0.618);
+      --table-header: rgba(56, 255, 156, 0.45);
+      ;
+
+      --bg: #ffffff;
+      --bg-soft: #12161a;
+      --ink: #2d2d2d;
+      --signal: #1be07d;
+      --warn: #ffb347;
+      --scan: rgba(56, 255, 156, 0.45);
+      --edge: rgba(215, 220, 221, 0.618);
+
+      --scanop: rgba(56, 255, 156, 0.9);
+      --edgeop: rgba(215, 220, 221, 0.95);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    a {
+      color: var(--accent);
+      font-weight: bold;
+      ;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        "IBM Plex Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+      line-height: 1.65;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 90px;
+    }
+
+    h1.doc-title {
+      font-size: 34px;
+      font-weight: 700;
+      margin: 0 0 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      color: var(--text-dim);
+      font-size: 15px;
+      margin: 0 0 48px;
+      max-width: 56ch;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 56px 0 6px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 32px 0 10px;
+    }
+
+    p {
+      margin: 12px 0;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0.9em;
+      background: var(--accent-soft);
+      color: #9a3d1c;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 18px 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+    }
+
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--table-header);
+      font-weight: 700;
+    }
+
+    .box-diagram {
+      background: #fafaf6;
+      color: #4a4a45;
+      border: 1px solid var(--border);
+      font-size: 12.5px;
+    }
+
+    .hint {
+      background: var(--table-header);
+      border-left: 3px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+
+    .hint strong {
+      color: var(--accent);
+    }
+
+    ul {
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .exercise-header {
+      background: var(--accent);
+      color: #fff;
+      padding: 22px 26px;
+      border-radius: 12px;
+      margin: 56px 0 24px;
+    }
+
+    .exercise-header h2 {
+      border: none;
+      color: var(--ink);
+      margin: 0 0 6px;
+      padding: 0;
+    }
+
+    .exercise-header p {
+      margin: 0;
+      color: var(--ink);
+      font-size: 14.5px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+
+
+
+
+    <h1 class="doc-title">HTML &amp; CSS – Kurzeinführung</h1>
+    <p class="subtitle">Diese Einführung deckt nur das ab, was du für die Übung unten brauchst. Für alles Weitere sind
+      <a href="https://developer.mozilla.org">MDN </a> und <a href="https://www.w3schools.com/">w3schools</a> gute
+      Nachschlagewerke – aber erstmal reicht das hier.
+    </p>
+
+    <h2> History of the Web, Timetravelling</h2>
+    <p>
+      Am Anfang gab es nur HTML. Und HTML war nie zum Gestalten gedacht – es kommt aus der Wissenschaft, wo man
+      Dokumente austauschen wollte: Überschriften, Absätze, Listen, Links. Es ging darum, Text zu strukturieren, nicht
+      ihn auszusehen zu lassen. Ein &lt;h1&gt; war einfach "das ist wichtig", nicht "das soll gross und fett sein" – wie
+      es dann aussieht, hat der Browser entschieden, nicht die Autorin.
+      <br />
+      Erst Jahre später kam CSS dazu – mit der ausdrücklichen Idee, Inhalt und Aussehen zu trennen. Vorher hatte man
+      sich beholfen: mit &lt;font&gt;-Tags, mit Tabellen als Layout-Werkzeug, mit einzelnen Pixel-GIFs, um Abstände zu
+      erzeugen. Das Web wollte eigentlich gar nicht gestaltet werden – und wurde dann trotzdem gestaltet, mit den
+      Mitteln, die es nicht dafür hatte.
+    </p>
+    <p><a href="https://oldweb.today">https://oldweb.today</a></p>
+    <p><a href="https://web.archive.org/">https://web.archive.org/</a></p>
+    <p>Was passiert, wenn man CSS ausblendet?</p>
+    <h2>Arbeitsumgebung</h2>
+    <p>Visual Studio Code installieren: <a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></p>
+
+    <h2>Teil 1: HTML – Markup</h2>
+
+    <p>HTML beschreibt die <strong>Struktur</strong> einer Seite, nicht ihr Aussehen. Man "markiert" Textabschnitte mit
+      Tags, damit der Browser weiß, was es ist: eine Überschrift, ein Absatz, ein Link.</p>
+
+    <p>Ein Tag hat meistens eine öffnende und eine schließende Form:</p>
+
+    <pre><code>&lt;p&gt;Das ist ein Absatz.&lt;/p&gt;</code></pre>
+
+    <p><code>&lt;p&gt;</code> öffnet, <code>&lt;/p&gt;</code> schließt. Alles dazwischen ist der Inhalt des Elements.
+    </p>
+
+    <h3>Die wichtigsten Tags zum Start</h3>
+
+    <table>
+      <tr>
+        <th>Tag</th>
+        <th>Bedeutung</th>
+        <th>Beispiel</th>
+      </tr>
+      <tr>
+        <td><code>&lt;h1&gt;</code> … <code>&lt;h6&gt;</code></td>
+        <td>Überschriften, <code>h1</code> = größte/wichtigste</td>
+        <td><code>&lt;h1&gt;Meine Todo-Liste&lt;/h1&gt;</code></td>
+      </tr>
+      <tr>
+        <td><code>&lt;p&gt;</code></td>
+        <td>Absatz (Fließtext)</td>
+        <td><code>&lt;p&gt;Heute erledigen:&lt;/p&gt;</code></td>
+      </tr>
+      <tr>
+        <td><code>&lt;div&gt;</code></td>
+        <td>Neutraler Container/Block, gruppiert Inhalte</td>
+        <td><code>&lt;div&gt;...ganzer Block...&lt;/div&gt;</code></td>
+      </tr>
+      <tr>
+        <td><code>&lt;a&gt;</code></td>
+        <td>Link, braucht ein <code>href</code>-Attribut</td>
+        <td><code>&lt;a href="https://example.com"&gt;Link&lt;/a&gt;</code></td>
+      </tr>
+    </table>
+
+    <p>Ein <code>&lt;div&gt;</code> hat selbst keine Bedeutung wie "Überschrift" oder "Link" – es ist einfach eine Box,
+      in die du andere Elemente packst, um sie später gemeinsam zu gestalten. Das wird für die Post-its unten wichtig:
+      <strong>jedes Post-it ist ein <code>&lt;div&gt;</code></strong>.
+    </p>
+
+    <h3>Minimalbeispiel</h3>
+
+    <pre><code>&lt;div&gt;
+  &lt;h1&gt;Einkaufen&lt;/h1&gt;
+  &lt;p&gt;Milch, Brot, Eier&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+    <hr>
+
+    <h2>Teil 2: CSS – Selektoren und Eigenschaften</h2>
+
+    <p>CSS beschreibt das <strong>Aussehen</strong>. Eine CSS-Regel besteht aus einem Selektor (auf welches Element
+      wirkt die Regel?) und Eigenschaften in geschweiften Klammern.</p>
+
+    <h3>Selektoren auf Tags</h3>
+
+    <p>Der einfachste Selektor ist der Tag-Name selbst – jede Regel gilt dann für <strong>alle</strong> Elemente dieses
+      Typs auf der Seite:</p>
+
+    <pre><code>h1 {
+  color: blue;
+}
+
+p {
+  font-size: 16px;
+}</code></pre>
+
+    <p>Das war's fürs Erste – Klassen (<code>.name</code>) und IDs (<code>#name</code>) kommen später, wenn du gezielt
+      nur <em>einzelne</em> Elemente ansprechen willst.</p>
+
+    <h3>Die fünf wichtigsten Eigenschaften</h3>
+
+    <p><strong>color</strong> – Textfarbe</p>
+    <pre><code>p { color: #333; }</code></pre>
+
+    <p><strong>background</strong> – Hintergrundfarbe (oder -bild) des Elements</p>
+    <pre><code>div { background: #fff59d; }</code></pre>
+
+    <p><strong>font-size</strong> – Schriftgröße</p>
+    <pre><code>h1 { font-size: 24px; }</code></pre>
+
+    <p><strong>border</strong> – Rahmen um das Element: Dicke, Stil, Farbe</p>
+    <pre><code>div { border: 1px solid black; }</code></pre>
+
+    <p><strong>margin</strong> und <strong>padding</strong> – der Abstand außen und innen um ein Element:</p>
+
+    <pre class="box-diagram"><code>┌─────────────── margin (Außenabstand zu anderen Elementen) ───────────────┐
+│  ┌──────────── border (Rahmen) ─────────────┐                            │
+│  │  ┌──── padding (Innenabstand zum Inhalt) ─┐                           │
+│  │  │         Inhalt                          │                          │
+│  │  └──────────────────────────────────────────┘                        │
+│  └────────────────────────────────────────────┘                          │
+└─────────────────────────────────────────────────────────────────────────┘</code></pre>
+
+    <pre><code>div {
+  margin: 16px;
+  padding: 12px;
+}</code></pre>
+
+    <div class="hint"><strong>Merkregel:</strong> padding ist der Abstand <em>innen</em> zwischen Rahmen und Inhalt,
+      margin ist der Abstand <em>außen</em> zu den Nachbar-Elementen.</div>
+
+    <div class="exercise-header">
+      <h2>Übung: Todo-Liste im Post-it-Stil</h2>
+      <p>Baue eine Todo-Liste, bei der jeder Eintrag wie ein Post-it aussieht.</p>
+    </div>
+
+    <h3>HTML</h3>
+
+    <p>Jedes Todo ist ein <code>&lt;div&gt;</code> mit einer Überschrift und optional einem Text:</p>
+
+    <pre><code>&lt;div&gt;
+  &lt;h1&gt;Hausaufgaben&lt;/h1&gt;
+  &lt;p&gt;Mathe Kapitel 4 durchlesen&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+  &lt;h1&gt;Einkaufen&lt;/h1&gt;
+  &lt;p&gt;Milch, Brot, Eier&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+  &lt;h1&gt;Sport&lt;/h1&gt;
+  &lt;p&gt;30 Minuten laufen&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+    <p><a href="https://www.w3schools.com/html/html_elements.asp" target="_blank">Einzelne HTML Tags nachschauen auf
+        W3School</a></p>
+
+    <h3>CSS</h3>
+
+    <p>Style den <code>div</code>-Tag so, dass er wie ein Klebezettel aussieht: gelber Hintergrund, dezenter Rahmen,
+      Innenabstand, Außenabstand zu den anderen Post-its:</p>
+
+    <pre><code>div {
+  background: #fff59d;
+  border: 1px solid #e6d84b;
+  padding: 16px;
+  margin: 12px;
+  font-size: 16px;
+}
+
+h1 {
+  font-size: 18px;
+}</code></pre>
+
+
+
+    <p><strong>Experimentiere danach mit:</strong></p>
+    <ul>
+      <li>Verschiedene <code>background</code>-Farben pro Post-it (geht erstmal nur, wenn du den Tag änderst – z. B.
+        <code>p</code> anders stylen als <code>div</code>)
+      </li>
+      <li><code>border</code> dicker/dünner machen, andere Stile (<code>dashed</code>, <code>dotted</code>)</li>
+      <li>Was passiert, wenn <code>margin</code> sehr groß oder <code>padding: 0</code> ist?</li>
+      <li>Einen <code>&lt;a&gt;</code>-Link auf ein Post-it setzen, z. B. zu einer Quelle oder weiteren Info</li>
+    </ul>
+
+    <p><a href="https://www.w3schools.com/css/css_border.asp" target="_blank">Einzelne CSS Eigenschaften nachschauen auf
+        W3School</a></p>
+
+    <div class="hint"><strong>Bonusfrage zum Nachdenken:</strong> Warum sehen mit dem Tag-Selektor
+      <code>div { ... }</code> <em>alle</em> Post-its automatisch gleich aus, auch neue, die du hinzufügst? Was wäre,
+      wenn du nur <em>ein einziges</em> Post-it anders stylen wolltest – reicht der Tag-Selektor dafür noch aus?
+    </div>
+
+    <!--
+      <h3>Klassen-Selektoren</h3>
+
+    <p>Der Tag-Selektor <code>div { ... }</code> stylt <em>alle</em> <code>div</code>s gleich. Wenn du nur
+      <em>ein einziges</em> Post-it anders aussehen lassen willst, brauchst du eine <strong>Klasse</strong>. Gib dem
+      HTML-Element ein <code>class</code>-Attribut:</p>
+
+    <pre><code>&lt;div class="wichtig"&gt;Nicht vergessen!&lt;/div&gt;</code></pre>
+
+    <p>Und im CSS sprichst du diese Klasse mit einem Punkt <code>.</code> vor dem Namen an:</p>
+
+    <pre><code>.wichtig {
+  background: #ff8a65;
+  border: 2px dashed #d84315;
+}</code></pre>
+
+    <p>Wichtig: Die Klasse <em>ergänzt</em> den Tag-Selektor, sie ersetzt ihn nicht. Das Post-it bekommt zuerst alles
+      von <code>div { ... }</code> (Innenabstand, Außenabstand, Schriftgröße) – und danach überschreibt
+      <code>.wichtig { ... }</code> nur die Eigenschaften, die dort auch definiert sind.</p>
+
+    <p><strong>Experimentiere danach mit:</strong></p>
+    <ul>
+      <li>Gib zwei oder drei Post-its die Klasse <code>wichtig</code> und schau, ob sie wirklich alle die Klasse teilen</li>
+      <li>Erfinde eine zweite Klasse, z. B. <code>erledigt</code>, mit einem anderen Look (z. B. <code>opacity: 0.5</code>)</li>
+      <li>Kombiniere zwei Klassen an einem Element: <code>class="wichtig erledigt"</code></li>
+    </ul>
+
+    <div class="hint"><strong>Bonusfrage zum Nachdenken:</strong> Was, wenn du zwei Post-its die gleiche Klasse
+      <code>wichtig</code> gibst, aber eines davon soll trotzdem eine <em>ganz eigene</em>, einmalige Formatierung
+      bekommen, die kein anderes Element je haben soll? Reicht die Klasse dafür noch – oder braucht es etwas anderes?</div>
+
+    <h3>ID-Selektoren</h3>
+
+    <p>Für ein Element, das es auf der ganzen Seite nur <em>ein einziges Mal</em> gibt, benutzt man statt
+      <code>class</code> ein <code>id</code>-Attribut:</p>
+
+    <pre><code>&lt;div id="chef-notiz"&gt;Von der Chefin persönlich&lt;/div&gt;</code></pre>
+
+    <p>Im CSS wird die ID mit einer Raute <code>#</code> angesprochen:</p>
+
+    <pre><code>#chef-notiz {
+  background: #333;
+  color: white;
+  transform: rotate(-3deg);
+}</code></pre>
+
+    <div class="hint"><strong>Merke:</strong> Eine Klasse (<code>.name</code>) kannst du beliebig oft vergeben,
+      eine ID (<code>#name</code>) nur genau einmal pro Seite. Als Faustregel: Klassen für "diese Art von Element",
+      ID für "genau dieses eine Element".</div>
+
+      -->
+
+  
+    <h3>Cursor mit Superkraft (eigenes Icon)</h3>
+    <p>CSS kann den Mauszeiger durch ein eigenes Bild ersetzen – mit <code>cursor: url(...)</code>. Damit wird
+      dein Zeiger selbst zur Figur, die über die Seite fährt:</p>
+
+    <pre><code>body {
+  cursor: url("assets/ghost.jpg") 8 8, auto;
+}</code></pre>
+    <p>Du kannst ein Icon als Cursor benutzen, z. B. von
+      <a href="https://www.flaticon.com/" target="_blank">flaticon.com</a>. Lade dort ein Icon als
+      <code>.svg</code> oder <code>.png</code> herunter und leg es neben deine <code>index.html</code>, z. B. in
+      einen Ordner <code>icons/geist.png</code>:
+    </p>
+
+    <pre><code>body {
+  cursor: url("icons/geist.png") 8 8, auto;
+}</code></pre>
+
+    <p>Die zwei Zahlen (<code>8 8</code>) sind wieder der <em>Hotspot</em> – der Punkt im Bild, der als
+      Klickposition zählt. Bei einem 32×32px-Icon ist das oft ungefähr die Mitte.</p>
+
+    <div class="hint"><strong>Wichtig zur Grösse:</strong> Browser ignorieren Cursor-Bilder, die zu gross sind
+      (meist über 128×128px, teils schon ab 32×32px). Ist dein Icon zu gross, öffne es kurz in einem
+      Bildbearbeitungs-Tool
+      und verkleinere es, bevor du es einbindest.</div>
+
+    <div class="hint"><strong>Zur Lizenz:</strong> Icons auf Flaticon sind meist unter Creative-Commons-Lizenz
+      mit <strong>Namensnennung</strong> – beim Download steht jeweils dabei, wie die Attribution aussehen muss
+      (z. B. "Ghost by XY from Flaticon"). Baut das am Ende irgendwo auf eurer Seite ein, z. B. im Footer.</div>
+
+
+
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,293 @@
+:root {
+  --bg: #ffffff;
+  --bg-soft: #12161a;
+  --ink: #2d2d2d;
+  --signal: #1be07d;
+  --warn: #ffb347;
+  --scan: rgba(56, 255, 156, 0.45);
+  --edge: rgba(215, 220, 221, 0.618);
+
+  --scanop: rgba(56, 255, 156, 0.9);
+  --edgeop: rgba(215, 220, 221, 0.95);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 4rem 1.4rem 5rem;
+  color: var(--ink);
+  font-family:
+    "IBM Plex Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  background: var(--bg);
+  font-size: 1.2rem;
+}
+
+h1 {
+  font-weight: normal;
+  font-size: 1.8rem;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+}
+
+article {
+  background: linear-gradient(45deg, var(--scan) 0%, var(--edge) 100%);
+  box-shadow:
+    0 0 0 1px rgba(27, 224, 125, 0.2),
+    0 12px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--signal);
+  border-radius: 2px;
+  padding: 2rem;
+  transform-origin: left top;
+  position: relative;
+}
+
+article div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+article:nth-child(2n + 1) {
+  transform: translate(50px, 10px);
+}
+
+article:nth-child(2n) {
+  transform: translate(-50px, -10px);
+}
+
+article:nth-child(3n) {
+  transform: translate(10px, 0px);
+}
+
+article:last-child {
+  transform: translate(0px, 5px);
+}
+article h1 {
+  font-size: 1.2rem;
+  font-weight: normal;
+  z-index: 1;
+}
+figure {
+  display: none;
+}
+.popup-info {
+  display: none;
+}
+
+a {
+  color: black;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--signal);
+}
+
+/* Popup styles */
+
+#popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 800px;
+  height: auto;
+  display: none;
+  z-index: 9999;
+  border: 1px solid var(--signal);
+  border-radius: 8px;
+  overflow: hidden;
+  background: linear-gradient(45deg, var(--scanop) 0%, var(--edgeop) 100%);
+  box-shadow:
+    0 0 0 1px rgba(27, 224, 125, 0.2),
+    0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+#popup-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 2.2rem;
+  padding: 0 0.8rem;
+  background: linear-gradient(180deg, var(--scan) 0%, var(--edge) 100%);
+  border-bottom: 1px solid var(--signal);
+  cursor: grab;
+  user-select: none;
+}
+
+#popup-bar:active {
+  cursor: grabbing;
+}
+
+#popup-title {
+  color: var(--signal);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+#popup-dots {
+  display: flex;
+  gap: 0.4rem;
+  margin-left: auto;
+}
+
+#popup-dots i {
+  display: block;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--signal);
+  opacity: 0.5;
+}
+
+#popup-dots i:last-child {
+  opacity: 1;
+}
+
+#popup img {
+  display: block;
+  width: 100%;
+  height: calc(100% - 2.2rem);
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+#popup-text {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Archive list styles */
+.archive-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 60rem;
+  counter-reset: archive;
+}
+
+.archive-list li {
+  counter-increment: archive;
+  display: flex;
+  align-items: baseline;
+  padding: 0.5rem 0;
+}
+
+.archive-list li::before {
+  content: counter(archive, decimal-leading-zero);
+  flex-shrink: 0;
+  margin-right: 0.8rem;
+  color: var(--signal);
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+}
+
+.archive-list li span {
+  flex-shrink: 0;
+
+  max-width: 80%;
+  font-size: 1.1rem;
+  color: var(--ink);
+}
+
+/* dotted leader filling the gap, like a table of contents */
+.archive-list li::after {
+  content: "";
+  flex: 1;
+  order: 1;
+  align-self: flex-end;
+  margin: 0 0 0.35em 0.5rem;
+  border-bottom: 1px dotted var(--edgeop);
+}
+
+/*--- nav ----*/
+#nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.75rem 1.4rem;
+  border-bottom: 1px solid var(--edge);
+  display: flex;
+  align-items: flex-end;
+  justify-content: end;
+}
+#nav a {
+  padding-right: 0.75rem;
+}
+
+/*-- plan -- */
+section {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px dotted var(--signal);
+  font-size: 1rem;
+  max-width: 960px;
+}
+
+section.head {
+  font-weight: bold;
+}
+
+.datum {
+  flex-basis: 150px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding: 0.75rem;
+  border-right: 2px dotted var(--signal);
+}
+.topic,
+.projekt {
+  flex-basis: 30%;
+  flex-grow: 1;
+  padding: 0.75rem;
+  border-right: 2px dotted var(--signal);
+}
+
+/* ---- Code ------- */
+
+code {
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 1rem;
+  background: var(--edge);
+  color: #9a3d1c;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+pre {
+  background: var(--edge);
+  color: var(--ink);
+  padding: 18px 20px;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+
+  margin: 16px 0;
+}
+
+pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+}
