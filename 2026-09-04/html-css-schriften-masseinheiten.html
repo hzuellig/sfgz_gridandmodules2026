@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schriften, Masseinheiten & Pfade</title>
+
+  <style>
+    :root {
+      --text: #2b2a27;
+      --text-dim: #6b6a65;
+      --accent: #1be07d;
+      --accent-soft: rgba(215, 220, 221, 0.618);
+      --code-bg: #24262b;
+      --code-text: rgba(56, 255, 156, 1);
+      --border: rgba(215, 220, 221, 0.618);
+      --table-header: rgba(56, 255, 156, 0.45);
+
+      --bg: #ffffff;
+      --bg-soft: #12161a;
+      --ink: #2d2d2d;
+      --signal: #1be07d;
+      --warn: #ffb347;
+      --scan: rgba(56, 255, 156, 0.45);
+      --edge: rgba(215, 220, 221, 0.618);
+
+      --scanop: rgba(56, 255, 156, 0.9);
+      --edgeop: rgba(215, 220, 221, 0.95);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    a {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        "IBM Plex Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+      line-height: 1.65;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 90px;
+    }
+
+    h1.doc-title {
+      font-size: 34px;
+      font-weight: 700;
+      margin: 0 0 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      color: var(--text-dim);
+      font-size: 15px;
+      margin: 0 0 48px;
+      max-width: 56ch;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 56px 0 6px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 32px 0 10px;
+    }
+
+    p {
+      margin: 12px 0;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0.9em;
+      background: var(--accent-soft);
+      color: #9a3d1c;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 18px 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+    }
+
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--table-header);
+      font-weight: 700;
+    }
+
+    .box-diagram {
+      background: #fafaf6;
+      color: #4a4a45;
+      border: 1px solid var(--border);
+      font-size: 12.5px;
+    }
+
+    .hint {
+      background: var(--table-header);
+      border-left: 3px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+
+    .hint strong {
+      color: var(--accent);
+    }
+
+    ul {
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .exercise-header {
+      background: var(--accent);
+      color: #fff;
+      padding: 22px 26px;
+      border-radius: 12px;
+      margin: 56px 0 24px;
+    }
+
+    .exercise-header h2 {
+      border: none;
+      color: var(--ink);
+      margin: 0 0 6px;
+      padding: 0;
+    }
+
+    .exercise-header p {
+      margin: 0;
+      color: var(--ink);
+      font-size: 14.5px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    .metaphor-room {
+      background: #fafaf6;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+
+    <h1 class="doc-title">Schriften, Masseinheiten &amp; Pfade</h1>
+    <p class="subtitle">Grundaufbau, Selektoren, Farben kennt ihr schon. Heute kommt dazu: wie Text auf dem Web
+      aussieht (Schriftarten, Grössen) und wie man Dateien – z.&nbsp;B. Schriften – überhaupt findet und einbindet.</p>
+
+    <h2>Teil 1: font-family</h2>
+
+    <p>Die Eigenschaft <code>font-family</code> gibt eine Liste von Schriftarten an, von der höchsten Priorität bis
+      zur niedrigsten. Der Browser prüft der Reihe nach, ob er die Schrift besitzt – falls nicht, geht er zur
+      nächsten in der Liste.</p>
+
+    <pre><code>.serifen {
+  font-family: Georgia, serif;
+}
+.serifenlos {
+  font-family: "Gill Sans", sans-serif;
+}</code></pre>
+
+    <p><strong>Ohne</strong> Anführungszeichen: Die Font-Familie ist auf dem Rechner installiert.<br>
+      <strong>Mit</strong> Anführungszeichen (oder als generischer Name wie <code>serif</code>,
+      <code>sans-serif</code>): ein genereller Fallback, oder eine Schrift, die extra mitgeliefert wird.
+    </p>
+
+    <h3>Web Safe Fonts</h3>
+
+    <p>Websichere Schriftarten sind Schriftarten, die (fast) überall installiert sind. Ganz sicher ist aber nie –
+      es gibt immer die Möglichkeit, dass eine Schrift auf einem Gerät fehlt oder anders installiert ist.
+      Liste: <a href="https://www.cssfontstack.com/" target="_blank">cssfontstack.com</a></p>
+
+    <p>Deshalb gibt man in <code>font-family</code> immer eine Liste von Ausweichschriften an. Findet der Browser
+      die erste nicht, probiert er die nächste, und so weiter. Die Liste endet immer mit einem generischen
+      Familiennamen (<code>serif</code>, <code>sans-serif</code>, <code>monospace</code> ...) als letztem Sicherheitsnetz.</p>
+
+    <div class="hint"><strong>Merke:</strong> <code>font-family</code> ist immer eine <em>Liste</em>, nie nur eine
+      einzelne Schrift. Die letzte Angabe sollte immer ein generischer Name sein.</div>
+
+    <hr>
+
+    <h2>Teil 2: Masseinheiten</h2>
+
+    <p>CSS-Werte können unterschiedliche Einheiten annehmen. Grob unterscheidet man:</p>
+    <ul>
+      <li><strong>fixe Einheiten</strong> – immer gleich gross</li>
+      <li><strong>flexible Einheiten</strong> – abhängig vom Kontext</li>
+    </ul>
+
+    <h3>Fixe Einheiten</h3>
+
+    <p>Eine Länge in einer fixen Einheit erscheint immer in genau dieser Grösse.</p>
+
+    <table>
+      <tr>
+        <th>Abkürzung</th>
+        <th>Grösse</th>
+      </tr>
+      <tr>
+        <td><code>cm</code></td>
+        <td>Zentimeter</td>
+      </tr>
+      <tr>
+        <td><code>mm</code></td>
+        <td>Millimeter</td>
+      </tr>
+      <tr>
+        <td><code>in</code></td>
+        <td>inches (1in = 96px = 2.54cm)</td>
+      </tr>
+      <tr>
+        <td><code>px</code></td>
+        <td>pixels (1px = 1/96th of 1in)</td>
+      </tr>
+      <tr>
+        <td><code>pt</code></td>
+        <td>points (1pt = 1/72 of 1in)</td>
+      </tr>
+      <tr>
+        <td><code>pc</code></td>
+        <td>picas (1pc = 12pt)</td>
+      </tr>
+    </table>
+
+    <pre><code>h1 {
+  font-size: 32px;
+  line-height: 48px;
+}</code></pre>
+
+    <p>Absolute Längeneinheiten sind für Bildschirme wenig geeignet, da Bildschirmgrössen stark variieren. Sinnvoll
+      sind sie, wenn das Ausgabemedium bekannt ist – z.&nbsp;B. für ein Drucklayout.</p>
+
+    <p><code>px</code> ist relativ zum Anzeigegerät: bei niedriger Pixeldichte entspricht 1px einem Gerätepixel,
+      bei hochauflösenden Bildschirmen (Retina, Drucker) entspricht 1px mehreren Gerätepixeln.</p>
+
+    <h3>Flexible Einheiten</h3>
+
+    <p>Flexible Einheiten geben ein Mass relativ zu einer anderen Grösse an. Sie skalieren besser zwischen
+      unterschiedlichen Geräten und Bildschirmen.</p>
+
+    <table>
+      <tr>
+        <th>Abkürzung</th>
+        <th>Grösse</th>
+      </tr>
+      <tr>
+        <td><code>%</code></td>
+        <td>relativ zum Parent-Element</td>
+      </tr>
+      <tr>
+        <td><code>em</code></td>
+        <td>relativ zur Schriftgrösse des eigenen Elements</td>
+      </tr>
+      <tr>
+        <td><code>rem</code></td>
+        <td>relativ zur Schriftgrösse des Root-Elements (<code>html</code>)</td>
+      </tr>
+      <tr>
+        <td><code>vw</code></td>
+        <td>1% der Fensterbreite (Viewport)</td>
+      </tr>
+      <tr>
+        <td><code>vh</code></td>
+        <td>1% der Fensterhöhe (Viewport)</td>
+      </tr>
+    </table>
+
+    <div class="hint"><strong>Warum <code>rem</code> für Typografie oft die bessere Wahl ist:</strong>
+      <code>em</code> bezieht sich auf die Schriftgrösse des <em>eigenen</em> Elements – verschachtelt sich das,
+      können sich Grössen aufsummieren und unerwartet wachsen/schrumpfen. <code>rem</code> bezieht sich immer auf
+      dasselbe Root-Element und bleibt deshalb berechenbarer.</div>
+
+    <p>Mehr zu Einheiten: <a href="https://www.w3schools.com/cssref/css_units.php" target="_blank">w3schools –
+        CSS Units</a></p>
+
+    <hr>
+
+    <h2>Teil 3: Schriften laden</h2>
+
+    <p>Wenn du keine der Standard-Schriftarten verwenden willst, kannst du externe Schriften laden – z.&nbsp;B. von
+      <a href="https://fonts.google.com/" target="_blank">Google Fonts</a> oder
+      <a href="https://fonts.adobe.com/fonts" target="_blank">Adobe Fonts</a>.
+    </p>
+
+    <p>Google Fonts generiert dir dafür einen fertigen <code>@import</code>-Befehl:</p>
+
+    <pre><code>&lt;head&gt;
+&lt;style&gt;
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&amp;family=Roboto:wght@100&amp;display=swap');
+body {
+  font-family: 'Roboto', sans-serif;
+}
+&lt;/style&gt;
+&lt;/head&gt;</code></pre>
+
+    <h3>@font-face</h3>
+
+    <p>Die CSS-Regel <code>@font-face</code> definiert eine eigene Schriftart, die entweder von einem Server oder
+      von einer lokal liegenden Datei geladen wird. Das Attribut <code>src</code> gibt den Pfad zur Schriftdatei
+      an – ohne <code>src</code> ist die Regel ungültig.</p>
+
+    <pre><code>@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2");
+}</code></pre>
+
+    <p>Einmal definiert, kann die Schrift ganz normal über <code>font-family</code> verwendet werden – so, als
+      wäre sie auf dem Rechner installiert.</p>
+
+    <p><strong>Welches Format?</strong> WOFF ist ein Format speziell fürs Web – komprimiert, schnellere Ladezeit.
+      WOFF2 ist die neuere, noch stärker komprimierte Version und wird von allen modernen Browsern unterstützt
+      (Check: <a href="https://caniuse.com/?search=woff2" target="_blank">caniuse.com</a>). Verwendet für neue
+      Projekte immer <strong>woff2</strong>.</p>
+
+    <div class="hint"><strong>Schriften finden &amp; Lizenzen beachten:</strong> Gratis-Schriften z.&nbsp;B. bei
+      <a href="https://velvetyne.fr/" target="_blank">velvetyne.fr</a> oder
+      <a href="https://fonts.google.com/" target="_blank">Google Fonts</a>. Schriften sehen, wo sie im Einsatz
+      sind: <a href="https://fontsinuse.com/" target="_blank">fontsinuse.com</a>. Achtung: nicht jede Schrift, die
+      du irgendwo findest, darf frei im Web eingebunden werden – Lizenz jeweils prüfen.</div>
+
+      <p>Tolle Schriftdesigner</p>
+      <ul>
+        <li><a href="https://radimpesko.com/" target="_blank">Radim Pesko</a></li>
+        <li><a href="https://optimo.ch/typefaces" target="_blank">Optimo</a></li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <h2>Teil 4: Pfade (Adressierung)</h2>
+
+    <p>Websites sind modular aufgebaut. Anders als in einem Word-File, bei dem alles in ein Dokument eingebettet
+      ist, kann eine Webseite Elemente enthalten, die in anderen Ordnern oder auf anderen Servern liegen –
+      Bilder, Stylesheets, Scripts, Schriften. Damit der Browser weiss, was wo liegt, braucht es Pfade.</p>
+
+    <pre><code>&lt;link rel="stylesheet" href="style.css"&gt; &lt;!-- Pfad im href-Attribut --&gt;
+
+&lt;style&gt;
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"); /* Pfad im url()-Attribut */
+}
+&lt;/style&gt;</code></pre>
+
+    <h3>Absolute Pfade</h3>
+
+    <p>Ein absoluter Pfad ist die vollständige URL zu einer Datei. Man braucht ihn, wenn die Datei auf einem
+      anderen Server oder einer anderen Domain liegt:</p>
+
+    <pre><code>&lt;a href="https://www.w3schools.com/"&gt;Visit W3Schools.com!&lt;/a&gt;</code></pre>
+
+    <h3>Relative Pfade</h3>
+
+    <p>Bei relativen Pfaden ergibt sich der Weg aus dem hierarchischen Bezug zwischen der Datei, in der der Link
+      steht, und der Datei, die eingebunden wird. Man denkt dabei immer <strong>von der eigenen Datei aus</strong>.</p>
+
+    <div class="metaphor-room">
+      Stellt euch relative Adressierung wie Angaben in einem Gebäude vor: Alles, was im selben Zimmer liegt,
+      könnt ihr direkt ansprechen. Um das Zimmer zu verlassen, müsst ihr erst zur Tür raus – das ist der Schritt,
+      um aus einem Ordner rauszukommen. Wollt ihr in ein anderes Zimmer, nennt ihr dessen Namen – müsst dafür
+      aber schon auf demselben Gang stehen.
+    </div>
+
+    <table>
+      <tr>
+        <th>Metapher</th>
+        <th>HTML-Pfad-Bedeutung</th>
+      </tr>
+      <tr>
+        <td>Du bist im Zimmer</td>
+        <td>aktuelle Datei / aktueller Ordner</td>
+      </tr>
+      <tr>
+        <td>Etwas im gleichen Zimmer adressieren</td>
+        <td><code>&lt;img src="datei.jpg"&gt;</code></td>
+      </tr>
+      <tr>
+        <td>Du gehst auf den Gang</td>
+        <td><code>../</code> – eine Ebene höher</td>
+      </tr>
+      <tr>
+        <td>Etwas eine Ebene höher adressieren</td>
+        <td><code>&lt;img src="../datei.jpg"&gt;</code></td>
+      </tr>
+      <tr>
+        <td>Du gehst in ein anderes Zimmer</td>
+        <td><code>../andererOrdner/</code></td>
+      </tr>
+      <tr>
+        <td>Etwas in einem anderen Zimmer adressieren</td>
+        <td><code>&lt;img src="../images/datei.jpg"&gt;</code></td>
+      </tr>
+    </table>
+
+    <pre><code>&lt;a href="../seite2.html"&gt;Seite 2&lt;/a&gt; &lt;!-- liegt ausserhalb des aktuellen Ordners --&gt;
+
+&lt;link rel="stylesheet" href="css/test.css"&gt; &lt;!-- liegt im Ordner "css", gleiche Ebene --&gt;</code></pre>
+
+    <pre><code>body {
+  background-image: url('img_girl.jpg'); /* liegt im selben Ordner wie die CSS-Datei */
+}</code></pre>
+
+    <p>Dieselbe Logik gilt für Pfade zu <code>.css</code>- und <code>.js</code>-Dateien, für Links zu anderen
+      Seiten, Hintergrundbilder und – heute relevant – Schriften.</p>
+
+    <div class="hint"><strong>Faustregel:</strong> Für externe Ressourcen (andere Webseiten, Schriftserver) nutzt
+      ihr <strong>absolute</strong> Pfade. Für interne Ressourcen (eure eigene Ordnerstruktur, eigene Unterseiten)
+      nutzt ihr <strong>relative</strong> Pfade.</div>
+
+    <div class="exercise-header">
+      <h2>Für die Übung heute</h2>
+      <p>Ihr braucht heute vor allem: eine <code>font-family</code>-Liste mit Fallbacks, <code>rem</code> für
+        Schriftgrössen, und – falls ihr eine externe Schrift ladet – den richtigen Pfad im <code>@font-face</code>
+        oder <code>@import</code>. Bei Unsicherheit: erst schauen, ob die Datei relativ zu eurer HTML- oder
+        CSS-Datei liegt, dann den Pfad von dort aus denken.</p>
+    </div>
+
+  </main>
+</body>
+
+</html>

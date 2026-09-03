@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Übung: Deine gefundene Liste</title>
+
+  <style>
+    :root {
+      --text: #2b2a27;
+      --text-dim: #6b6a65;
+      --accent: #1be07d;
+      --accent-soft: rgba(215, 220, 221, 0.618);
+      --code-bg: #24262b;
+      --code-text: rgba(56, 255, 156, 1);
+      --border: rgba(215, 220, 221, 0.618);
+      --table-header: rgba(56, 255, 156, 0.45);
+
+      --bg: #ffffff;
+      --bg-soft: #12161a;
+      --ink: #2d2d2d;
+      --signal: #1be07d;
+      --warn: #ffb347;
+      --scan: rgba(56, 255, 156, 0.45);
+      --edge: rgba(215, 220, 221, 0.618);
+
+      --scanop: rgba(56, 255, 156, 0.9);
+      --edgeop: rgba(215, 220, 221, 0.95);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    a {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        "IBM Plex Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+      line-height: 1.65;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 90px;
+    }
+
+    h1.doc-title {
+      font-size: 34px;
+      font-weight: 700;
+      margin: 0 0 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      color: var(--text-dim);
+      font-size: 15px;
+      margin: 0 0 48px;
+      max-width: 56ch;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 56px 0 6px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 32px 0 10px;
+    }
+
+    p {
+      margin: 12px 0;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0.9em;
+      background: var(--accent-soft);
+      color: #9a3d1c;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 18px 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+    }
+
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--table-header);
+      font-weight: 700;
+    }
+
+    .hint {
+      background: var(--table-header);
+      border-left: 3px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+
+    .hint strong {
+      color: var(--accent);
+    }
+
+    ul {
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .exercise-header {
+      background: var(--accent);
+      color: #fff;
+      padding: 22px 26px;
+      border-radius: 12px;
+      margin: 56px 0 24px;
+    }
+
+    .exercise-header h2 {
+      border: none;
+      color: var(--ink);
+      margin: 0 0 6px;
+      padding: 0;
+    }
+
+    .exercise-header p {
+      margin: 0;
+      color: var(--ink);
+      font-size: 14.5px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    /* --- Checkliste --- */
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .checklist li {
+      padding-left: 30px;
+      position: relative;
+    }
+
+    .checklist li::before {
+      content: "☐";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 16px;
+    }
+
+    /* --- Demo: Index-Liste, typografisch, für Teil 2 --- */
+    .demo-index {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0;
+      max-width: 480px;
+      border-top: 1px solid var(--border);
+    }
+
+    .demo-index li {
+      
+      padding: 14px 4px;
+      margin: 0;
+      border-bottom: 1px solid var(--border);
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.5rem;
+      line-height: 1.1;
+      letter-spacing: 0.1px;
+    }
+
+    .demo-index .nr {
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 12px;
+      color: var(--text-dim);
+      min-width: 20px;
+     
+    }
+
+    .demo-index li:hover {
+      color: var(--accent);
+    }
+
+    /* --- Demo: dramatischer Hover, für den Hover-Abschnitt --- */
+    .demo-mono {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0;
+      max-width: 480px;
+    }
+
+    .demo-mono li {
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 14px;
+      line-height: 2;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      transition: background 0.1s ease;
+    }
+
+    .demo-mono li:hover {
+      background: #000;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+
+    <h1 class="doc-title">Übung: Deine gefundene Liste</h1>
+    <p class="subtitle">Du kennst jetzt Tags, Selektoren (Tag, Klasse, ID), das Box Model, Fonts, Masseinheiten und
+      Pfade. Diese Übung braucht kein Layout – nur eine Liste, die du typografisch gestaltest.</p>
+
+    <div class="hint"><strong>Kurz zur Erinnerung:</strong> Du hast vorhin eine bestehende Liste recherchiert und
+      gefunden – nicht selbst erfunden. Eine Liste, die entweder <strong>ordnet</strong> (z. B. Farbnamen,
+      Fachbegriffe), <strong>erzählt</strong> (z. B. Produktnamen, ein Milieu) oder <strong>poetisch</strong> ist
+      (spielt mit Sprache, Bild, Klang) – ausgewählt danach, was dich am meisten anspricht. Genau diese Liste ist
+      jetzt die Grundlage für die Übung.</div>
+
+    <h2>Teil 1: HTML – die Liste</h2>
+
+    <p>Zwei Bausteine reichen: <code>&lt;ul&gt;</code> für eine ungeordnete Liste, <code>&lt;li&gt;</code> für jeden
+      Eintrag.</p>
+
+    <pre><code>&lt;h1&gt;Poetische Namen für Wolken&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;Himmelswatte&lt;/li&gt;
+  &lt;li&gt;Nachtflüsterer&lt;/li&gt;
+  &lt;li&gt;Sternenschleier&lt;/li&gt;
+  &lt;li&gt;Traumgebirge&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+    <p>Das bleibt so – daran ändert sich für den Rest der Übung nichts mehr. Alles Weitere passiert im CSS.</p>
+
+    <h2>Teil 2: CSS – Typografie</h2>
+
+    <p>Standardmässig sieht eine Liste aus wie eine Liste: Punkte davor, Einrückung, Browser-Standardschrift. Das
+      änderst du zuerst:</p>
+
+    <pre><code>ul {
+  list-style: none;
+  padding: 0;
+}</code></pre>
+
+    <p>Jetzt ist die Liste ein leeres Blatt – und genau hier beginnt die eigentliche Arbeit. Eine gute
+      typografische Liste steht und fällt mit vier Eigenschaften:</p>
+
+    <table>
+      <tr>
+        <th>Eigenschaft</th>
+        <th>Was sie steuert</th>
+        <th>Faustregel</th>
+      </tr>
+      <tr>
+        <td><code>font-family</code></td>
+        <td>Charakter der Schrift</td>
+        <td>Eine bewusste Wahl, kein Zufall – Serif wirkt anders als Sans oder Mono</td>
+      </tr>
+      <tr>
+        <td><code>font-size</code></td>
+        <td>Lesbarkeit, Gewicht auf der Seite</td>
+        <td>16–19px bzw. entsprechend in <code>rem</code>, eher nicht kleiner</td>
+      </tr>
+      <tr>
+        <td><code>line-height</code> (Zeilendurchschuss)</td>
+        <td>Luft zwischen den Zeilen innerhalb eines Eintrags</td>
+        <td>1.4–1.6 – zu eng wirkt gequetscht, zu weit zerfällt der Text</td>
+      </tr>
+      <tr>
+        <td><code>letter-spacing</code></td>
+        <td>Abstand zwischen Buchstaben</td>
+        <td>Meist bei 0 lassen; nur für Kleingedrucktes/Nummern leicht spreizen</td>
+      </tr>
+    </table>
+
+    <div class="hint"><strong>Zeilendurchschuss ≠ Abstand zwischen den Einträgen:</strong>
+      <code>line-height</code> wirkt <em>innerhalb</em> eines <code>&lt;li&gt;</code> (falls der Text umbricht),
+      <code>padding</code>/<code>margin</code> auf dem <code>&lt;li&gt;</code> wirkt <em>zwischen</em> den
+      Einträgen. Meist macht der Abstand zwischen den Einträgen (padding) den grösseren optischen Unterschied –
+      nicht der Zeilendurchschuss selbst.</div>
+
+    <h3>Beispiel: eine typografisch durchdachte Liste</h3>
+
+    <p>So könnte das Prinzip aussehen – eine Liste mit Nummerierung, Trennlinien und etwas Luft:</p>
+
+    <ul class="demo-index">
+      <li><span class="nr">01</span> Himmelswatte</li>
+      <li><span class="nr">02</span> Nachtflüsterer</li>
+      <li><span class="nr">03</span> Sternenschleier</li>
+      <li><span class="nr">04</span> Traumgebirge</li>
+    </ul>
+
+    <pre><code>&lt;ul class="archiv"&gt;
+  &lt;li&gt;&lt;span class="nr"&gt;01&lt;/span&gt; Himmelswatte&lt;/li&gt;
+  &lt;li&gt;&lt;span class="nr"&gt;02&lt;/span&gt; Nachtflüsterer&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+    <pre><code>.archiv {
+  list-style: none;
+  padding: 0;
+  border-top: 1px solid #ddd;
+}
+
+.archiv li {
+  
+  padding: 14px 4px;
+  border-bottom: 1px solid #ddd;
+  font-family: Georgia, serif;
+  font-size: 1.5rem;
+  line-height: 1.1;
+}
+
+.nr {
+  font-family: monospace;
+  font-size: 12px;
+  color: #999;
+}</code></pre>
+
+  
+
+    <h3>:hover – Reaktion auf die Maus</h3>
+
+    <p><code>:hover</code> ist eine <strong>Pseudoklasse</strong>: kein eigenes HTML-Element, sondern ein
+      zusätzlicher Zustand, den ein Element annehmen kann – nämlich genau dann, wenn sich der Mauszeiger gerade
+      über ihm befindet. Sobald die Maus wieder wegbewegt wird, verschwindet der Effekt automatisch wieder.</p>
+
+    <p>Die Syntax: Selektor, Doppelpunkt, <code>hover</code>.</p>
+
+    <pre><code>li:hover {
+  color: #1be07d;
+}</code></pre>
+
+    <p>Das bedeutet: <em>alle</em> <code>li</code>-Elemente bekommen diese Farbe, aber jeweils nur so lange, wie
+      die Maus über dem einzelnen Element steht. Du brauchst dafür kein zusätzliches HTML, keine Klasse, kein
+      JavaScript – nur diese eine CSS-Regel.</p>
+
+    <p>Der Effekt kann dezent sein – nur die Textfarbe ändert sich:</p>
+
+    <ul class="demo-index">
+      <li><span class="nr">01</span> Himmelswatte</li>
+      <li><span class="nr">02</span> Nachtflüsterer</li>
+    </ul>
+
+    <pre><code>.archiv li:hover {
+  color: #1be07d;
+}</code></pre>
+
+    <p>...oder auffällig – z. B. wenn Hintergrund und Text komplett wechseln:</p>
+
+    <ul class="demo-mono">
+      <li>Himmelswatte</li>
+      <li>Nachtflüsterer</li>
+    </ul>
+
+    <pre><code>.archiv li:hover {
+  background: black;
+  color: white;
+}</code></pre>
+
+    <div class="hint"><strong>Wichtig:</strong> Ob dezent oder auffällig ist eine gestalterische Entscheidung – sie
+      sollte zum Charakter deiner Liste passen. Eine ruhige, poetische Liste verträgt oft einen leisen Hover
+      (Farbwechsel), eine plakative Liste darf auch einen lauten Hover haben (Farbumkehr, Grössenwechsel,
+      Unterstreichung). Wichtig ist nur: <strong>jede Liste braucht mindestens einen <code>:hover</code>-Effekt</strong>
+      – das gehört zur Aufgabe unten.</div>
+
+    <p><a href="https://www.w3schools.com/css/css_pseudo_classes.asp" target="_blank"><code>:hover</code> und
+        andere Pseudoklassen nachschauen auf W3School</a></p>
+
+    <h2>Teil 3: Referenzen aus der Grafik</h2>
+
+    <p>Die 2000er waren in der Grafik die Hochzeit von „programmatischen" Listen und Indexen in der Gestaltung –
+      vor allem im niederländischen und Schweizer Design, wo Systematik selbst zum ästhetischen Statement wurde.
+      Ein paar Beispiele:</p>
+
+    <ul>
+      <li><a href="https://lineto.com/information/designers/lineto-designers/norm" target="_blank">Lineto</a></li>
+      <li><a href="https://norm.to/category/fonts/?post=ll-riforma&sec=1" target="_blank">Studio Norm</a></li>
+      <li><a href="https://www.moma.org/artists/32472-experimental-jetset" target="_blank">Experimental
+          Jetset</a></li>
+      <li><a href="https://www.stoosarchitekten.ch/projekte" target="_blank">Stoos Architekten</a></li>
+      <li><a href="http://patternindex.org/" target="_blank">Pattern Index</a></li>
+      <li><a href="https://www.joostgrootens.nl/archive" target="_blank">Joost Grootens</a></li>
+    </ul>
+
+    <div class="hint">Schau dir diese Beispiele an: es sind simple, vertikale Listen von Einträgen, ohne Bilder,
+      ohne Layout-Schnickschnack. Was sie gut macht, ist reine Typografie: Schriftwahl, Schriftgrösse,
+      Zeilenabstand, feine Trennlinien, vielleicht dezente Nummerierung, im Web ein <code>:hover</code>-Effekt –
+      genau das, was du jetzt selbst umsetzt.</div>
+
+    <div class="exercise-header">
+      <h2>Deine Aufgabe</h2>
+      <p>Nimm deine gefundene Liste – dasselbe HTML schreibst du nur einmal. Dann gestaltest du sie dreimal
+        komplett unterschiedlich, ausschliesslich mit CSS.</p>
+    </div>
+
+    <ol>
+      <li><strong>HTML schreiben</strong> – eine Überschrift + eine <code>&lt;ul&gt;</code> mit deinen gefundenen
+        Einträgen. Dieses HTML bleibt für alle drei Entwürfe identisch.</li>
+      <li><strong>Datei dreimal kopieren</strong> – drei identische HTML-Dateien mit demselben Inhalt.</li>
+      <li><strong>Entwurf 1</strong> – eine Schrift, Grösse und Zeilenabstand wählen, die zum Charakter deiner
+        Liste passt (poetisch, sachlich, verspielt ...).</li>
+      <li><strong>Entwurf 2</strong> – bewusst etwas anderes: andere Schriftart-Kategorie (z. B. Serif statt Sans),
+        anderer Rhythmus, andere Art der Trennung zwischen den Einträgen.</li>
+      <li><strong>Entwurf 3</strong> – nochmals eine ganz andere Richtung. Wenn Entwurf 1 ruhig war, darf Entwurf 3
+        laut sein, oder umgekehrt.</li>
+      <li><strong>Hover-Effekt</strong> – in jedem der drei Entwürfe, aber jeweils passend zum Charakter des
+        Entwurfs (siehe Teil 2).</li>
+    </ol>
+
+    <h3>Checkliste</h3>
+    <ul class="checklist">
+      <li>Drei Dateien mit identischem HTML – nur das CSS unterscheidet sich</li>
+      <li>Liste ist eine <code>&lt;ul&gt;</code>/<code>&lt;li&gt;</code>-Struktur, keine Tabelle, kein Menü</li>
+      <li>Die drei Entwürfe unterscheiden sich in Schriftcharakter, Rhythmus <em>und</em> Art der Trennung – nicht
+        nur in der Farbe</li>
+      <li><code>font-size</code> und <code>line-height</code> in jedem Entwurf explizit gesetzt und begründbar</li>
+      <li>Abstand zwischen den Einträgen mit <code>padding</code>/<code>margin</code>/<code>border-bottom</code>
+      </li>
+      <li>Mindestens ein <code>:hover</code>-Effekt pro Entwurf</li>
+    </ul>
+
+    <div class="hint"><strong>Bonusfrage zum Nachdenken:</strong> Schau dir auf
+      <a href="https://www.stoosarchitekten.ch/projekte" target="_blank">stoosarchitekten.ch/projekte</a> die
+      Zeilenhöhe der Tabelle an: Sie wirkt kompakt, aber nicht eng. Miss testweise an deiner eigenen Liste – wie
+      viel <code>padding</code> und <code>line-height</code> braucht es, damit dichte Information trotzdem
+      atmet?
+    </div>
+
+    <p><a href="https://www.w3schools.com/cssref/pr_dim_line-height.asp" target="_blank"><code>line-height</code>
+        nachschauen auf W3School</a></p>
+
+
+         <ul class="archive-list">
+        <li>
+            <span>Projekfolder beschriften mit Vorname_Name, komprimieren und abgeben auf <a target="_blank" href="https://eduzh.sharepoint.com/:f:/r/teams/0011AAD-365-M-CLA-EBI0011-HFIAD26A/Freigegebene%20Dokumente/Grid-Modules-Webtechnologien/Uebung-2?d=wec213973f02946fc8f1cf84ccaab03a5&csf=1&web=1&e=a2laZI">Teams</a> bis am 24. September 18:00. </span>
+        </li>
+        </ul>
+  </main>
+</body>
+
+</html>
