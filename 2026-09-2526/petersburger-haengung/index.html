@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petersburger Hängung</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- defer: Das Script läuft erst, wenn das HTML fertig geladen ist -->
+  <script src="js/filter.js" defer></script>
+</head>
+
+<body>
+
+  <header class="kopf">
+    <h1>Petersburger Hängung</h1>
+    <p>Eine Wand, dicht gehängt. Wählt eine Serie, um sie hervorzuheben.</p>
+
+    <!--
+      FILTER-BUTTONS
+      data-filter muss genau so heissen wie die Klasse bei den Bildern.
+      data-filter="alle" zeigt wieder alles.
+      Eigene Kategorien: einfach einen Button dazuschreiben und den
+      Bildern dieselbe Klasse geben. Im CSS müsst ihr nichts ändern.
+    -->
+    <nav class="filter">
+      <button data-filter="alle" aria-pressed="true">Alle</button>
+      <button data-filter="warm" aria-pressed="false">Warm</button>
+      <button data-filter="kalt" aria-pressed="false">Kalt</button>
+      <button data-filter="gruen" aria-pressed="false">Grün</button>
+    </nav>
+  </header>
+
+  <main>
+    <!--
+      DIE WAND
+      Jedes Bild ist eine <figure class="bild ...">.
+
+      Klassen für das FORMAT (steuern die Grösse an der Wand):
+        quer   – zwei Felder breit
+        hoch   – zwei Felder hoch
+        gross  – zwei mal zwei Felder
+        (keine) – ein Feld
+
+      Klassen für die KATEGORIE (für die Filter-Buttons):
+        z. B. warm, kalt, gruen – frei wählbar
+        Ein Bild darf auch mehrere Kategorien haben.
+
+      Eigene Bilder: in den Ordner images/ legen, src und alt anpassen.
+      Die <figcaption> erscheint nur in der gefilterten Ansicht.
+    -->
+    <div class="wand">
+
+      <figure class="bild quer warm">
+        <img src="images/bild-01.jpg" alt="Beschreibung Bild 1">
+        <figcaption>Titel, Jahr</figcaption>
+      </figure>
+
+      <figure class="bild hoch kalt">
+        <img src="images/bild-02.jpg" alt="Beschreibung Bild 2">
+        <figcaption>Titel, Jahr</figcaption>
+      </figure>
+
+      <figure class="bild gross gruen">
+        <img src="images/bild-03.jpg" alt="Beschreibung Bild 3">
+        <figcaption>Titel, Jahr</figcaption>
+      </figure>
+
+      <figure class="bild hoch warm">
+        <img src="images/bild-04.jpg" alt="Beschreibung Bild 4">
+        <figcaption>Titel, Jahr</figcaption>
+      </figure>
+
+      <figure class="bild quer kalt">
+        <img src="images/bild-05.jpg" alt="Beschreibung Bild 5">
+        <figcaption>Titel, Jahr</figcaption>
+      </figure>
+
+      <figure class="bild warm gruen">
+        <img src="images/bild-06.jpg" alt="Beschreibung Bild 6">
+        <figcaption>Titel, Jahr</figcaption>
+      </figure>
+
+      <figure class="bild quer gruen">
+        <img src="images/bild-07.jpg" alt="Beschreibung Bild 7">
+        <figcaption>Titel, Jahr</figcaption>
+      </figure>
+
+      <figure class="bild hoch kalt">
+        <img src="images/bild-08.jpg" alt="Beschreibung Bild 8">
+        <figcaption>Titel, Jahr</figcaption>
+      </figure>
+
+      <figure class="bild gruen">
+        <img src="images/bild-09.jpg" alt="Beschreibung Bild 9">
+        <figcaption>Titel, Jahr</figcaption>
+      </figure>
+
+      <figure class="bild gross kalt">
+        <img src="images/bild-10.jpg" alt="Beschreibung Bild 10">
+        <figcaption>Titel, Jahr</figcaption>
+      </figure>
+
+      <figure class="bild hoch warm">
+        <img src="images/bild-11.jpg" alt="Beschreibung Bild 11">
+        <figcaption>Titel, Jahr</figcaption>
+      </figure>
+
+      <figure class="bild quer gruen">
+        <img src="images/bild-12.jpg" alt="Beschreibung Bild 12">
+        <figcaption>Titel, Jahr</figcaption>
+      </figure>
+
+    </div>
+  </main>
+
+</body>
+
+</html>

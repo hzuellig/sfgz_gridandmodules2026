@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexbox – Übungsleinen</title>
+
+  <!-- Das Aussehen der Seite. Nicht bearbeiten. -->
+  <link rel="stylesheet" href="css/basis.css">
+  <!-- Hier probiert ihr aus. -->
+  <link rel="stylesheet" href="css/uebung.css">
+</head>
+
+<body>
+  <main>
+
+    <h1>Flexbox – Übungsleinen</h1>
+    <p class="subtitle">Zu jedem Teil im Handout gibt es hier eine eigene Leine. Öffnet diese Seite im Browser
+      und die Datei <code>css/uebung.css</code> im Editor. Dort ein- und auskommentieren, speichern, neu laden,
+      beobachten.</p>
+
+    <div class="aufgabe">
+      <strong>Tipp:</strong> Öffnet die DevTools (Rechtsklick → Untersuchen). Neben jedem Flex-Container
+      erscheint ein kleines <code>flex</code>-Badge. Ein Klick darauf zeigt euch die Achsen und Abstände direkt
+      auf der Seite.
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 2: Container und Kinder</h2>
+
+    <div class="aufgabe">
+      <ol>
+        <li>Schaut euch die Leine an: Die Stücke hängen untereinander statt an der Leine. Warum?</li>
+        <li>Kommentiert bei <code>.leine-2</code> die Zeile <code>display: flex</code> ein.</li>
+        <li>Was ist mit den Stücken passiert? Welches Element hat die Anweisung bekommen – die Leine oder die
+          Stücke?</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.leine-2</p>
+    <div class="leine leine-2">
+      <div class="w">1</div>
+      <div class="w">2</div>
+      <div class="w">3</div>
+      <div class="w">4</div>
+      <div class="w">5</div>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 3: Hauptachse und Querachse</h2>
+
+    <div class="aufgabe">
+      <ol>
+        <li>Probiert die vier Werte von <code>flex-direction</code> nacheinander aus.</li>
+        <li>Bei <code>row-reverse</code>: Wo steht jetzt die Nummer 1?</li>
+        <li>Setzt <code>flex-direction: column</code> und kommentiert zusätzlich
+          <code>justify-content: center</code> ein. Wohin bewegen sich die Stücke – und warum nicht zur
+          Mitte der Seite?</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.leine-3</p>
+    <div class="leine leine-3">
+      <div class="w">1</div>
+      <div class="w">2</div>
+      <div class="w">3</div>
+      <div class="w">4</div>
+      <div class="w">5</div>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 4: justify-content</h2>
+
+    <div class="aufgabe">
+      <ol>
+        <li>Probiert alle sechs Werte von <code>justify-content</code> aus.</li>
+        <li>Was ist der Unterschied zwischen <code>space-between</code>, <code>space-around</code> und
+          <code>space-evenly</code>? Schaut besonders auf die Abstände zu den Rändern.</li>
+        <li>Zieht das Browserfenster schmaler. Was bleibt gleich, was ändert sich?</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.leine-4</p>
+    <div class="leine leine-4">
+      <div class="w">1</div>
+      <div class="w">2</div>
+      <div class="w">3</div>
+      <div class="w">4</div>
+      <div class="w">5</div>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 5: align-items</h2>
+
+    <div class="aufgabe">
+      <ol>
+        <li>Schaut zuerst, <em>bevor</em> ihr etwas ändert: Die Stücke sind alle gleich lang, obwohl sie
+          eigentlich unterschiedlich lang sind. Woher kommt das?</li>
+        <li>Probiert die Werte von <code>align-items</code> aus. Welcher Wert entspricht einer echten
+          Wäscheleine?</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.leine-5</p>
+    <div class="leine leine-5">
+      <div class="w">1</div>
+      <div class="w">2</div>
+      <div class="w">3</div>
+      <div class="w">4</div>
+      <div class="w">5</div>
+    </div>
+
+    <h3>Teil 5b: Zentrieren</h3>
+
+    <div class="aufgabe">
+      Kommentiert die vier Zeilen bei <code>.zentrieren</code> nacheinander ein – nach jeder Zeile speichern
+      und schauen. Bei welcher Zeile wird die vertikale Zentrierung sichtbar?
+    </div>
+
+    <p class="selektor">.zentrieren</p>
+    <div class="leine zentrieren">
+      <div class="w">1</div>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 6: gap</h2>
+
+    <div class="aufgabe">
+      <ol>
+        <li>Probiert die verschiedenen Werte für <code>gap</code> aus.</li>
+        <li>Kommentiert <code>gap</code> wieder aus und probiert stattdessen den <code>margin</code> bei
+          <code>.leine-6 .w</code>. Was ist anders am linken und rechten Rand?</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.leine-6</p>
+    <div class="leine leine-6">
+      <div class="w">1</div>
+      <div class="w">2</div>
+      <div class="w">3</div>
+      <div class="w">4</div>
+      <div class="w">5</div>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 7: flex-wrap</h2>
+
+    <div class="aufgabe">
+      <ol>
+        <li>Zwölf Stücke, jedes möchte 80px breit sein. Passt das? Schaut genau hin: Wie breit sind die
+          Stücke wirklich?</li>
+        <li>Probiert <code>wrap</code> und <code>wrap-reverse</code>.</li>
+        <li>Mit <code>wrap</code>: Zieht das Browserfenster schmaler und breiter. Wie viele Leinen entstehen?
+        </li>
+      </ol>
+    </div>
+
+    <p class="selektor">.leine-7</p>
+    <div class="leine leine-7">
+      <div class="w">1</div>
+      <div class="w">2</div>
+      <div class="w">3</div>
+      <div class="w">4</div>
+      <div class="w">5</div>
+      <div class="w">6</div>
+      <div class="w">7</div>
+      <div class="w">8</div>
+      <div class="w">9</div>
+      <div class="w">10</div>
+      <div class="w">11</div>
+      <div class="w">12</div>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 8: Wachsen und schrumpfen</h2>
+
+    <h3>8a: flex-basis und flex-grow</h3>
+
+    <div class="aufgabe">
+      <ol>
+        <li>Die Stücke haben keine feste Breite. Gebt ihnen eine <code>flex-basis</code>.</li>
+        <li>Lasst zuerst nur das erste Stück wachsen, dann alle drei mit <code>flex-grow: 1</code>.</li>
+        <li>Gebt dem mittleren <code>flex-grow: 2</code>. Ist es jetzt doppelt so breit wie die anderen?
+          Vergleicht das Ergebnis mit <code>flex-basis: 60px</code> und <code>150px</code>.</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.leine-8a</p>
+    <div class="leine leine-8a">
+      <div class="w">1</div>
+      <div class="w">2</div>
+      <div class="w">3</div>
+    </div>
+
+    <h3>8b: flex-shrink</h3>
+
+    <div class="aufgabe">
+      <ol>
+        <li>Jedes Stück möchte 300px breit sein, das passt nicht auf die Leine. Was macht der Browser?</li>
+        <li>Verbietet dem ersten Stück das Schrumpfen mit <code>flex-shrink: 0</code>.</li>
+        <li>Lasst das dritte dreimal so stark schrumpfen. Zieht dabei das Fenster schmaler.</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.leine-8b</p>
+    <div class="leine leine-8b">
+      <div class="w">1</div>
+      <div class="w">2</div>
+      <div class="w">3</div>
+    </div>
+
+    <h3>8c: Die Kurzschreibweise flex</h3>
+
+    <div class="aufgabe">
+      <ol>
+        <li>Probiert <code>flex: 1</code> für alle Stücke.</li>
+        <li>Macht das erste Stück mit <code>flex: 0 0 120px</code> fix – wie ein Logo, das immer gleich gross
+          bleibt. Zieht das Fenster schmaler.</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.leine-8c</p>
+    <div class="leine leine-8c">
+      <div class="w">1</div>
+      <div class="w">2</div>
+      <div class="w">3</div>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 9: align-self und order</h2>
+
+    <div class="aufgabe">
+      <ol>
+        <li>Lasst das dritte Stück mit <code>align-self: stretch</code> bis zum Boden hängen – die lange
+          Hose. Probiert auch die anderen Werte.</li>
+        <li>Hängt das fünfte Stück mit <code>order</code> an den Anfang. Mit welchem Wert kommt es wieder ans
+          Ende?</li>
+        <li>Drückt ein paar Mal die Tab-Taste: Die Reihenfolge im HTML hat sich nicht geändert. Wann könnte
+          das ein Problem sein?</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.leine-9</p>
+    <div class="leine leine-9">
+      <div class="w">1</div>
+      <div class="w">2</div>
+      <div class="w">3</div>
+      <div class="w">4</div>
+      <div class="w">5</div>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 10: Das Mobile</h2>
+
+    <div class="aufgabe">
+      <p>Hier ist noch gar nichts flex – ein Mobile, das in sich zusammengefallen ist. Baut es in
+        <code>uebung.css</code> Schritt für Schritt wieder auf.</p>
+      <p>Schaut euch vorher das HTML an: Welche Elemente sind in welchen verschachtelt? Ein
+        <code>.stab</code> trägt mehrere <code>.haenger</code>. Ein <code>.haenger</code> besteht aus einem
+        <code>.faden</code> und einer <code>.kugel</code> – oder aus einem Faden und einem weiteren
+        <code>.stab</code>.</p>
+    </div>
+
+    <div class="mobile">
+      <div class="aufhaengung"></div>
+
+      <div class="stab gross">
+
+        <div class="haenger">
+          <div class="faden"></div>
+          <div class="kugel"></div>
+        </div>
+
+        <div class="haenger">
+          <div class="faden lang"></div>
+
+          <div class="stab klein">
+            <div class="haenger">
+              <div class="faden"></div>
+              <div class="kugel klein"></div>
+            </div>
+            <div class="haenger">
+              <div class="faden lang"></div>
+              <div class="kugel klein"></div>
+            </div>
+            <div class="haenger">
+              <div class="faden"></div>
+              <div class="kugel klein"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="haenger">
+          <div class="faden lang"></div>
+          <div class="kugel"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</body>
+
+</html>

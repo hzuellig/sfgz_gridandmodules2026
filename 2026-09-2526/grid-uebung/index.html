@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid – Übungswände</title>
+
+  <!-- Das Aussehen der Seite. Nicht bearbeiten. -->
+  <link rel="stylesheet" href="css/basis.css">
+  <!-- Hier probiert ihr aus. -->
+  <link rel="stylesheet" href="css/uebung.css">
+</head>
+
+<body>
+  <main>
+
+    <h1>Grid – Übungswände</h1>
+    <p class="subtitle">Zu jedem Teil im Handout gibt es hier eine eigene Wand. Öffnet diese Seite im Browser und
+      die Datei <code>css/uebung.css</code> im Editor. Dort ein- und auskommentieren, speichern, neu laden,
+      beobachten. Die Nummern entsprechen den Teilen im Handout – die Teile 8 und 9 lassen wir heute aus.</p>
+
+    <div class="aufgabe">
+      <strong>Tipp:</strong> Öffnet die DevTools (Rechtsklick → Untersuchen). Neben jedem Grid-Container erscheint
+      ein <code>grid</code>-Badge. Ein Klick darauf zeigt das Raster mit den Liniennummern direkt auf der Seite.
+      Bei Grid ist das fast unverzichtbar.
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 2: Container und Kinder</h2>
+
+    <div class="aufgabe">
+      <ol>
+        <li>Kommentiert bei <code>.wand-2</code> nur <code>display: grid</code> ein. Sieht es anders aus als vorher?
+          Warum wohl?</li>
+        <li>Jetzt zusätzlich <code>grid-template-columns</code>. Was passiert mit den Bildern 4 bis 6?</li>
+        <li>Zum Schluss <code>gap</code> dazu.</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.wand-2</p>
+    <div class="wand wand-2">
+      <div class="b">1</div>
+      <div class="b">2</div>
+      <div class="b">3</div>
+      <div class="b">4</div>
+      <div class="b">5</div>
+      <div class="b">6</div>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 3: Spalten und Zeilen</h2>
+
+    <div class="aufgabe">
+      <ol>
+        <li>Probiert die Varianten von <code>grid-template-columns</code> nacheinander aus. Zieht dabei das
+          Browserfenster schmaler und breiter: Welche Spalten wachsen mit, welche nicht?</li>
+        <li>Bei <code>150px 1fr 1fr</code>: Wie breit sind die beiden <code>1fr</code>-Spalten? Rechnet nach.</li>
+        <li>Bei <code>100px 100px 100px</code>: Was passiert mit dem Platz rechts?</li>
+        <li>Lasst <code>repeat(4, 1fr)</code> aktiv und probiert zusätzlich die beiden Zeilen-Varianten. Welche
+          Zeilen sind betroffen, welche nicht?</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.wand-3</p>
+    <div class="wand wand-3">
+      <div class="b">1</div>
+      <div class="b">2</div>
+      <div class="b">3</div>
+      <div class="b">4</div>
+      <div class="b">5</div>
+      <div class="b">6</div>
+      <div class="b">7</div>
+      <div class="b">8</div>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 4: gap</h2>
+
+    <div class="aufgabe">
+      <ol>
+        <li>Probiert die verschiedenen Werte für <code>gap</code>.</li>
+        <li>Kommentiert <code>gap</code> wieder aus und probiert <code>row-gap</code> und <code>column-gap</code>
+          zusammen. Wie wirkt die Wand jetzt – eher wie Zeilen oder wie Spalten?</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.wand-4</p>
+    <div class="wand wand-4">
+      <div class="b">1</div>
+      <div class="b">2</div>
+      <div class="b">3</div>
+      <div class="b">4</div>
+      <div class="b">5</div>
+      <div class="b">6</div>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 5: Linien, nicht Zellen</h2>
+
+    <div class="aufgabe">
+      <ol>
+        <li><strong>Erst überlegen, dann einkommentieren:</strong> Bild 1 bekommt <code>grid-column: 1 / 3</code>
+          und <code>grid-row: 1 / 3</code>. Wie viele Felder wird es belegen? Zeichnet es auf, bevor ihr es
+          ausprobiert.</li>
+        <li>Was passiert mit den Bildern 2 und 3, sobald Bild 1 platziert ist?</li>
+        <li>Probiert bei Bild 2 die drei Schreibweisen aus. Welche beiden führen zum selben Ergebnis?</li>
+        <li>Platziert Bild 3 mit <code>grid-area</code>. Achtung, die Reihenfolge der Zahlen ist ungewohnt.</li>
+        <li>Für Schnelle: Schreibt die Platzierung von Bild 1 so um, dass es die ganze unterste Zeile füllt.</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.wand-5</p>
+    <div class="linien">
+      <div class="spalten-nr"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+      <div class="zeilen-nr"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+      <div class="wand wand-5">
+        <div class="b dunkel">1</div>
+        <div class="b rot">2</div>
+        <div class="b">3</div>
+      </div>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 6: Weissraum</h2>
+
+    <div class="aufgabe">
+      <ol>
+        <li>Schaut zuerst, wo die drei Elemente ohne Platzierung landen.</li>
+        <li>Kommentiert die Platzierungen ein. Wie wirkt die Fläche jetzt?</li>
+        <li><strong>Eigene Komposition:</strong> Verändert die Zahlen, bis ihr eine Anordnung habt, die euch
+          gefällt. Denkt an die Plakate von Brockmann: Spannung entsteht oft gerade durch den leeren Raum.</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.wand-6</p>
+    <div class="wand wand-6">
+      <div class="b dunkel titel">titel</div>
+      <div class="b rot akzent">akzent</div>
+      <div class="b text">text</div>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 7: Überlagerungen</h2>
+
+    <div class="aufgabe">
+      <ol>
+        <li>Platziert beide Elemente, sodass sie sich überlappen. Welches liegt oben – und warum?</li>
+        <li>Holt das untere mit <code>z-index</code> nach vorne.</li>
+        <li>Spielt mit <code>opacity</code> und verschiebt die Linien, bis die Überlagerung spannend wird.</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.wand-7</p>
+    <div class="wand wand-7">
+      <div class="b dunkel unten">unten</div>
+      <div class="b rot oben">oben</div>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 10: Responsive ohne Media Queries</h2>
+
+    <div class="aufgabe">
+      <ol>
+        <li>Zuerst <code>repeat(4, 1fr)</code>: Zieht das Fenster ganz schmal. Was passiert mit den Bildern?</li>
+        <li>Dann <code>repeat(auto-fill, minmax(120px, 1fr))</code>: Wie verhält sich die Wand jetzt?</li>
+        <li>Ändert die 120px auf 200px. Wann springt ein Bild in die nächste Zeile?</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.wand-10</p>
+    <div class="wand wand-10">
+      <div class="b">1</div>
+      <div class="b">2</div>
+      <div class="b">3</div>
+      <div class="b">4</div>
+      <div class="b">5</div>
+      <div class="b">6</div>
+      <div class="b">7</div>
+      <div class="b">8</div>
+      <div class="b">9</div>
+      <div class="b">10</div>
+      <div class="b">11</div>
+      <div class="b">12</div>
+    </div>
+
+    <h3>auto-fill oder auto-fit?</h3>
+
+    <div class="aufgabe">
+      Nur drei Bilder auf einer breiten Wand. Probiert <code>auto-fill</code> und <code>auto-fit</code> und
+      vergleicht: Was passiert mit dem leeren Platz rechts?
+    </div>
+
+    <p class="selektor">.wand-10b</p>
+    <div class="wand wand-10b">
+      <div class="b">1</div>
+      <div class="b">2</div>
+      <div class="b">3</div>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Teil 11: Die Petersburger Hängung</h2>
+
+    <div class="aufgabe">
+      <ol>
+        <li><strong>Schritt 1:</strong> Kommentiert die Formate bei <code>.quer</code>, <code>.hoch</code> und
+          <code>.gross</code> ein. Wo entstehen Lücken?</li>
+        <li><strong>Schritt 2:</strong> Kommentiert <code>grid-auto-flow: dense</code> ein. Was ist mit den
+          Lücken passiert? Und mit der Reihenfolge der Nummern?</li>
+        <li>Zieht das Fenster schmaler und breiter. Die Wand hängt sich immer wieder neu.</li>
+      </ol>
+    </div>
+
+    <p class="selektor">.wand-11</p>
+    <div class="wand wand-11">
+      <div class="b rot gross">1 gross</div>
+      <div class="b">2</div>
+      <div class="b hoch">3 hoch</div>
+      <div class="b dunkel quer">4 quer</div>
+      <div class="b">5</div>
+      <div class="b gross">6 gross</div>
+      <div class="b">7</div>
+      <div class="b dunkel hoch">8 hoch</div>
+      <div class="b">9</div>
+      <div class="b quer">10 quer</div>
+      <div class="b">11</div>
+      <div class="b">12</div>
+      <div class="b rot">13</div>
+      <div class="b">14</div>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <h2>Bonus: Eine Wand mit echten Bildern</h2>
+
+    <div class="aufgabe">
+      <p>Dasselbe Prinzip, jetzt mit Bildern. Kommentiert in <code>uebung.css</code> beim Bonus die Formate und
+        <code>dense</code> ein.</p>
+      <p>Dann: Legt eigene Bilder in den Ordner <code>images/</code> und passt im HTML <code>src</code> und
+        <code>alt</code> an. Überlegt euch, welche Bilder <code>quer</code>, <code>hoch</code> oder
+        <code>gross</code> hängen sollen – und was passiert, wenn ein Hochformat in einem Querformat-Feld landet.</p>
+    </div>
+
+    <p class="selektor">.bildwand</p>
+    <div class="wand bildwand">
+      <figure class="quer"><img src="images/bild-1.jpg" alt="Bild 1"></figure>
+      <figure class="hoch"><img src="images/bild-2.jpg" alt="Bild 2"></figure>
+      <figure class="gross"><img src="images/bild-3.jpg" alt="Bild 3"></figure>
+      <figure class="hoch"><img src="images/bild-4.jpg" alt="Bild 4"></figure>
+      <figure class="quer"><img src="images/bild-5.jpg" alt="Bild 5"></figure>
+      <figure><img src="images/bild-6.jpg" alt="Bild 6"></figure>
+      <figure><img src="images/bild-7.jpg" alt="Bild 7"></figure>
+      <figure class="hoch"><img src="images/bild-8.jpg" alt="Bild 8"></figure>
+    </div>
+
+  </main>
+</body>
+
+</html>

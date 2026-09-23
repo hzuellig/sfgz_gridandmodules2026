@@ -1,0 +1,219 @@
+/* ============================================================
+   basis.css
+   Hier ist nur das Aussehen der Seite definiert.
+   Diese Datei müsst ihr NICHT bearbeiten.
+   Alles zum Ausprobieren steht in uebung.css.
+   ============================================================ */
+
+:root {
+  --text: #2b2a27;
+  --text-dim: #6b6a65;
+  --accent: #1be07d;
+  --accent-soft: rgba(215, 220, 221, 0.618);
+  --border: rgba(215, 220, 221, 0.618);
+  --green-soft: rgba(56, 255, 156, 0.45);
+  --ink: #2d2d2d;
+  --paper: #fafaf6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: var(--text);
+  font-family: "IBM Plex Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+  line-height: 1.65;
+}
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 56px 24px 90px;
+}
+
+h1 {
+  font-size: 34px;
+  margin: 0 0 6px;
+  letter-spacing: -0.3px;
+}
+
+.subtitle {
+  color: var(--text-dim);
+  font-size: 15px;
+  margin: 0 0 32px;
+  max-width: 60ch;
+}
+
+h2 {
+  font-size: 22px;
+  margin: 64px 0 6px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+}
+
+h3 {
+  font-size: 17px;
+  margin: 32px 0 8px;
+}
+
+p,
+li {
+  font-size: 14.5px;
+}
+
+code {
+  font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  font-size: 0.9em;
+  background: var(--accent-soft);
+  color: #9a3d1c;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.aufgabe {
+  background: var(--green-soft);
+  border-left: 3px solid var(--accent);
+  padding: 12px 18px;
+  border-radius: 0 8px 8px 0;
+  margin: 16px 0;
+}
+
+.aufgabe ol,
+.aufgabe ul {
+  margin: 6px 0;
+  padding-left: 22px;
+}
+
+.selektor {
+  font-size: 12.5px;
+  color: var(--text-dim);
+  margin: 20px 0 4px;
+}
+
+/* ------------------------------------------------------------
+   Die Leine (Container)
+   Achtung: Hier steht bewusst KEIN display: flex.
+------------------------------------------------------------ */
+
+.leine {
+  background: var(--paper);
+  border-top: 2px solid var(--ink);
+  border-radius: 0 0 8px 8px;
+  padding: 0 14px 14px;
+  min-height: 120px;
+  margin-bottom: 8px;
+}
+
+/* ------------------------------------------------------------
+   Die Wäschestücke (Kinder)
+   min-height statt height: So bleiben die Stücke unterschiedlich
+   lang, können aber trotzdem von align-items: stretch
+   gedehnt werden.
+------------------------------------------------------------ */
+
+.w {
+  position: relative;
+  width: 44px;
+  background: var(--green-soft);
+  border: 1px solid var(--accent);
+  border-top: none;
+  font-size: 12px;
+  color: var(--text-dim);
+  text-align: center;
+  padding-top: 8px;
+}
+
+/* die Klammer */
+.w::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 6px;
+  height: 14px;
+  margin-left: -3px;
+  background: var(--ink);
+  border-radius: 2px;
+}
+
+.w:nth-child(5n+1) { min-height: 50px; }
+.w:nth-child(5n+2) { min-height: 82px; }
+.w:nth-child(5n+3) { min-height: 40px; }
+.w:nth-child(5n+4) { min-height: 96px; }
+.w:nth-child(5n+5) { min-height: 62px; }
+
+/* Container, die Höhe brauchen, damit man die Querachse sieht */
+.leine-5,
+.leine-9 {
+  height: 200px;
+}
+
+/* Teil 7: breitere Stücke, damit die Leine zu kurz wird */
+.leine-7 .w {
+  width: 80px;
+}
+
+/* Teil 8: Stücke ohne feste Breite, Breite kommt von flex-basis */
+.leine-8a .w,
+.leine-8b .w,
+.leine-8c .w {
+  width: auto;
+  min-height: 54px;
+}
+
+/* ------------------------------------------------------------
+   Teil 10: Das Mobile
+------------------------------------------------------------ */
+
+.mobile {
+  background: var(--paper);
+  border-radius: 8px;
+  padding: 0 20px 24px;
+}
+
+.aufhaengung {
+  width: 2px;
+  height: 28px;
+  background: var(--ink);
+  margin: 0 auto;
+}
+
+.stab {
+  border-top: 2px solid var(--ink);
+}
+
+.stab.gross {
+  width: min(100%, 460px);
+  margin: 0 auto;
+}
+
+.stab.klein {
+  width: 150px;
+}
+
+.faden {
+  width: 2px;
+  height: 28px;
+  background: var(--ink);
+}
+
+.faden.lang {
+  height: 50px;
+}
+
+.kugel {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--green-soft);
+  border: 1px solid var(--accent);
+}
+
+.kugel.klein {
+  width: 22px;
+  height: 22px;
+}

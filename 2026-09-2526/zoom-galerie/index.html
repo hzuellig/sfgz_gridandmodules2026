@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zoom-Galerie mit Flexbox</title>
+  <link rel="stylesheet" href="css/galerie.css">
+</head>
+
+<body>
+  <main>
+
+    <h1>Zoom-Galerie</h1>
+    <p class="subtitle">Fahrt mit der Maus über die Bilder – oder springt mit der Tab-Taste von Bild zu Bild.</p>
+
+    <!--
+      Die Galerie ist die Leine (Flex-Container).
+      Jede figure ist ein Bild an der Leine (Flex-Item).
+
+      tabindex="0" macht die Bilder mit der Tastatur erreichbar.
+      So funktioniert der Zoom auch ohne Maus.
+
+      Eigene Bilder: in den Ordner images/ legen und
+      src + alt anpassen. Das Format ist egal – object-fit
+      sorgt dafür, dass jedes Bild den Rahmen füllt.
+    -->
+    <div class="galerie">
+
+      <figure class="bild" tabindex="0">
+        <img src="images/bild-1.jpg" alt="Beschreibung von Bild 1">
+      </figure>
+
+      <figure class="bild" tabindex="0">
+        <img src="images/bild-2.jpg" alt="Beschreibung von Bild 2">
+      </figure>
+
+      <figure class="bild" tabindex="0">
+        <img src="images/bild-3.jpg" alt="Beschreibung von Bild 3">
+      </figure>
+
+      <figure class="bild" tabindex="0">
+        <img src="images/bild-4.jpg" alt="Beschreibung von Bild 4">
+      </figure>
+
+      <figure class="bild" tabindex="0">
+        <img src="images/bild-5.jpg" alt="Beschreibung von Bild 5">
+      </figure>
+
+
+    </div>
+
+  </main>
+</body>
+
+</html>

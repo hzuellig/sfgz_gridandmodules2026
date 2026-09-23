@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexbox – Elemente an der Leine</title>
+
+  <style>
+    :root {
+      --text: #2b2a27;
+      --text-dim: #6b6a65;
+      --accent: #1be07d;
+      --accent-soft: rgba(215, 220, 221, 0.618);
+      --code-bg: #24262b;
+      --code-text: rgba(56, 255, 156, 1);
+      --border: rgba(215, 220, 221, 0.618);
+      --table-header: rgba(56, 255, 156, 0.45);
+
+      --bg: #ffffff;
+      --ink: #2d2d2d;
+      --signal: #1be07d;
+      --paper: #fafaf6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    a {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        "IBM Plex Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+      line-height: 1.65;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 90px;
+    }
+
+    h1.doc-title {
+      font-size: 34px;
+      font-weight: 700;
+      margin: 0 0 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      color: var(--text-dim);
+      font-size: 15px;
+      margin: 0 0 48px;
+      max-width: 56ch;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 56px 0 6px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 32px 0 10px;
+    }
+
+    p {
+      margin: 12px 0;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0.9em;
+      background: var(--accent-soft);
+      color: #9a3d1c;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 18px 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+    }
+
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--table-header);
+      font-weight: 700;
+    }
+
+    .hint {
+      background: var(--table-header);
+      border-left: 3px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+
+    .hint strong {
+      color: var(--ink);
+    }
+
+    ul {
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .exercise-header {
+      background: var(--accent);
+      color: #fff;
+      padding: 22px 26px;
+      border-radius: 12px;
+      margin: 56px 0 24px;
+    }
+
+    .exercise-header h2 {
+      border: none;
+      color: var(--ink);
+      margin: 0 0 6px;
+      padding: 0;
+    }
+
+    .exercise-header p {
+      margin: 8px 0 0;
+      color: var(--ink);
+      font-size: 14.5px;
+    }
+
+    .exercise-header a {
+      color: var(--ink);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    .metaphor-room {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+
+    /* ------------------------------------------------------------
+       Live-Demos: die Wäscheleine
+       Jede .leine ist ein echter Flex-Container.
+       Die Klammer ist ein ::before am Wäschestück.
+    ------------------------------------------------------------ */
+
+    .demo-label {
+      margin: 22px 0 4px;
+      font-size: 13.5px;
+    }
+
+    .leine {
+      display: flex;
+      align-items: flex-start;
+      min-height: 120px;
+      padding: 0 14px 14px;
+      margin: 0 0 8px;
+      background: var(--paper);
+      border-top: 2px solid var(--ink);
+      border-radius: 0 0 8px 8px;
+    }
+
+    .w {
+      position: relative;
+      width: 44px;
+      flex-shrink: 0;
+      background: var(--table-header);
+      border: 1px solid var(--signal);
+      border-top: none;
+      font-size: 12px;
+      color: var(--text-dim);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 4px;
+    }
+
+    /* die Klammer */
+    .w::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      width: 6px;
+      height: 14px;
+      margin-left: -3px;
+      background: var(--ink);
+      border-radius: 2px;
+    }
+
+    .leine .w:nth-child(5n+1) { height: 50px; }
+    .leine .w:nth-child(5n+2) { height: 82px; }
+    .leine .w:nth-child(5n+3) { height: 40px; }
+    .leine .w:nth-child(5n+4) { height: 96px; }
+    .leine .w:nth-child(5n+5) { height: 62px; }
+
+    /* Höhe dem Container überlassen (für stretch) */
+    .leine .w.auto {
+      height: auto;
+    }
+
+    .leine.hoch {
+      min-height: 150px;
+      height: 150px;
+    }
+
+    /* zweite, dritte Leine bei flex-wrap */
+    .leine.wrap {
+      flex-wrap: wrap;
+      align-content: flex-start;
+      row-gap: 30px;
+      column-gap: 14px;
+      max-width: 380px;
+      min-height: 0;
+      padding: 0 14px 14px;
+      border-top: none;
+      background:
+        repeating-linear-gradient(to bottom,
+          var(--ink) 0 2px,
+          transparent 2px 90px),
+        var(--paper);
+    }
+
+    .leine.wrap .w {
+      height: 60px;
+    }
+
+    /* flex-grow-Demo */
+    .leine.grow .w {
+      width: auto;
+      flex-basis: 40px;
+      height: 54px;
+    }
+
+    /* Das Mobile: verschachtelte Flex-Container */
+    .mobile-wrap {
+      background: var(--paper);
+      border-radius: 8px;
+      padding: 0 20px 20px;
+      margin: 8px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .faden {
+      width: 2px;
+      height: 28px;
+      background: var(--ink);
+    }
+
+    .stab {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-top: 2px solid var(--ink);
+    }
+
+    .stab.gross {
+      width: min(100%, 460px);
+    }
+
+    .stab.klein {
+      width: 150px;
+    }
+
+    .haenger {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .haenger .kugel {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--table-header);
+      border: 1px solid var(--signal);
+    }
+
+    .haenger .kugel.klein {
+      width: 22px;
+      height: 22px;
+    }
+
+    .haenger .faden.lang {
+      height: 50px;
+    }
+
+    @media (max-width: 520px) {
+      .w {
+        width: 34px;
+      }
+
+      .leine {
+        padding: 0 8px 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+
+    <h1 class="doc-title">Flexbox – Elemente an der Leine</h1>
+    <p class="subtitle">Den Document Flow kennt ihr: Elemente ordnen sich einfach untereinander bzw. in der
+      Schreibrichtung an. Heute lernt ihr, wie man Elemente gezielt in einer Reihe oder Spalte anordnet und wie sie
+      mit dem vorhandenen Platz umgehen.</p>
+
+    <h2>Teil 1: Vom Document Flow zu Flexbox</h2>
+
+    <p>Der Document Flow ist die Anordnung der Seitenelemente, wie sie durch die Reihenfolge im HTML und die
+      Positionierungsanweisungen definiert ist – also wie die Elemente Platz einnehmen und sich umeinander
+      anordnen. Ohne CSS-Anweisungen orientiert sich der Document Flow an der Schreibrichtung (westeuropäisch:
+      von links nach rechts und von oben nach unten).</p>
+
+    <p>Aber: Wie entsteht ein Layout mit mehreren Spalten? Oder eine Navigation, bei der die Links
+      nebeneinander stehen und den Platz gleichmässig aufteilen?</p>
+
+    <p>Lange war das nur mit Umwegen möglich. In den 1990ern baute man Layouts mit Tabellen, später mit
+      <code>float</code> – einer Eigenschaft, die eigentlich dafür gedacht war, ein Bild von Text umfliessen zu
+      lassen. Beides waren Hacks. Erst mit <strong>Flexbox</strong> (breit unterstützt seit etwa 2015) und
+      <strong>Grid</strong> (seit 2017) bekam CSS echte Layout-Werkzeuge.</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Flexbox</th>
+          <th>Grid</th>
+        </tr>
+        <tr>
+          <td>ordnet Elemente in <strong>eine</strong> Richtung an: in einer Zeile <em>oder</em> einer Spalte</td>
+          <td>ordnet Elemente in <strong>zwei</strong> Richtungen an: in Zeilen <em>und</em> Spalten</td>
+        </tr>
+        <tr>
+          <td>denkt vom Inhalt aus: Wie viel Platz braucht jedes Element?</td>
+          <td>denkt von der Fläche aus: Wie ist der Raum aufgeteilt?</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="metaphor-room">
+      Stellt euch eine Flexbox wie eine <strong>Wäscheleine</strong> vor. Die Leine gibt die Richtung vor, in der
+      alles aufgereiht wird. Ihr entscheidet, ob die Wäsche dicht gedrängt am Anfang hängt, gleichmässig verteilt
+      ist oder in der Mitte zusammenrückt. Und die Schwerkraft zieht quer dazu – die Stücke hängen nach unten,
+      unterschiedlich lang.
+    </div>
+
+    <p>Diese Leine seht ihr in allen Beispielen unten. Jede Leine ist ein echter Flex-Container – ihr könnt im
+      Browser mit den DevTools reinschauen.</p>
+
+    <hr>
+
+    <h2>Teil 2: Container und Kinder</h2>
+
+    <p>Flexbox funktioniert immer mit zwei Ebenen: Die Eigenschaft <code>display: flex</code> wird beim
+      <strong>Parent-Element</strong> gesetzt (dem Container, der Leine). Die Flexbox-Anweisungen bestimmen dann,
+      wie sich die <strong>Kinder</strong> (die Wäschestücke) darin anordnen.</p>
+
+    <pre><code>&lt;div class="leine"&gt;
+  &lt;div class="stueck"&gt;1&lt;/div&gt;
+  &lt;div class="stueck"&gt;2&lt;/div&gt;
+  &lt;div class="stueck"&gt;3&lt;/div&gt;
+  &lt;div class="stueck"&gt;4&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <pre><code>.leine {
+  display: flex;   /* macht aus dem Parent einen Flex-Container */
+}
+.stueck {
+  border: 1px dotted blue;
+  padding: 1rem;
+}</code></pre>
+
+    <p>Sobald <code>display: flex</code> gesetzt ist, stehen die Kinder nebeneinander statt untereinander –
+      auch wenn es eigentlich Block-Elemente wie <code>&lt;div&gt;</code> sind.</p>
+
+    <div class="hint"><strong>Merke:</strong> Flexbox wirkt immer nur auf die <em>direkten</em> Kinder. Die
+      Enkel-Elemente sind davon nicht betroffen – ausser, ihr macht das Kind selbst wieder zum Flex-Container
+      (siehe Teil 8).</div>
+
+    <hr>
+
+    <h2>Teil 3: Hauptachse und Querachse</h2>
+
+    <p>Jede Flexbox hat zwei Achsen:</p>
+    <ul>
+      <li><strong>Hauptachse</strong> – die Leine. In dieser Richtung werden die Elemente aufgereiht.</li>
+      <li><strong>Querachse</strong> – die Schwerkraft. Sie steht immer rechtwinklig zur Hauptachse.</li>
+    </ul>
+
+    <p>Mit <code>flex-direction</code> legt ihr fest, in welche Richtung die Hauptachse läuft:</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Wert</th>
+          <th>Hauptachse</th>
+          <th>Querachse</th>
+        </tr>
+        <tr>
+          <td><code>row</code> (Standard)</td>
+          <td>links → rechts</td>
+          <td>oben → unten</td>
+        </tr>
+        <tr>
+          <td><code>row-reverse</code></td>
+          <td>rechts → links</td>
+          <td>oben → unten</td>
+        </tr>
+        <tr>
+          <td><code>column</code></td>
+          <td>oben → unten</td>
+          <td>links → rechts</td>
+        </tr>
+        <tr>
+          <td><code>column-reverse</code></td>
+          <td>unten → oben</td>
+          <td>links → rechts</td>
+        </tr>
+      </table>
+    </div>
+
+    <pre><code>.leine {
+  display: flex;
+  flex-direction: column;   /* Elemente untereinander */
+}</code></pre>
+
+    <div class="hint"><strong>Wichtig:</strong> <code>justify-content</code> wirkt immer entlang der
+      <em>Hauptachse</em>, <code>align-items</code> immer entlang der <em>Querachse</em>. Das ist nicht dasselbe
+      wie „horizontal“ und „vertikal“! Sobald ihr <code>flex-direction: column</code> setzt, tauschen die beiden
+      ihre Richtung. Das ist der häufigste Stolperstein bei Flexbox.</div>
+
+    <p>Die Richtung hängt übrigens von der Schreibrichtung ab: Auf einer arabischen oder hebräischen Seite
+      (von rechts nach links) läuft <code>row</code> automatisch von rechts nach links. Deshalb spricht CSS von
+      <code>start</code> und <code>end</code> statt von links und rechts.</p>
+
+    <hr>
+
+    <h2>Teil 4: justify-content – verteilen entlang der Leine</h2>
+
+    <p><code>justify-content</code> bestimmt, wie der Browser den freien Platz <em>zwischen und um</em> die
+      Elemente entlang der Hauptachse verteilt. Der Wert wird beim Container gesetzt.</p>
+
+    <p class="demo-label"><code>justify-content: flex-start</code> – Standard, alles am Anfang</p>
+    <div class="leine" style="justify-content: flex-start">
+      <div class="w">1</div><div class="w">2</div><div class="w">3</div><div class="w">4</div><div class="w">5</div>
+    </div>
+
+    <p class="demo-label"><code>justify-content: center</code> – alles rückt in die Mitte</p>
+    <div class="leine" style="justify-content: center">
+      <div class="w">1</div><div class="w">2</div><div class="w">3</div><div class="w">4</div><div class="w">5</div>
+    </div>
+
+    <p class="demo-label"><code>justify-content: flex-end</code> – alles ans Ende</p>
+    <div class="leine" style="justify-content: flex-end">
+      <div class="w">1</div><div class="w">2</div><div class="w">3</div><div class="w">4</div><div class="w">5</div>
+    </div>
+
+    <p class="demo-label"><code>justify-content: space-between</code> – erstes und letztes Stück an den Pfosten
+    </p>
+    <div class="leine" style="justify-content: space-between">
+      <div class="w">1</div><div class="w">2</div><div class="w">3</div><div class="w">4</div><div class="w">5</div>
+    </div>
+
+    <p class="demo-label"><code>justify-content: space-around</code> – jedes Stück bekommt links und rechts
+      gleich viel Raum</p>
+    <div class="leine" style="justify-content: space-around">
+      <div class="w">1</div><div class="w">2</div><div class="w">3</div><div class="w">4</div><div class="w">5</div>
+    </div>
+
+    <p class="demo-label"><code>justify-content: space-evenly</code> – alle Abstände exakt gleich, auch zu
+      den Rändern</p>
+    <div class="leine" style="justify-content: space-evenly">
+      <div class="w">1</div><div class="w">2</div><div class="w">3</div><div class="w">4</div><div class="w">5</div>
+    </div>
+
+    <p>Statt <code>flex-start</code> und <code>flex-end</code> könnt ihr auch einfach <code>start</code> und
+      <code>end</code> schreiben – beides funktioniert in allen aktuellen Browsern.</p>
+
+    <p><a href="https://developer.mozilla.org/de/docs/Web/CSS/justify-content" target="_blank">MDN Referenz
+        justify-content</a></p>
+
+    <hr>
+
+    <h2>Teil 5: align-items – ausrichten quer zur Leine</h2>
+
+    <p><code>align-items</code> bestimmt, wie die Elemente entlang der Querachse ausgerichtet werden – bei
+      unserer Leine also: Wo hängen die Stücke in der Höhe?</p>
+
+    <p class="demo-label"><code>align-items: flex-start</code> – alles hängt oben an der Leine</p>
+    <div class="leine hoch" style="align-items: flex-start; justify-content: center; gap: 14px">
+      <div class="w">1</div><div class="w">2</div><div class="w">3</div><div class="w">4</div><div class="w">5</div>
+    </div>
+
+    <p class="demo-label"><code>align-items: center</code> – alles auf einer Mittellinie</p>
+    <div class="leine hoch" style="align-items: center; justify-content: center; gap: 14px">
+      <div class="w">1</div><div class="w">2</div><div class="w">3</div><div class="w">4</div><div class="w">5</div>
+    </div>
+
+    <p class="demo-label"><code>align-items: flex-end</code> – alles bündig am Boden</p>
+    <div class="leine hoch" style="align-items: flex-end; justify-content: center; gap: 14px">
+      <div class="w">1</div><div class="w">2</div><div class="w">3</div><div class="w">4</div><div class="w">5</div>
+    </div>
+
+    <p class="demo-label"><code>align-items: stretch</code> – Standard: Elemente ohne feste Höhe werden auf die
+      volle Höhe gezogen</p>
+    <div class="leine hoch" style="align-items: stretch; justify-content: center; gap: 14px">
+      <div class="w auto">1</div><div class="w auto">2</div><div class="w auto">3</div><div class="w auto">4</div><div class="w auto">5</div>
+    </div>
+
+    <p>Dazu gibt es noch <code>baseline</code>: Die Elemente werden an der Grundlinie ihres Textes ausgerichtet.
+      Das ist praktisch, wenn Elemente mit unterschiedlichen Schriftgrössen nebeneinander stehen.</p>
+
+    <div class="hint"><strong>Achtung, Standardwert:</strong> Weil <code>align-items</code> standardmässig auf
+      <code>stretch</code> steht, werden alle Kinder einer Flexbox gleich hoch – das überrascht oft. Wollt ihr
+      das nicht, setzt ihr <code>align-items: flex-start</code>.</div>
+
+    <p><a href="https://developer.mozilla.org/de/docs/Web/CSS/align-items" target="_blank">MDN Referenz
+        align-items</a></p>
+
+    <h3>Zentrieren – horizontal und vertikal</h3>
+
+    <p>Kombiniert ihr beide Eigenschaften, könnt ihr ein Element in beide Richtungen zentrieren – lange eine der
+      schwierigsten Aufgaben in CSS, mit Flexbox sind es drei Zeilen:</p>
+
+    <pre><code>.container {
+  display: flex;
+  justify-content: center;   /* Hauptachse */
+  align-items: center;       /* Querachse */
+  height: 100vh;             /* ohne Höhe gibt es nichts zu zentrieren */
+}</code></pre>
+
+    <p class="demo-label">Ein einzelnes Stück, in beide Richtungen zentriert</p>
+    <div class="leine hoch" style="align-items: center; justify-content: center">
+      <div class="w" style="height: 50px">1</div>
+    </div>
+
+    <p>Die Höhe ist wichtig: Ohne sie ist der Container genau so hoch wie sein Inhalt – und dann ist die
+      vertikale Zentrierung zwar da, aber nicht sichtbar.</p>
+
+    <hr>
+
+    <h2>Teil 6: gap – Abstand zwischen den Klammern</h2>
+
+    <p>Mit <code>gap</code> legt ihr den Abstand zwischen den Elementen fest. Das ist viel einfacher als mit
+      <code>margin</code> bei den Kindern: Der Abstand entsteht nur <em>zwischen</em> den Elementen, nicht
+      am Rand.</p>
+
+    <pre><code>.leine {
+  display: flex;
+  gap: 1rem;            /* gleicher Abstand in beide Richtungen */
+  /* row-gap: 2rem;       nur zwischen Zeilen   */
+  /* column-gap: 1rem;    nur zwischen Spalten  */
+}</code></pre>
+
+    <p class="demo-label"><code>gap: 0</code></p>
+    <div class="leine" style="gap: 0">
+      <div class="w">1</div><div class="w">2</div><div class="w">3</div><div class="w">4</div><div class="w">5</div>
+    </div>
+
+    <p class="demo-label"><code>gap: 2rem</code></p>
+    <div class="leine" style="gap: 2rem">
+      <div class="w">1</div><div class="w">2</div><div class="w">3</div><div class="w">4</div><div class="w">5</div>
+    </div>
+
+    <hr>
+
+    <h2>Teil 7: flex-wrap – die zweite Leine</h2>
+
+    <p>Standardmässig bleiben alle Elemente auf einer einzigen Leine – auch wenn es eng wird. Sie werden dann
+      gestaucht oder ragen über den Rand hinaus. Mit <code>flex-wrap: wrap</code> erlaubt ihr einen Umbruch:
+      Ist die Leine voll, geht es auf der nächsten weiter.</p>
+
+    <pre><code>.leine {
+  display: flex;
+  flex-wrap: wrap;   /* Standard: nowrap */
+                     /* auch möglich: wrap-reverse */
+}</code></pre>
+
+    <p class="demo-label"><code>flex-wrap: wrap</code> mit elf Stücken auf einer schmalen Leine</p>
+    <div class="leine wrap">
+      <div class="w">1</div><div class="w">2</div><div class="w">3</div><div class="w">4</div><div class="w">5</div><div class="w">6</div><div class="w">7</div><div class="w">8</div><div class="w">9</div><div class="w">10</div><div class="w">11</div>
+    </div>
+
+    <p>Zieht das Browserfenster schmaler: Bei <code>wrap</code> wandern die Elemente auf die nächste Zeile. Das
+      ist die Grundlage für viele responsive Layouts – ganz ohne Media Queries.</p>
+
+    <hr>
+
+    <h2>Teil 8: Wachsen und schrumpfen</h2>
+
+    <p>Bis jetzt hatten alle Elemente eine feste Breite, und Flexbox hat nur den <em>übrigen</em> Platz
+      verteilt. Jetzt kommt der Teil, der Flexbox den Namen gibt: Die Elemente selbst können sich dehnen oder
+      zusammenziehen. Diese Eigenschaften setzt ihr beim <strong>Kind</strong>, nicht beim Container.</p>
+
+    <h3>flex-basis – die Ausgangsgrösse</h3>
+
+    <p><code>flex-basis</code> legt fest, wie gross ein Element entlang der Hauptachse sein <em>möchte</em>. Ihr
+      könnt es euch wie <code>width</code> vorstellen (bzw. <code>height</code> bei <code>column</code>). Der
+      Unterschied: Von dieser Basis aus darf das Element wachsen oder schrumpfen.</p>
+
+    <h3>flex-grow – wachsen, wenn Platz da ist</h3>
+
+    <p><code>flex-grow</code> ist ein Wachstumsfaktor. Er bestimmt, wie der <strong>freie Platz</strong>
+      verteilt wird. Standard ist <code>0</code> – das Element wächst nicht.</p>
+
+    <p class="demo-label">Alle mit <code>flex-grow: 1</code> – der freie Platz wird gleichmässig verteilt</p>
+    <div class="leine grow" style="gap: 10px">
+      <div class="w" style="flex-grow: 1">1</div><div class="w" style="flex-grow: 1">1</div><div class="w" style="flex-grow: 1">1</div>
+    </div>
+
+    <p class="demo-label">Das mittlere mit <code>flex-grow: 2</code>, die anderen mit <code>1</code></p>
+    <div class="leine grow" style="gap: 10px">
+      <div class="w" style="flex-grow: 1">1</div><div class="w" style="flex-grow: 2">2</div><div class="w" style="flex-grow: 1">1</div>
+    </div>
+
+    <p class="demo-label">Nur das letzte mit <code>flex-grow: 1</code>, die anderen mit <code>0</code></p>
+    <div class="leine grow" style="gap: 10px">
+      <div class="w" style="flex-grow: 0">0</div><div class="w" style="flex-grow: 0">0</div><div class="w" style="flex-grow: 1">1</div>
+    </div>
+
+    <div class="hint"><strong>Denkfalle:</strong> <code>flex-grow: 2</code> heisst <em>nicht</em>, dass das
+      Element doppelt so breit wird. Es bekommt doppelt so viel vom <em>freien Platz</em>, der nach der
+      <code>flex-basis</code> übrig bleibt. Schaut euch das mittlere Beispiel oben genau an.</div>
+
+    <h3>flex-shrink – schrumpfen, wenn es eng wird</h3>
+
+    <p><code>flex-shrink</code> ist das Gegenstück: Wie stark darf ein Element schrumpfen, wenn nicht genug Platz
+      da ist? Standard ist <code>1</code> – alle schrumpfen gleichmässig. Mit <code>flex-shrink: 0</code> behält
+      ein Element seine Grösse, zum Beispiel ein Logo oder ein Icon.</p>
+
+    <h3>Die Kurzschreibweise flex</h3>
+
+    <p>In der Praxis schreibt man die drei Werte meistens zusammen, in der Reihenfolge grow, shrink, basis:</p>
+
+    <pre><code>.stueck {
+  flex: 1 1 200px;   /* grow: 1, shrink: 1, basis: 200px */
+}
+
+.stueck {
+  flex: 1;           /* Abkürzung: alle teilen sich den Platz gleichmässig */
+}
+
+.logo {
+  flex: 0 0 120px;   /* fix: wächst nicht, schrumpft nicht, immer 120px */
+}</code></pre>
+
+    <p><a href="https://developer.mozilla.org/de/docs/Web/CSS/flex" target="_blank">MDN Referenz flex</a></p>
+
+    <hr>
+
+    <h2>Teil 9: Einzelne Elemente steuern</h2>
+
+    <h3>align-self – das Stück, das anders hängt</h3>
+
+    <p>Mit <code>align-self</code> überschreibt ihr <code>align-items</code> für ein einzelnes Kind. Die Werte
+      sind dieselben.</p>
+
+    <p class="demo-label">Alle <code>flex-start</code>, das dritte mit <code>align-self: stretch</code> – die
+      lange Hose</p>
+    <div class="leine hoch" style="align-items: flex-start; justify-content: center; gap: 14px">
+      <div class="w">1</div><div class="w">2</div><div class="w auto" style="align-self: stretch">3</div><div class="w">4</div><div class="w">5</div>
+    </div>
+
+    <pre><code>.stueck:nth-child(3) {
+  align-self: stretch;
+}</code></pre>
+
+    <h3>order – umhängen, ohne das HTML zu ändern</h3>
+
+    <p>Mit <code>order</code> ändert ihr die Reihenfolge, in der die Elemente dargestellt werden. Standard ist
+      <code>0</code>, kleinere Werte kommen zuerst.</p>
+
+    <p class="demo-label">Das vierte Stück mit <code>order: -1</code></p>
+    <div class="leine" style="justify-content: center; gap: 14px">
+      <div class="w">1</div><div class="w">2</div><div class="w">3</div><div class="w" style="order: -1">4</div><div class="w">5</div>
+    </div>
+
+    <div class="hint"><strong>Achtung, Barrierefreiheit:</strong> <code>order</code> (und auch
+      <code>row-reverse</code> / <code>column-reverse</code>) ändert nur die <em>visuelle</em> Reihenfolge.
+      Screenreader und die Tab-Taste folgen weiterhin der Reihenfolge im HTML. Wenn die Reihenfolge inhaltlich
+      wichtig ist, ändert sie im HTML.</div>
+
+    <hr>
+
+    <h2>Teil 10: Verschachteln – das Mobile</h2>
+
+    <p>Ein Kind in einem Flex-Container kann selbst wieder <code>display: flex</code> haben und eigene Kinder
+      anordnen. Und diese wiederum auch – die Tiefe spielt keine Rolle. So entstehen komplexere Layouts aus
+      lauter einfachen Reihen und Spalten.</p>
+
+    <div class="metaphor-room">
+      Denkt an ein <strong>Mobile</strong>, wie es Alexander Calder oder Bruno Munari gebaut haben: Ein Stab
+      trägt mehrere Elemente, und manche dieser Elemente sind selbst wieder Stäbe mit eigenen Elementen. Jeder
+      Stab ist ein eigener Flex-Container – mit eigener Richtung, eigener Verteilung, eigenem Gleichgewicht.
+    </div>
+
+    <p class="demo-label">Drei verschachtelte Ebenen: Stab (row) → Hänger (column) → kleiner Stab (row)</p>
+    <div class="mobile-wrap">
+      <div class="faden"></div>
+      <div class="stab gross">
+        <div class="haenger">
+          <div class="faden"></div>
+          <div class="kugel"></div>
+        </div>
+        <div class="haenger">
+          <div class="faden lang"></div>
+          <div class="stab klein">
+            <div class="haenger">
+              <div class="faden"></div>
+              <div class="kugel klein"></div>
+            </div>
+            <div class="haenger">
+              <div class="faden lang"></div>
+              <div class="kugel klein"></div>
+            </div>
+            <div class="haenger">
+              <div class="faden"></div>
+              <div class="kugel klein"></div>
+            </div>
+          </div>
+        </div>
+        <div class="haenger">
+          <div class="faden lang"></div>
+          <div class="kugel"></div>
+        </div>
+      </div>
+    </div>
+
+    <pre><code>.stab {
+  display: flex;                    /* Ebene 1: Elemente nebeneinander */
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.haenger {
+  display: flex;                    /* Ebene 2: Faden und Kugel untereinander */
+  flex-direction: column;
+  align-items: center;
+}
+/* ein .stab kann wieder in einem .haenger hängen – und so weiter */</code></pre>
+
+    <p>Typische Beispiele im Web: eine Kopfzeile (row) mit Logo links und einer Navigation rechts, die selbst
+      wieder eine Flexbox mit Links ist. Oder eine Karte (column) mit Bild, Text und einer Button-Reihe (row)
+      unten.</p>
+
+    <hr>
+
+    <h2>Überblick</h2>
+
+    <p>Beim <strong>Container</strong> (Parent):</p>
+
+    <pre><code>.container {
+  display: flex;
+
+  /* Richtung der Hauptachse */
+  flex-direction:  row;          /* Standard */
+                   /* row-reverse | column | column-reverse */
+
+  /* Verteilung entlang der Hauptachse */
+  justify-content: flex-start;   /* Standard */
+                   /* flex-end | center | space-between | space-around | space-evenly */
+
+  /* Ausrichtung entlang der Querachse */
+  align-items:     stretch;      /* Standard */
+                   /* flex-start | flex-end | center | baseline */
+
+  /* Umbruch */
+  flex-wrap:       nowrap;       /* Standard */
+                   /* wrap | wrap-reverse */
+
+  /* Abstand zwischen den Kindern */
+  gap:             1rem;
+}</code></pre>
+
+    <p>Bei den <strong>Kindern</strong> (Items):</p>
+
+    <pre><code>.child {
+  /* Wachsen, Schrumpfen, Ausgangsgrösse */
+  flex-grow:   0;          /* Standard */
+  flex-shrink: 1;          /* Standard */
+  flex-basis:  auto;       /* Standard */
+  flex:        1 1 200px;  /* Kurzschreibweise: grow shrink basis */
+
+  /* align-items für dieses Kind überschreiben */
+  align-self:  auto;       /* Standard */
+               /* stretch | flex-start | flex-end | center | baseline */
+
+  /* Reihenfolge */
+  order:       0;          /* Standard */
+}</code></pre>
+
+    <div class="exercise-header">
+      <h2>Jetzt ausprobieren: Flexbox Froggy</h2>
+      <p>Jetzt kennt ihr die Werkzeuge – Zeit, damit zu spielen. In
+        <a href="https://flexboxfroggy.com/#de" target="_blank">Flexbox Froggy</a> bringt ihr Frösche mit
+        Flexbox-Eigenschaften auf ihre Seerosenblätter. 24 Level, die immer kniffliger werden.</p>
+      <p>Tipp: Wenn ihr hängen bleibt, schaut in den Überblick oben oder in eines der Cheatsheets unten.
+        Achtet besonders auf die Level mit <code>flex-direction</code> – dort wechseln die Achsen.</p>
+    </div>
+
+    <h2>Ressourcen zum Nachschlagen</h2>
+
+    <ul>
+      <li><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank">CSS-Tricks: A
+          Complete Guide to Flexbox</a> – der Klassiker, alle Eigenschaften mit Illustrationen</li>
+      <li><a href="https://yoksel.github.io/flex-cheatsheet/" target="_blank">Flexbox Cheatsheet (Yoksel)</a> –
+        interaktiv, jede Eigenschaft zum Durchklicken</li>
+      <li><a href="https://developer.mozilla.org/de/docs/Learn/CSS/CSS_layout/Flexbox" target="_blank">MDN:
+          Flexbox</a> – ausführliche Einführung auf Deutsch</li>
+      <li><a href="https://codepen.io/enxaneta/pen/adLPwv" target="_blank">Flexbox Playground (CodePen)</a> –
+        alle Werte live kombinieren</li>
+      <li><a href="https://flexboxfroggy.com/#de" target="_blank">Flexbox Froggy</a> – das Spiel von oben</li>
+    </ul>
+
+    <div class="hint"><strong>DevTools-Tipp:</strong> In Firefox und Chrome erscheint im Inspektor neben jedem
+      Flex-Container ein kleines <code>flex</code>-Badge. Ein Klick darauf zeigt die Achsen und Abstände direkt
+      auf der Seite an – sehr hilfreich, wenn etwas nicht so aussieht wie erwartet.</div>
+
+  </main>
+</body>
+
+</html>

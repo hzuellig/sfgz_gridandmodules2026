@@ -1,0 +1,266 @@
+/* ============================================================
+   uebung.css – hier probiert ihr aus!
+
+   So funktioniert's:
+   - Jede Zeile, die mit Slash (/)* beginnt und mit * Slash(/) endet, ist
+     auskommentiert und hat keine Wirkung.
+ 
+   - Speichern, Browser neu laden, schauen, was passiert.
+   - Bei Varianten (z. B. verschiedene Werte für
+     justify-content) immer nur EINE Zeile aktiv lassen.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   TEIL 2: Container und Kinder
+   Die Stücke hängen noch untereinander (Document Flow).
+------------------------------------------------------------ */
+
+.leine-2 {
+  /* display: flex; */
+}
+
+
+/* ------------------------------------------------------------
+   TEIL 3: Hauptachse und Querachse
+------------------------------------------------------------ */
+
+.leine-3 {
+  display: flex;
+
+  /* flex-direction: row; */
+  /* flex-direction: row-reverse; */
+  /* flex-direction: column; */
+  /* flex-direction: column-reverse; */
+
+  /* Und jetzt: Was macht justify-content bei column? */
+  /* justify-content: center; */
+}
+
+
+/* ------------------------------------------------------------
+   TEIL 4: justify-content – verteilen entlang der Leine
+------------------------------------------------------------ */
+
+.leine-4 {
+  display: flex;
+  align-items: flex-start;
+
+  /* justify-content: flex-start; */
+  /* justify-content: center; */
+  /* justify-content: flex-end; */
+  /* justify-content: space-between; */
+  /* justify-content: space-around; */
+  /* justify-content: space-evenly; */
+}
+
+
+/* ------------------------------------------------------------
+   TEIL 5: align-items – ausrichten quer zur Leine
+   Achtung: Schaut zuerst, wie es ganz ohne align-items
+   aussieht. Was ist da passiert?
+------------------------------------------------------------ */
+
+.leine-5 {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+
+  /* align-items: stretch; */
+  /* align-items: flex-start; */
+  /* align-items: center; */
+  /* align-items: flex-end; */
+}
+
+
+/* ------------------------------------------------------------
+   TEIL 5b: Zentrieren
+   Schritt für Schritt einkommentieren – hier alle Zeilen
+   zusammen, nicht nur eine!
+------------------------------------------------------------ */
+
+.zentrieren {
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* height: 250px; */
+}
+
+
+/* ------------------------------------------------------------
+   TEIL 6: gap – Abstand zwischen den Klammern
+------------------------------------------------------------ */
+
+.leine-6 {
+  display: flex;
+  align-items: flex-start;
+
+  /* gap: 0.5rem; */
+  /* gap: 2rem; */
+  /* gap: 4rem; */
+}
+
+/* Vergleich: Abstand mit margin statt gap.
+   Was ist anders? Schaut euch die Ränder an. */
+.leine-6 .w {
+  /* margin: 0 1rem; */
+}
+
+
+/* ------------------------------------------------------------
+   TEIL 7: flex-wrap – die zweite Leine
+   Zwölf breite Stücke auf einer zu kurzen Leine.
+------------------------------------------------------------ */
+
+.leine-7 {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  /* flex-wrap: nowrap; */
+  /* flex-wrap: wrap; */
+  /* flex-wrap: wrap-reverse; */
+
+  /* Mit wrap: Abstand zwischen den Leinen vergrössern */
+  /* row-gap: 3rem; */
+}
+
+
+/* ------------------------------------------------------------
+   TEIL 8a: flex-basis und flex-grow
+   Die Stücke haben keine Breite mehr (width: auto).
+   Zuerst flex-basis für alle, dann flex-grow einzeln.
+------------------------------------------------------------ */
+
+.leine-8a {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.leine-8a .w {
+  /* flex-basis: 60px; */
+  /* flex-basis: 150px; */
+}
+
+.leine-8a .w:nth-child(1) {
+  /* flex-grow: 1; */
+}
+
+.leine-8a .w:nth-child(2) {
+  /* flex-grow: 1; */
+  /* flex-grow: 2; */
+}
+
+.leine-8a .w:nth-child(3) {
+  /* flex-grow: 1; */
+}
+
+
+/* ------------------------------------------------------------
+   TEIL 8b: flex-shrink
+   Jedes Stück möchte 300px breit sein – das passt nicht.
+   Zieht das Browserfenster schmaler und breiter.
+------------------------------------------------------------ */
+
+.leine-8b {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.leine-8b .w {
+  flex-basis: 300px;
+}
+
+.leine-8b .w:nth-child(1) {
+  /* flex-shrink: 0; */
+}
+
+.leine-8b .w:nth-child(3) {
+  /* flex-shrink: 3; */
+}
+
+
+/* ------------------------------------------------------------
+   TEIL 8c: Kurzschreibweise flex
+   Gleiche Leine wie 8a, jetzt mit flex: grow shrink basis
+------------------------------------------------------------ */
+
+.leine-8c {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.leine-8c .w {
+  /* flex: 1; */
+  /* flex: 1 1 100px; */
+}
+
+.leine-8c .w:nth-child(1) {
+  /* flex: 0 0 120px; */
+}
+
+
+/* ------------------------------------------------------------
+   TEIL 9: align-self und order
+------------------------------------------------------------ */
+
+.leine-9 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+/* die lange Hose */
+.leine-9 .w:nth-child(3) {
+  /* align-self: stretch; */
+  /* align-self: center; */
+  /* align-self: flex-end; */
+}
+
+/* umhängen */
+.leine-9 .w:nth-child(5) {
+  /* order: -1; */
+  /* order: 1; */
+}
+
+
+/* ------------------------------------------------------------
+   TEIL 10: Das Mobile – verschachtelte Flexboxen
+   Hier ist noch GAR NICHTS flex.
+   Arbeitet euch Schritt für Schritt vor.
+------------------------------------------------------------ */
+
+/* Schritt 1: Die Stäbe ordnen ihre Hänger nebeneinander an */
+.stab {
+  /* display: flex; */
+}
+
+/* Schritt 2: Die Hänger an die Enden des Stabs verteilen */
+.stab {
+  /* justify-content: space-between; */
+}
+
+/* Schritt 3: Wird etwas gedehnt, das nicht soll? */
+.stab {
+  /* align-items: flex-start; */
+}
+
+/* Schritt 4: Jeder Hänger ist selbst eine Flexbox –
+   Faden oben, Kugel unten, alles mittig */
+.haenger {
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+}
+
+/* Schritt 5 (für Schnelle): Bringt das Mobile aus dem
+   Gleichgewicht oder in ein neues. Probiert beim kleinen
+   Stab andere Werte für justify-content, oder hängt im HTML
+   eine weitere Kugel dazu. */
+.stab.klein {
+  /* justify-content: space-evenly; */
+}

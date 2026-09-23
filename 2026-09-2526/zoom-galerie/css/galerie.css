@@ -1,0 +1,155 @@
+/* ============================================================
+   Zoom-Galerie mit Flexbox – nur HTML und CSS
+
+   Aufbau in Schritten. Jeder Schritt baut auf dem
+   vorherigen auf. Die Werte für Grössen und Tempo stehen
+   ganz oben als Variablen, damit man sie schnell ändern kann.
+   ============================================================ */
+
+:root {
+  --hoehe-normal: 240px;   /* Höhe der Bilder im Ruhezustand */
+  --hoehe-zoom: 380px;     /* Höhe des gezoomten Bildes */
+  --zoom-breite: 3;        /* flex-grow des gezoomten Bildes */
+  --dauer: 0.5s;           /* Tempo der Animation */
+
+  --text: #2b2a27;
+  --text-dim: #6b6a65;
+  --accent: #1be07d;
+  --ink: #2d2d2d;
+  --paper: #fafaf6;
+}
+
+
+/* ------------------------------------------------------------
+   Seite (Grundlook)
+------------------------------------------------------------ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: var(--text);
+  font-family: "IBM Plex Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+  line-height: 1.65;
+}
+
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 56px 24px 90px;
+}
+
+h1 {
+  font-size: 34px;
+  margin: 0 0 6px;
+}
+
+.subtitle {
+  color: var(--text-dim);
+  font-size: 15px;
+  margin: 0 0 40px;
+}
+
+
+/* ------------------------------------------------------------
+   SCHRITT 1: Die Leine
+   Die Galerie wird zum Flex-Container. Sie bekommt eine
+   feste Höhe, damit Platz für das gezoomte Bild da ist und
+   nichts darunter herumspringt.
+------------------------------------------------------------ */
+
+.galerie {
+  display: flex;
+  gap: 12px;
+  height: calc(var(--hoehe-zoom) + 20px);
+  padding: 0 12px;
+  background: var(--paper);
+  border-top: 2px solid var(--ink);
+
+  /* SCHRITT 5: Wohin wächst das Bild?
+     Immer nur eine Zeile aktiv lassen. */
+  align-items: flex-start;    /* hängt an der Leine, wächst nach unten */
+  /* align-items: center; */  /* wächst nach oben und unten */
+  /* align-items: flex-end; *//* steht am Boden, wächst nach oben */
+}
+
+
+/* ------------------------------------------------------------
+   SCHRITT 2: Die Bilder
+   Alle Bilder teilen sich die Breite gleichmässig (flex: 1).
+   min-width: 0 erlaubt den Bildern, schmaler zu werden als
+   ihr Inhalt – sonst drückt das grosse <img> dagegen.
+------------------------------------------------------------ */
+
+.bild {
+  flex: 1 1 0;
+  min-width: 0px;
+  height: var(--hoehe-normal);
+  margin: 0;                /* figure hat standardmässig einen Rand */
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.bild img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* füllt den Rahmen, schneidet den Rest ab */
+}
+
+
+/* ------------------------------------------------------------
+   SCHRITT 3: Der Zoom
+   Das Bild unter der Maus wächst in beide Richtungen:
+   - in der Breite über flex-grow (Hauptachse)
+   - in der Höhe über height (Querachse)
+   :focus-visible macht dasselbe für die Tastatur.
+------------------------------------------------------------ */
+
+.bild:hover,
+.bild:focus-visible {
+  flex-grow: var(--zoom-breite);
+  height: var(--hoehe-zoom);
+}
+
+
+/* ------------------------------------------------------------
+   SCHRITT 4: Die Transition
+   flex-grow und height lassen sich animieren.
+   align-items dagegen nicht – es bestimmt nur, WOHIN das
+   Bild wächst (siehe Schritt 5 oben bei .galerie).
+------------------------------------------------------------ */
+
+.bild {
+  
+}
+
+
+/* ------------------------------------------------------------
+   SCHRITT 6 (optional): Die anderen treten zurück
+   :has() fragt: Enthält die Galerie ein Bild, über dem
+   gerade die Maus ist? Wenn ja, werden alle ANDEREN (:not)
+   Bilder blasser.
+   https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:has
+   https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:not
+------------------------------------------------------------ */
+
+
+/* ------------------------------------------------------------
+   SCHRITT 7 (optional): Das mittlere Bild ist schon gezoomt
+   Solange die Maus nicht über der Galerie ist, ist das
+   mittlere Bild gross. Fährt man über ein anderes, wandert
+   der Zoom dorthin – mit Transition.
+   Bei 5 Bildern ist das mittlere :nth-child(3).
+   Wir fragen hier nach :hover auf der ganzen Galerie, nicht
+   auf einem Bild. Sonst springt der Zoom kurz zurück in die
+   Mitte, wenn die Maus durch die Lücke zwischen zwei
+   Bildern fährt.
+------------------------------------------------------------ */
+
+
+
+

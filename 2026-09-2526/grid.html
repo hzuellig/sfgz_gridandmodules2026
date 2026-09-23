@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid – Bilder an der Wand</title>
+
+  <style>
+    :root {
+      --text: #2b2a27;
+      --text-dim: #6b6a65;
+      --accent: #1be07d;
+      --accent-soft: rgba(215, 220, 221, 0.618);
+      --code-bg: #24262b;
+      --code-text: rgba(56, 255, 156, 1);
+      --border: rgba(215, 220, 221, 0.618);
+      --table-header: rgba(56, 255, 156, 0.45);
+
+      --ink: #2d2d2d;
+      --signal: #1be07d;
+      --paper: #fafaf6;
+      --red: #d62828;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    a {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--text);
+      font-family:
+        "IBM Plex Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+      line-height: 1.65;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 90px;
+    }
+
+    h1.doc-title {
+      font-size: 34px;
+      font-weight: 700;
+      margin: 0 0 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      color: var(--text-dim);
+      font-size: 15px;
+      margin: 0 0 48px;
+      max-width: 56ch;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 56px 0 6px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 32px 0 10px;
+    }
+
+    p {
+      margin: 12px 0;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0.9em;
+      background: var(--accent-soft);
+      color: #9a3d1c;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 18px 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+    }
+
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--table-header);
+      font-weight: 700;
+    }
+
+    .hint {
+      background: var(--table-header);
+      border-left: 3px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+
+    .hint strong {
+      color: var(--ink);
+    }
+
+    ul {
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .exercise-header {
+      background: var(--accent);
+      padding: 22px 26px;
+      border-radius: 12px;
+      margin: 56px 0 24px;
+    }
+
+    .exercise-header h2 {
+      border: none;
+      color: var(--ink);
+      margin: 0 0 6px;
+      padding: 0;
+    }
+
+    .exercise-header p {
+      margin: 8px 0 0;
+      color: var(--ink);
+      font-size: 14.5px;
+    }
+
+    .exercise-header a {
+      color: var(--ink);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    .metaphor-room {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+
+    /* ------------------------------------------------------------
+       Live-Demos: die Wand
+       Jede .wand ist ein echter Grid-Container.
+    ------------------------------------------------------------ */
+
+    .demo-label {
+      margin: 22px 0 4px;
+      font-size: 13.5px;
+    }
+
+    .wand {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+      margin: 0 0 8px;
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .b {
+      min-height: 56px;
+      background: var(--table-header);
+      border: 1px solid var(--signal);
+      font-size: 12px;
+      color: var(--text-dim);
+      padding: 6px 8px;
+    }
+
+    .b.rot {
+      background: rgba(214, 40, 40, 0.75);
+      border-color: var(--red);
+      color: #fff;
+    }
+
+    .b.dunkel {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #fff;
+    }
+
+    /* Demo mit Liniennummern */
+    .linien {
+      position: relative;
+      padding: 26px 0 0 26px;
+      margin: 0 0 8px;
+    }
+
+    .linien .spalten-nr,
+    .linien .zeilen-nr {
+      position: absolute;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    .linien .spalten-nr {
+      top: 2px;
+      left: 26px;
+      right: 0;
+    }
+
+    .linien .zeilen-nr {
+      flex-direction: column;
+      top: 26px;
+      bottom: 0;
+      left: 4px;
+    }
+
+    .linien .spalten-nr span,
+    .linien .zeilen-nr span {
+      width: 0;
+      height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .linien .spalten-nr span {
+      height: 18px;
+    }
+
+    .linien .zeilen-nr span {
+      width: 16px;
+    }
+
+    .linien .raster {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, 60px);
+      background: var(--paper);
+    }
+
+    .linien .zelle {
+      border: 1px dashed rgba(45, 45, 45, 0.25);
+    }
+
+    .linien .raster .b {
+      min-height: 0;
+      z-index: 1;
+    }
+
+    .area-name {
+      font-weight: 700;
+    }
+
+    @media (max-width: 520px) {
+      .wand {
+        padding: 8px;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+
+    <h1 class="doc-title">Grid – Bilder an der Wand</h1>
+    <p class="subtitle">Mit Flexbox habt ihr Elemente an einer Leine aufgereiht, in eine Richtung. Mit Grid plant
+      ihr eine ganze Wand: Zeilen und Spalten gleichzeitig, mit Weissraum, Überlagerungen und Bildern, die über
+      mehrere Felder gehen.</p>
+
+    <h2>Teil 1: Von der Leine zur Wand</h2>
+
+    <p>Im Unterschied zu Flexbox ist bei Grid das Ausrichten in <strong>zwei Richtungen</strong> möglich: in
+      Zeilen <em>und</em> Spalten. Damit kommt Grid dem Gestaltungsraster aus der Grafik sehr nahe – dem Raster,
+      das Gestalter wie Josef Müller-Brockmann für Plakate und Bücher entwickelt haben.</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Flexbox – die Leine</th>
+          <th>Grid – die Wand</th>
+        </tr>
+        <tr>
+          <td>eine Richtung: Zeile <em>oder</em> Spalte</td>
+          <td>zwei Richtungen: Zeilen <em>und</em> Spalten</td>
+        </tr>
+        <tr>
+          <td>denkt vom Inhalt aus: Wie viel Platz braucht jedes Element?</td>
+          <td>denkt von der Fläche aus: Wie ist der Raum aufgeteilt?</td>
+        </tr>
+        <tr>
+          <td>Elemente reihen sich aneinander</td>
+          <td>Elemente können gezielt platziert werden, mit Lücken und Überlagerungen</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="metaphor-room">
+      Stellt euch eine <strong>Ausstellungswand</strong> vor, bevor gehängt wird. Mit Bleistift ist ein Raster
+      eingezeichnet: Spalten und Zeilen, nummerierte Linien. Auf dem Hängeplan steht, welches Bild wo hängt –
+      eines über zwei Felder, eines klein in der Ecke, dazwischen bewusst eine leere Fläche. So könnt ihr eine
+      streng geordnete Wand hängen oder eine dichte <a href="https://de.wikipedia.org/wiki/Salonh%C3%A4ngung" target="_blank">Petersburger Hängung</a>.
+    </div>
+
+    <p>Das Raster ist dabei unsichtbar – es ist ein Hilfsmittel für die Planung, nicht das Bild selbst. Ihr könnt
+      euch damit an Ordnung halten oder es bewusst brechen.</p>
+
+    <hr>
+
+    <h2>Teil 2: Container und Kinder</h2>
+
+    <p>Wie bei Flexbox wird die Eigenschaft <code>display: grid</code> beim <strong>Parent-Element</strong>
+      gesetzt (der Wand). Dazu definiert ihr das Raster: Anzahl und Breite der Spalten, allenfalls auch der
+      Zeilen. Die <strong>Kinder</strong> (die Bilder) füllen das Raster dann auf.</p>
+
+    <pre><code>&lt;div class="wand"&gt;
+  &lt;div class="bild"&gt;1&lt;/div&gt;
+  &lt;div class="bild"&gt;2&lt;/div&gt;
+  &lt;div class="bild"&gt;3&lt;/div&gt;
+  &lt;div class="bild"&gt;4&lt;/div&gt;
+  &lt;div class="bild"&gt;5&lt;/div&gt;
+  &lt;div class="bild"&gt;6&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <pre><code>.wand {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;   /* drei gleich breite Spalten */
+  gap: 10px;
+}</code></pre>
+
+    <p class="demo-label">Sechs Bilder, drei Spalten – die Zeilen entstehen automatisch</p>
+    <div class="wand" style="grid-template-columns: 1fr 1fr 1fr">
+      <div class="b">1</div><div class="b">2</div><div class="b">3</div>
+      <div class="b">4</div><div class="b">5</div><div class="b">6</div>
+    </div>
+
+    <p>Ohne weitere Angaben werden die Kinder der Reihe nach eingefüllt: von links nach rechts, und wenn eine
+      Zeile voll ist, in der nächsten. Braucht es mehr Zeilen, als ihr definiert habt, legt der Browser
+      automatisch neue an.</p>
+
+    <div class="hint"><strong>DevTools-Tipp:</strong> In Firefox und Chrome erscheint im Inspektor neben jedem
+      Grid-Container ein <code>grid</code>-Badge. Ein Klick darauf blendet das Raster direkt auf der Seite ein –
+      mit den Nummern der Linien. Das ist bei Grid noch hilfreicher als bei Flexbox.</div>
+
+    <hr>
+
+    <h2>Teil 3: Spalten und Zeilen definieren</h2>
+
+    <p>Mit <code>grid-template-columns</code> und <code>grid-template-rows</code> legt ihr das Raster fest. Jeder
+      Wert steht für eine Spalte bzw. Zeile. Ihr könnt alle bekannten Einheiten verwenden – und eine neue.</p>
+
+    <h3>Die Einheit fr</h3>
+
+    <p><code>fr</code> steht für <em>fraction</em>, also Anteil. Sie nimmt den verfügbaren Platz nach Abzug aller
+      fixen Angaben und teilt ihn im Verhältnis der <code>fr</code>-Werte auf.</p>
+
+    <p class="demo-label"><code>grid-template-columns: 1fr 1fr 1fr</code> – drei gleiche Anteile</p>
+    <div class="wand" style="grid-template-columns: 1fr 1fr 1fr">
+      <div class="b">1fr</div><div class="b">1fr</div><div class="b">1fr</div>
+    </div>
+
+    <p class="demo-label"><code>grid-template-columns: 1fr 2fr 1fr</code> – die mittlere bekommt doppelt so viel
+    </p>
+    <div class="wand" style="grid-template-columns: 1fr 2fr 1fr">
+      <div class="b">1fr</div><div class="b">2fr</div><div class="b">1fr</div>
+    </div>
+
+    <p class="demo-label"><code>grid-template-columns: 150px 1fr 1fr</code> – fix und flexibel gemischt</p>
+    <div class="wand" style="grid-template-columns: 150px 1fr 1fr">
+      <div class="b">150px</div><div class="b">1fr</div><div class="b">1fr</div>
+    </div>
+
+    <p>Im letzten Beispiel gehen zuerst 150px an die erste Spalte. Vom restlichen Platz bekommen die zweite und die
+      dritte je die Hälfte. Ein Anwendungsfall: eine Spalte für ein Logo oder eine Navigation, die immer gleich
+      breit bleibt, während der Rest mitwächst.</p>
+
+    <h3>repeat() – Schreibarbeit sparen</h3>
+
+    <pre><code>.wand {
+  grid-template-columns: repeat(4, 1fr);        /* = 1fr 1fr 1fr 1fr */
+  grid-template-rows: 100px repeat(2, 200px);   /* = 100px 200px 200px */
+}</code></pre>
+
+    <p class="demo-label"><code>grid-template-columns: repeat(6, 1fr)</code> – ein 6-Spalten-Raster</p>
+    <div class="wand" style="grid-template-columns: repeat(6, 1fr)">
+      <div class="b">1</div><div class="b">2</div><div class="b">3</div>
+      <div class="b">4</div><div class="b">5</div><div class="b">6</div>
+    </div>
+
+    <h3>Zeilen</h3>
+
+    <p>Zeilen definiert ihr genau gleich mit <code>grid-template-rows</code>. Oft lässt man sie aber weg: Die
+      Zeilen werden dann so hoch wie ihr Inhalt. Wollt ihr für automatisch entstehende Zeilen eine feste Höhe,
+      nehmt ihr <code>grid-auto-rows</code>:</p>
+
+    <pre><code>.wand {
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 120px;   /* jede neue Zeile ist 120px hoch */
+}</code></pre>
+
+    <hr>
+
+    <h2>Teil 4: gap – der Abstand zwischen den Bildern</h2>
+
+    <p><code>gap</code> kennt ihr schon von Flexbox. Bei Grid legt es den Abstand zwischen Spalten und Zeilen fest –
+      auch getrennt:</p>
+
+    <pre><code>.wand {
+  gap: 10px;            /* überall gleich */
+  /* row-gap: 20px;        nur zwischen Zeilen  */
+  /* column-gap: 40px;     nur zwischen Spalten */
+}</code></pre>
+
+    <p class="demo-label"><code>row-gap: 4px; column-gap: 40px</code></p>
+    <div class="wand" style="grid-template-columns: repeat(3, 1fr); row-gap: 4px; column-gap: 40px">
+      <div class="b">1</div><div class="b">2</div><div class="b">3</div>
+      <div class="b">4</div><div class="b">5</div><div class="b">6</div>
+    </div>
+
+    <hr>
+
+    <h2>Teil 5: Linien, nicht Zellen</h2>
+
+    <p>Jetzt kommt das Wichtigste: Ihr könnt jedes Bild gezielt platzieren. Dafür zählt Grid nicht die Zellen,
+      sondern die <strong>Linien</strong> dazwischen. Die Nummerierung beginnt bei 1. Ein Raster mit 4 Spalten hat
+      also 5 Spaltenlinien.</p>
+
+    <p class="demo-label">Ein Raster mit 4 Spalten und 3 Zeilen – die roten Zahlen sind die Linien</p>
+    <div class="linien">
+      <div class="spalten-nr"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+      <div class="zeilen-nr"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+      <div class="raster">
+        <div class="zelle" style="grid-column: 1; grid-row: 1"></div>
+        <div class="zelle" style="grid-column: 2; grid-row: 1"></div>
+        <div class="zelle" style="grid-column: 3; grid-row: 1"></div>
+        <div class="zelle" style="grid-column: 4; grid-row: 1"></div>
+        <div class="zelle" style="grid-column: 1; grid-row: 2"></div>
+        <div class="zelle" style="grid-column: 2; grid-row: 2"></div>
+        <div class="zelle" style="grid-column: 3; grid-row: 2"></div>
+        <div class="zelle" style="grid-column: 4; grid-row: 2"></div>
+        <div class="zelle" style="grid-column: 1; grid-row: 3"></div>
+        <div class="zelle" style="grid-column: 2; grid-row: 3"></div>
+        <div class="zelle" style="grid-column: 3; grid-row: 3"></div>
+        <div class="zelle" style="grid-column: 4; grid-row: 3"></div>
+        <div class="b" style="grid-column: 1 / 3; grid-row: 1 / 3">grid-column: 1 / 3<br>grid-row: 1 / 3</div>
+      </div>
+    </div>
+
+    <p>Die Platzierung gebt ihr beim <strong>Kind</strong> an. <code>grid-column: 1 / 3</code> heisst: Das Bild
+      beginnt an Spaltenlinie 1 und endet an Spaltenlinie 3. Es belegt also die Spalten 1 und 2.</p>
+
+    <pre><code>.bild-gross {
+  grid-column: 1 / 3;   /* von Spaltenlinie 1 bis Spaltenlinie 3 */
+  grid-row: 1 / 3;      /* von Zeilenlinie 1 bis Zeilenlinie 3 */
+}</code></pre>
+
+    <div class="hint"><strong>Denkfalle:</strong> <code>grid-column: 1 / 3</code> heisst <em>nicht</em>
+      „Spalte 1 bis Spalte 3“, sondern „Linie 1 bis Linie 3“ – das sind zwei Spalten. Wenn ein Bild eine Spalte
+      zu schmal ist, liegt es fast immer daran.</div>
+
+    <h3>Weitere Schreibweisen</h3>
+
+    <pre><code>.bild {
+  grid-column: 2 / span 2;   /* ab Linie 2, zwei Spalten breit */
+  grid-column: 1 / -1;       /* von der ersten bis zur letzten Linie */
+  grid-row: span 2;          /* zwei Zeilen hoch, Startpunkt automatisch */
+}</code></pre>
+
+    <p><code>-1</code> ist die letzte Linie – praktisch, wenn ein Element immer die ganze Breite einnehmen soll,
+      egal wie viele Spalten das Raster hat.</p>
+
+    <p class="demo-label">Oben <code>grid-column: 1 / -1</code>, darunter <code>grid-column: 2 / span 2</code></p>
+    <div class="wand" style="grid-template-columns: repeat(4, 1fr)">
+      <div class="b dunkel" style="grid-column: 1 / -1">1 / -1</div>
+      <div class="b" style="grid-column: 2 / span 2">2 / span 2</div>
+    </div>
+
+    <h3>Kurzschreibweise grid-area</h3>
+
+    <p>Mit <code>grid-area</code> könnt ihr alle vier Linien in einer Zeile angeben. Achtung, die Reihenfolge ist
+      ungewohnt: zuerst die beiden Anfänge, dann die beiden Enden.</p>
+
+    <pre><code>.bild-gross {
+  /* row-start / column-start / row-end / column-end */
+  grid-area: 1 / 1 / 3 / 3;
+  /* gleich wie: grid-row: 1 / 3;  grid-column: 1 / 3; */
+}</code></pre>
+
+    <hr>
+
+    <h2>Teil 6: Weissraum</h2>
+
+    <p>Weil ihr jedes Bild frei platzieren könnt, müsst ihr nicht jedes Feld füllen. Leere Felder bleiben leer –
+      Weissraum wird zum Gestaltungsmittel, wie auf einem Plakat im Swiss Style.</p>
+
+    <p class="demo-label">Drei Bilder auf einem 6 × 4-Raster, der Rest bleibt leer</p>
+    <div class="wand" style="grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(4, 50px)">
+      <div class="b dunkel" style="grid-column: 1 / 4; grid-row: 1 / 3">1 / 4 · 1 / 3</div>
+      <div class="b rot" style="grid-column: 4 / 5; grid-row: 3 / 5">4 / 5 · 3 / 5</div>
+      <div class="b" style="grid-column: 5 / 7; grid-row: 4 / 5">5 / 7 · 4 / 5</div>
+    </div>
+
+    <pre><code>.wand {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 50px);
+}
+.titel  { grid-column: 1 / 4; grid-row: 1 / 3; }
+.akzent { grid-column: 4 / 5; grid-row: 3 / 5; }
+.text   { grid-column: 5 / 7; grid-row: 4 / 5; }</code></pre>
+
+    <hr>
+
+    <h2>Teil 7: Überlagerungen</h2>
+
+    <p>Zwei Elemente dürfen dieselben Felder belegen – dann liegen sie übereinander. Das geht mit Flexbox allein
+      nicht. Welches oben liegt, bestimmt die Reihenfolge im HTML, oder ihr steuert es mit
+      <code>z-index</code>.</p>
+
+    <p class="demo-label">Das rote Element überlappt das dunkle</p>
+    <div class="wand" style="grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(4, 50px)">
+      <div class="b dunkel" style="grid-column: 1 / 5; grid-row: 1 / 4">1 / 5 · 1 / 4</div>
+      <div class="b rot" style="grid-column: 3 / 7; grid-row: 2 / 5; opacity: 0.9">3 / 7 · 2 / 5</div>
+    </div>
+
+    <pre><code>.bild   { grid-column: 1 / 5; grid-row: 1 / 4; }
+.akzent { grid-column: 3 / 7; grid-row: 2 / 5; }
+
+/* dunkles Element nach vorne holen */
+.bild   { z-index: 1; }</code></pre>
+
+    <p>Überlagerungen sind ein typisches Mittel, um aus dem strengen Raster auszubrechen – Text über einem Bild,
+      Bilder, die sich berühren, Elemente, die übereinander hinausragen. Genau das zeigt Jen Simmons in ihren
+      Experimenten.</p>
+
+    <hr>
+
+    <h2>Teil 8: grid-template-areas – der Hängeplan</h2>
+
+    <p>Statt mit Liniennummern könnt ihr Bereiche im Raster auch benennen und dann direkt „aufzeichnen“. Jede
+      Zeichenkette ist eine Zeile, jedes Wort ein Feld. Ein Punkt <code>.</code> steht für ein leeres Feld.</p>
+
+    <pre><code>.wand {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+    "titel titel titel ."
+    "bild  bild  text  text"
+    "bild  bild  .     notiz";
+}
+.titel { grid-area: titel; }
+.bild  { grid-area: bild; }
+.text  { grid-area: text; }
+.notiz { grid-area: notiz; }</code></pre>
+
+    <div class="wand"
+      style="grid-template-columns: repeat(4, 1fr); grid-template-rows: 50px 70px 70px; grid-template-areas: 'titel titel titel .' 'bild bild text text' 'bild bild . notiz'">
+      <div class="b dunkel" style="grid-area: titel"><span class="area-name">titel</span></div>
+      <div class="b rot" style="grid-area: bild"><span class="area-name">bild</span></div>
+      <div class="b" style="grid-area: text"><span class="area-name">text</span></div>
+      <div class="b" style="grid-area: notiz"><span class="area-name">notiz</span></div>
+    </div>
+
+    <p>Der Code sieht fast so aus wie das Layout. Das macht <code>grid-template-areas</code> besonders anschaulich
+      für Seitenlayouts. Wichtig: Jeder Bereich muss ein Rechteck sein – L-Formen gehen nicht.</p>
+
+    <hr>
+
+    <h2>Teil 9: Ausrichten in der Zelle</h2>
+
+    <p>Die Begriffe kennt ihr von Flexbox, bei Grid heissen sie ähnlich. Sie bestimmen, wo ein Element
+      <em>innerhalb</em> seines Feldes sitzt, wenn es kleiner ist als das Feld.</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Eigenschaft</th>
+          <th>gesetzt bei</th>
+          <th>Richtung</th>
+        </tr>
+        <tr>
+          <td><code>justify-items</code></td>
+          <td>Container</td>
+          <td>waagrecht (in der Zeile)</td>
+        </tr>
+        <tr>
+          <td><code>align-items</code></td>
+          <td>Container</td>
+          <td>senkrecht (in der Spalte)</td>
+        </tr>
+        <tr>
+          <td><code>place-items</code></td>
+          <td>Container</td>
+          <td>beides in einem: <code>place-items: center;</code></td>
+        </tr>
+        <tr>
+          <td><code>justify-self</code> / <code>align-self</code></td>
+          <td>Kind</td>
+          <td>für ein einzelnes Element</td>
+        </tr>
+      </table>
+    </div>
+
+    <p class="demo-label"><code>place-items: center</code> – jedes Bild sitzt mitten in seinem Feld</p>
+    <div class="wand" style="grid-template-columns: repeat(4, 1fr); grid-auto-rows: 90px; place-items: center">
+      <div class="b" style="width: 50px">1</div><div class="b" style="width: 80px">2</div>
+      <div class="b" style="width: 40px">3</div><div class="b" style="width: 70px">4</div>
+    </div>
+
+    <p>Standardwert ist <code>stretch</code> – wie bei Flexbox füllt jedes Element sein Feld aus, solange es keine
+      feste Grösse hat.</p>
+
+    <hr>
+
+    <h2>Teil 10: Responsive ohne Media Queries</h2>
+
+    <p>Für Galerien gibt es eine Zeile, die ihr euch merken solltet. Sie sagt: „Mach so viele Spalten, wie
+      hineinpassen – jede mindestens 120px breit, und verteile den Rest gleichmässig.“</p>
+
+    <pre><code>.galerie {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+}</code></pre>
+
+    <p class="demo-label">Zieht das Browserfenster schmaler und breiter</p>
+    <div class="wand" style="grid-template-columns: repeat(auto-fill, minmax(120px, 1fr))">
+      <div class="b">1</div><div class="b">2</div><div class="b">3</div><div class="b">4</div><div class="b">5</div>
+      <div class="b">6</div><div class="b">7</div><div class="b">8</div><div class="b">9</div><div class="b">10</div>
+    </div>
+
+    <ul>
+      <li><code>minmax(120px, 1fr)</code> – eine Spalte ist mindestens 120px und höchstens 1fr breit.</li>
+      <li><code>auto-fill</code> – so viele Spalten wie möglich. Die Alternative <code>auto-fit</code> verhält sich
+        fast gleich, lässt aber leere Spalten zusammenfallen, wenn es nur wenige Bilder gibt.</li>
+    </ul>
+
+    <hr>
+
+    <h2>Teil 11: Die Petersburger Hängung</h2>
+
+    <p>Jetzt kommt alles zusammen. Einige Bilder belegen mit <code>span</code> mehr Felder als andere. Normalerweise
+      entstehen dabei Lücken, weil Grid die Bilder streng der Reihe nach einfüllt. Mit
+      <code>grid-auto-flow: dense</code> sucht der Browser für jedes Bild die erste freie Lücke, in die es passt –
+      die Wand wird dicht gehängt.</p>
+
+    <pre><code>.wand {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  grid-auto-rows: 90px;
+  grid-auto-flow: dense;   /* Lücken füllen */
+  gap: 8px;
+}
+.quer  { grid-column: span 2; }
+.hoch  { grid-row: span 2; }
+.gross { grid-column: span 2; grid-row: span 2; }</code></pre>
+
+    <p class="demo-label">Mit <code>grid-auto-flow: dense</code></p>
+    <div class="wand"
+      style="grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); grid-auto-rows: 90px; grid-auto-flow: dense; gap: 8px">
+      <div class="b rot" style="grid-column: span 2; grid-row: span 2">1 gross</div>
+      <div class="b">2</div>
+      <div class="b" style="grid-row: span 2">3 hoch</div>
+      <div class="b dunkel" style="grid-column: span 2">4 quer</div>
+      <div class="b">5</div>
+      <div class="b" style="grid-column: span 2; grid-row: span 2">6 gross</div>
+      <div class="b">7</div>
+      <div class="b dunkel" style="grid-row: span 2">8 hoch</div>
+      <div class="b">9</div>
+      <div class="b" style="grid-column: span 2">10 quer</div>
+      <div class="b">11</div>
+      <div class="b">12</div>
+      <div class="b rot">13</div>
+      <div class="b">14</div>
+    </div>
+
+    <p class="demo-label">Dieselbe Wand ohne <code>dense</code> – seht ihr die Lücken?</p>
+    <div class="wand"
+      style="grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); grid-auto-rows: 90px; gap: 8px">
+      <div class="b rot" style="grid-column: span 2; grid-row: span 2">1 gross</div>
+      <div class="b">2</div>
+      <div class="b" style="grid-row: span 2">3 hoch</div>
+      <div class="b dunkel" style="grid-column: span 2">4 quer</div>
+      <div class="b">5</div>
+      <div class="b" style="grid-column: span 2; grid-row: span 2">6 gross</div>
+      <div class="b">7</div>
+      <div class="b dunkel" style="grid-row: span 2">8 hoch</div>
+      <div class="b">9</div>
+      <div class="b" style="grid-column: span 2">10 quer</div>
+      <div class="b">11</div>
+      <div class="b">12</div>
+      <div class="b rot">13</div>
+      <div class="b">14</div>
+    </div>
+
+    <div class="hint"><strong>Achtung:</strong> <code>dense</code> verändert die visuelle Reihenfolge – Bild 5
+      kann vor Bild 4 landen. Wie bei <code>order</code> in Flexbox gilt: Für Screenreader und Tastatur zählt
+      weiterhin die Reihenfolge im HTML. Für eine Bildwand ist das meistens in Ordnung, für Text nicht.</div>
+
+    <hr>
+
+    <h2>Teil 12: Grid oder Flexbox?</h2>
+
+    <p>Beides sind keine Konkurrenten. In den meisten Layouts arbeiten sie zusammen: Grid für die grosse Aufteilung
+      der Seite, Flexbox für die Reihen im Kleinen.</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Nehmt Flexbox, wenn …</th>
+          <th>Nehmt Grid, wenn …</th>
+        </tr>
+        <tr>
+          <td>Elemente in einer Reihe stehen: Navigation, Button-Leiste, Tags</td>
+          <td>ihr in Zeilen und Spalten gleichzeitig denkt: Seitenlayout, Bildwand</td>
+        </tr>
+        <tr>
+          <td>die Grösse der Elemente vom Inhalt abhängen soll</td>
+          <td>das Raster vorgibt, wie gross die Felder sind</td>
+        </tr>
+        <tr>
+          <td>Elemente sich den Platz flexibel teilen sollen</td>
+          <td>ihr Weissraum oder Überlagerungen braucht</td>
+        </tr>
+      </table>
+    </div>
+
+    <p>Ein Grid-Kind kann selbst wieder ein Flex-Container sein – und umgekehrt. Genau wie beim Mobile aus der
+      Flexbox-Einheit.</p>
+
+    <hr>
+
+    <h2>Überblick</h2>
+
+    <p>Bei der <strong>Wand</strong> (Container):</p>
+
+    <pre><code>.wand {
+  display: grid;
+
+  /* Raster definieren */
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows:    100px 1fr;
+  grid-auto-rows:        120px;      /* Höhe automatisch entstehender Zeilen */
+
+  /* Bereiche benennen */
+  grid-template-areas:   "titel titel ."
+                         "bild  text  text";
+
+  /* Abstände */
+  gap:                   10px;       /* row-gap | column-gap */
+
+  /* Ausrichten in den Feldern */
+  place-items:           stretch;    /* Standard; auch: center | start | end */
+
+  /* Einfüllen */
+  grid-auto-flow:        row;        /* Standard; auch: column | dense */
+}</code></pre>
+
+    <p>Bei den <strong>Bildern</strong> (Kinder):</p>
+
+    <pre><code>.bild {
+  /* nach Linien platzieren */
+  grid-column: 1 / 3;        /* Linie 1 bis Linie 3 */
+  grid-row:    2 / span 2;   /* ab Linie 2, zwei Zeilen hoch */
+
+  /* Kurzschreibweise: row-start / col-start / row-end / col-end */
+  grid-area:   2 / 1 / 4 / 3;
+
+  /* oder nach Namen platzieren */
+  grid-area:   bild;
+
+  /* Überlagerung steuern */
+  z-index:     1;
+
+  /* Ausrichten im eigenen Feld */
+  justify-self: center;
+  align-self:   end;
+}</code></pre>
+
+    <div class="exercise-header">
+      <h2>Jetzt ausprobieren: CSS Grid Garden</h2>
+      <p>Wie Flexbox Froggy, nur mit Karotten: In <a href="https://cssgridgarden.com/#de" target="_blank">CSS Grid
+          Garden</a> giesst ihr euren Garten mit Grid-Eigenschaften. 28 Level – achtet besonders auf die Level mit
+        Linien und <code>span</code>.</p>
+      <p>Für Schnelle: die Übungen <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grid_skills"
+          target="_blank">„Test your skills: Grid“</a> auf MDN.</p>
+    </div>
+
+    <h2>Ressourcen zum Nachschlagen</h2>
+
+    <ul>
+      <li><a href="https://yoksel.github.io/grid-cheatsheet/" target="_blank">Grid Cheatsheet (Yoksel)</a> –
+        interaktiv, jede Eigenschaft zum Durchklicken</li>
+      <li><a href="https://css-tricks.com/snippets/css/complete-guide-grid/" target="_blank">CSS-Tricks: A
+          Complete Guide to CSS Grid</a> – alle Eigenschaften mit Illustrationen</li>
+      <li><a href="https://developer.mozilla.org/de/docs/Learn/CSS/CSS_layout/Grids" target="_blank">MDN:
+          Grids</a> – ausführliche Einführung</li>
+      <li><a href="https://cssgridgarden.com/#de" target="_blank">CSS Grid Garden</a> – das Spiel von oben</li>
+    </ul>
+
+    <h3>Zum Weiterdenken</h3>
+
+    <ul>
+      <li><a href="https://labs.jensimmons.com/" target="_blank">Jen Simmons: Experimental Layout Lab</a> –
+        Layouts, die zeigen, was mit Grid über das ordentliche Raster hinaus möglich ist</li>
+      <li><a href="https://www.youtube.com/@LayoutLand" target="_blank">Layout Land</a> – Jen Simmons'
+        Videoserie zu Layout im Web</li>
+    </ul>
+
+    
+
+  </main>
+</body>
+
+</html>

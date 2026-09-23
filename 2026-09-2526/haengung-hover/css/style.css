@@ -1,0 +1,164 @@
+/* ============================================================
+   Hängung – Boilerplate
+   Grid 4 × 3. Hover vergrössert Spalte und Zeile.
+   Kein JavaScript.
+
+   1. Variablen
+   2. Basis
+   3. Wand
+   4. Bilder
+   5. Hover: Spalten
+   6. Hover: Zeilen
+   7. Schmale Bildschirme
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. VARIABLEN
+------------------------------------------------------------ */
+
+:root {
+  --hintergrund: #ffffff;
+  --linie: #000000;
+  --text: #000000;
+  --text-dim: #777777;
+
+  --abstand: 8px;       /* gap */
+  --zoom: 4fr;          /* Grösse der Spalte/Zeile beim Hover */
+  --tempo: 0.5s;        /* Dauer der Animation */
+
+  --schrift: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+
+/* ------------------------------------------------------------
+   2. BASIS
+------------------------------------------------------------ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--hintergrund);
+  color: var(--text);
+  font-family: var(--schrift);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.kopf,
+main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.kopf {
+  padding-top: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--linie);
+  margin-bottom: 24px;
+}
+
+.kopf h1 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 4px;
+}
+
+.kopf p {
+  margin: 0;
+  color: var(--text-dim);
+}
+
+main {
+  padding-bottom: 48px;
+}
+
+
+/* ------------------------------------------------------------
+   3. WAND
+   Jede Spalte und Zeile hat eine eigene Variable.
+   Ausgangswerte ungleich = unregelmässige Hängung.
+   Gleiche Werte (alle 1fr) = regelmässiges Raster.
+------------------------------------------------------------ */
+
+.wand {
+  --spalte-1: 1fr;
+  --spalte-2: 2fr;
+  --spalte-3: 1fr;
+  --spalte-4: 1.5fr;
+
+  --zeile-1: 2fr;
+  --zeile-2: 1fr;
+  --zeile-3: 1.5fr;
+
+  display: grid;
+  grid-template-columns: var(--spalte-1) var(--spalte-2) var(--spalte-3) var(--spalte-4);
+  grid-template-rows: var(--zeile-1) var(--zeile-2) var(--zeile-3);
+  gap: var(--abstand);
+  height: 80vh;
+  min-height: 480px;
+
+  transition:
+    grid-template-columns var(--tempo) ease-in-out,
+    grid-template-rows var(--tempo) ease-in-out;
+}
+
+
+/* ------------------------------------------------------------
+   4. BILDER
+------------------------------------------------------------ */
+
+.bild {
+  margin: 0;
+  min-width: 0;          /* erlaubt dem Feld, schmaler als das Bild zu werden */
+  min-height: 0;
+  border: 1px solid var(--linie);
+  overflow: hidden;
+}
+
+.bild img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+/* ------------------------------------------------------------
+   5. HOVER: SPALTEN
+   :has() fragt: Enthält die Wand ein Bild, das gerade
+   gehovert wird – und in welcher Spalte steht es?
+
+   Bei 4 Spalten:
+   4n+1 = Bild 1, 5, 9   → Spalte 1
+   4n+2 = Bild 2, 6, 10  → Spalte 2
+   4n+3 = Bild 3, 7, 11  → Spalte 3
+   4n+4 = Bild 4, 8, 12  → Spalte 4
+------------------------------------------------------------ */
+
+.wand:has(.bild:nth-child(4n+1):hover) { --spalte-1: var(--zoom); }
+.wand:has(.bild:nth-child(4n+2):hover) { --spalte-2: var(--zoom); }
+.wand:has(.bild:nth-child(4n+3):hover) { --spalte-3: var(--zoom); }
+.wand:has(.bild:nth-child(4n+4):hover) { --spalte-4: var(--zoom); }
+
+
+
+/* ------------------------------------------------------------
+   6. HOVER: ZEILEN
+   :has() fragt: Enthält die Wand ein Bild, das gerade
+   gehovert wird – und in welcher Zeile steht es?
+
+   Bei 3 Zeilen:
+   3n+1 = Bild 1, 4, 7, 10 → Zeile 1
+   3n+2 = Bild 2, 5, 8, 11 → Zeile 2
+   3n+3 = Bild 3, 6, 9, 12 → Zeile 3
+
+------------------------------------------------------------ */
+.wand:has(.bild:nth-child(3n+1):hover) { --zeile-1: var(--zoom); }
+.wand:has(.bild:nth-child(3n+2):hover) { --zeile-2: var(--zoom); }
+.wand:has(.bild:nth-child(3n+3):hover) { --zeile-3: var(--zoom); }
