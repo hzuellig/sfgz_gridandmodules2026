@@ -98,11 +98,7 @@ main {
 
 /* ------------------------------------------------------------
    4. BILDER
-   Das Feld (figure) ist ein kleines Grid mit einem Kind:
-   dem Bild. place-items bestimmt, wo das Bild im Feld sitzt.
-
-   max-width: 100%       → nie breiter als das Feld
-   max-height: --zeile   → nie höher als das Feld
+ 
    Das Seitenverhältnis bleibt erhalten, nichts wird
    abgeschnitten.
 ------------------------------------------------------------ */
@@ -113,10 +109,8 @@ main {
   min-height: 0;
   outline: 1px dashed var(--raster);   /* zeigt das Rasterfeld */
 
-  display: grid;
-  place-items: center;
-  /* place-items: end center; */       /* unten bündig */
-  /* place-items: start center; */     /* oben bündig, wie gehängt */
+ 
+ 
 }
 
 .bild img {
@@ -124,6 +118,13 @@ main {
   max-width: 100%;
   max-height: var(--zeile);
   border: 1px solid var(--linie);
+  /*
+  oder für angeschnitten, randabfallend:
+  width:100%;
+  height:100%;
+  object-fit: cover;
+
+  */
 }
 
 
