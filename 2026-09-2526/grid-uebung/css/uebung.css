@@ -2,9 +2,9 @@
    uebung.css – hier probiert ihr aus!
 
    So funktioniert's:
-   - Zeilen zwischen /* und */ sind auskommentiert und haben
+   - Zeilen zwischen (/)* und *(/) sind auskommentiert und haben
      keine Wirkung.
-   - Einkommentieren: /* und */ entfernen.
+   - Einkommentieren: (/)* und *(/) entfernen.
      Oder schneller: Zeile markieren und Cmd + / (Mac)
      bzw. Strg + / (Windows) drücken.
    - Speichern, Browser neu laden, schauen, was passiert.
