@@ -115,16 +115,16 @@ main {
 
 .bild img {
   display: block;
-  max-width: 100%;
+ /* max-width: 100%;
   max-height: var(--zeile);
-  border: 1px solid var(--linie);
+  border: 1px solid var(--linie);*/
   /*
-  oder für angeschnitten, randabfallend:
+  oder für angeschnitten, randabfallend:*/
   width:100%;
   height:100%;
   object-fit: cover;
 
-  */
+  
 }
 
 
@@ -158,4 +158,7 @@ main {
 }
 
 
-
+/*
+.wand:has(figure:hover) .bild:not(:hover){
+ filter: grayscale(0.5);
+}*/
