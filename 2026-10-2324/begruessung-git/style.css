@@ -1,0 +1,15 @@
+/* ===== 1 · Body, Seitenkopf, Seitenende: header, h1, footer ===== */
+footer{
+    position: fixed;
+    bottom:0px;
+    padding-bottom: 1rem;;
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* ===== 2 · Liste: .liste ===== */
+
+/* ===== 3 · Eintrag: .gruss, .wort, .info, .notiz, .von ===== */
+
+/* ===== 4 · Sprachen und Schriften: :lang(), [dir="rtl"] ===== */

@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workshop: Die Begrüssung antwortet – JavaScript</title>
+
+  <style>
+    :root {
+      --text: #2b2a27;
+      --text-dim: #6b6a65;
+      --accent: #1be07d;
+      --accent-soft: rgba(215, 220, 221, 0.618);
+      --code-bg: #24262b;
+      --code-text: rgba(56, 255, 156, 1);
+      --border: rgba(215, 220, 221, 0.618);
+      --table-header: rgba(56, 255, 156, 0.45);
+      --ink: #2d2d2d;
+      --paper: #fafaf6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    a {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--text);
+      font-family:
+        "IBM Plex Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+      line-height: 1.65;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 90px;
+    }
+
+    h1.doc-title {
+      font-size: 34px;
+      font-weight: 700;
+      margin: 0 0 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      color: var(--text-dim);
+      font-size: 15px;
+      margin: 0 0 48px;
+      max-width: 56ch;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 56px 0 6px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 32px 0 10px;
+    }
+
+    p {
+      margin: 12px 0;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0.9em;
+      background: var(--accent-soft);
+      color: #9a3d1c;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 18px 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+    }
+
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--table-header);
+      font-weight: 700;
+    }
+
+    .hint {
+      background: var(--table-header);
+      border-left: 3px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+
+    .hint strong {
+      color: var(--ink);
+    }
+
+    ul,
+    ol {
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .exercise-header {
+      background: var(--accent);
+      padding: 22px 26px;
+      border-radius: 12px;
+      margin: 56px 0 24px;
+    }
+
+    .exercise-header h2 {
+      border: none;
+      color: var(--ink);
+      margin: 0 0 6px;
+      padding: 0;
+    }
+
+    .exercise-header p,
+    .exercise-header li {
+      color: var(--ink);
+      font-size: 14.5px;
+    }
+
+    .exercise-header p {
+      margin: 8px 0 0;
+    }
+
+    .exercise-header a {
+      color: var(--ink);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    .metaphor-room {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+
+    <h1 class="doc-title">Workshop: Die Begrüssung antwortet</h1>
+    <p class="subtitle">Mit CSS kann eure Begrüssung sich bewegen und auf Hover, Klick und Fokus reagieren. Beim
+      Paper Prototyping seid ihr aber auf Ideen gestossen, die CSS nicht kann. Heute kommt JavaScript dazu: Damit
+      merkt sich die Seite, was die Besucherin tut, und antwortet darauf.</p>
+
+    <h2>Teil 1: Eine Seite, die zurückschaut</h2>
+
+    <p>Probiert <a href="https://clickclickclick.click/" target="_blank">clickclickclick.click</a> aus, ein
+      Browserspiel von Studio Moniker über Online-Profiling. Mit Ton!</p>
+
+    <ul>
+      <li>Was weiss die Seite über euch? Woher?</li>
+      <li>Wie fühlt es sich an, so begrüsst und beobachtet zu werden?</li>
+      <li>Wo liegt die Grenze zwischen Aufmerksamkeit und Überwachung? Denkt an das Spam-«Dear friend».</li>
+    </ul>
+
+  
+    <div class="metaphor-room">
+      <strong>JavaScript merkt, CSS bewegt.</strong> JavaScript beobachtet, was die Besucherin tut: wo sie klickt,
+      wohin sie die Maus bewegt, wie oft, wie lange nichts. Dann schaltet es einen Zustand um, zum Beispiel eine
+      Klasse. Die Bewegung selbst gestaltet ihr weiterhin in CSS, so wie ihr es kennt.
+    </div>
+
+    <hr>
+
+    <h2>Teil 2: JavaScript einbinden</h2>
+
+    <p>JavaScript ist neben HTML und CSS die dritte Grundtechnologie des Webs, mit einer eigenen Syntax. Wie CSS
+      lässt es sich direkt ins HTML schreiben oder als eigene Datei einbinden. Wir nehmen eine eigene Datei:
+      <code>script.js</code> neben eurer <code>index.html</code>.</p>
+
+    <pre><code>  &lt;!-- ganz am Schluss, direkt vor &lt;/body&gt; --&gt;
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+
+    <div class="hint"><strong>Warum vor <code>&lt;/body&gt;</code>?</strong> Der Browser liest das HTML von oben
+      nach unten. Steht das Script im <code>&lt;head&gt;</code>, läuft es, bevor die Elemente existieren, und
+      findet nichts.</div>
+
+    <p>In <code>script.js</code> testet ihr als Erstes, ob alles verbunden ist:</p>
+
+    <pre><code>console.log('Hallo von script.js');</code></pre>
+
+    <p>Die Ausgabe seht ihr in den Developer Tools im Tab <strong>Console</strong> (Rechtsklick →
+      Untersuchen). Die Console ist ab jetzt euer wichtigstes Werkzeug: Fehler erscheinen dort rot.</p>
+
+    <hr>
+
+    <h2>Teil 3: Elemente finden</h2>
+
+    <p>JavaScript sieht die Seite als <strong>DOM</strong> (Document Object Model): eine Abbildung des ganzen
+      HTML-Baums, in der jedes Element gelesen und verändert werden kann. Zugriff darauf gibt die Variable
+      <code>document</code>. Mehr dazu auf
+      <a href="https://www.w3schools.com/js/js_htmldom.asp" target="_blank">w3schools</a>.</p>
+
+    <p>Mit <code>querySelector</code> findet ihr ein Element, und zwar mit derselben Schreibweise wie in CSS: Punkt
+      für Klassen, Hash für IDs.</p>
+
+    <pre><code>const wort = document.querySelector('.wort');    // erstes Element mit Klasse wort
+const hero = document.querySelector('.hero');
+const titel = document.querySelector('#titel');  // Element mit der ID titel
+
+console.log(wort); // testen: wurde es gefunden?
+
+// alle passenden Elemente, z. B. alle Buchstaben
+const buchstaben = document.querySelectorAll('.wort span');</code></pre>
+
+    <p>Findet <code>querySelector</code> nichts, ist das Resultat <code>null</code>. Dann stimmt meistens der
+      Selektor nicht, oder das Script steht an der falschen Stelle.</p>
+
+    <hr>
+
+    <h2>Teil 4: Auf Ereignisse reagieren</h2>
+
+    <p>Ein <strong>Event</strong> ist etwas, das im Browser passiert: ein Klick, eine Mausbewegung, eine Taste.
+      Mit <code>addEventListener</code> sagt ihr einem Element: Wenn das passiert, tu dies.</p>
+
+    <pre><code>const wort = document.querySelector('.wort');
+
+wort.addEventListener('click', () => {
+  console.log('Jemand hat geklickt!');
+});</code></pre>
+
+    <p>Das liest sich so: Beim Element <code>wort</code> auf das Ereignis <code>'click'</code> hören. Wenn es
+      passiert, den Code in den geschweiften Klammern ausführen.</p>
+
+    <h3>Nützliche Events</h3>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Event</th>
+          <th>Wann</th>
+        </tr>
+        <tr>
+          <td><code>click</code></td>
+          <td>Klick oder Antippen</td>
+        </tr>
+        <tr>
+          <td><code>pointermove</code></td>
+          <td>Maus oder Finger bewegt sich</td>
+        </tr>
+        <tr>
+          <td><code>pointerenter</code> / <code>pointerleave</code></td>
+          <td>Maus kommt auf ein Element / verlässt es</td>
+        </tr>
+        <tr>
+          <td><code>keydown</code></td>
+          <td>Eine Taste wird gedrückt</td>
+        </tr>
+      </table>
+    </div>
+
+    <p>Wir verwenden <code>pointer…</code> statt <code>mouse…</code>, weil diese Events mit Maus, Finger und Stift
+      funktionieren. Weitere Events findet ihr in der
+      <a href="https://developer.mozilla.org/de/docs/Web/API/Element#ereignisse" target="_blank">Übersicht auf
+        MDN</a>.</p>
+
+    <h3>Das Event-Objekt</h3>
+
+    <p>Bei jedem Event bekommt ihr ein Objekt mit Informationen mit: wo geklickt wurde, auf welches Element,
+      welche Taste. Schaut es euch in der Console an:</p>
+
+    <pre><code>document.addEventListener('click', (e) => {
+  console.log(e);           // alles
+  console.log(e.clientX);   // x-Position im Fenster, in Pixel
+  console.log(e.clientY);   // y-Position im Fenster, in Pixel
+  console.log(e.target);    // das Element, auf das geklickt wurde
+});</code></pre>
+
+    <hr>
+
+    <h2>Teil 5: Drei Bausteine</h2>
+
+    <p>Jeder Baustein ist eine Geste im Dialog. Kopiert ihn, passt ihn an, kombiniert ihn mit euren Animationen.</p>
+
+    <h3>Baustein 1: Antworten – eine Klasse umschalten</h3>
+
+    <p>Ein Klick schaltet eine Klasse ein oder aus. Das CSS legt fest, was in diesem Zustand passiert. Anders als
+      bei <code>:focus</code> bleibt der Zustand, bis wieder geklickt wird.</p>
+
+    <pre><code>const wort = document.querySelector('.wort');
+
+document.addEventListener('click', () => {
+  wort.classList.toggle('wach');
+});</code></pre>
+
+    <pre><code>/* Grundzustand: verschlafen */
+.wort span {
+  display: inline-block;
+  animation: doesen 3s ease-in-out infinite alternate;
+}
+
+/* Nach dem Klick: wach */
+.wort.wach span {
+  animation: aufwachen 0.6s ease-out both;
+  animation-delay: calc(var(--i) * 0.08s);
+}</code></pre>
+
+    <p><code>classList</code> kann mehr: <code>add('wach')</code> fügt eine Klasse hinzu,
+      <code>remove('wach')</code> entfernt sie, <code>toggle('wach')</code> schaltet hin und her. Mit
+      <code>contains('wach')</code> fragt ihr, ob die Klasse gerade da ist.</p>
+
+    <h3>Baustein 2: Verdoppeln – die Begrüssung vermehrt sich</h3>
+
+    <p>Bei jedem Klick entsteht eine Kopie des Worts, genau dort, wo geklickt wurde: aufdringlich wie Spam, ein
+      Echo, eine Menge, die zurückgrüsst.</p>
+
+    <pre><code>const hero = document.querySelector('.hero');
+const wort = document.querySelector('.wort');
+
+hero.addEventListener('click', (e) => {
+  const kopie = wort.cloneNode(true);          // Kopie mit allen Buchstaben
+  kopie.classList.add('kopie');
+  kopie.setAttribute('aria-hidden', 'true');   // Screenreader lesen nur das Original
+  kopie.style.setProperty('--x', e.clientX + 'px');
+  kopie.style.setProperty('--y', e.clientY + 'px');
+  hero.appendChild(kopie);                     // in die Seite einfügen
+});</code></pre>
+
+    <pre><code>.hero {
+  position: relative;
+}
+
+.kopie {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  translate: -50% -50%;   /* Mitte der Kopie auf den Klickpunkt */
+  font-size: 6vw;
+  animation: auftauchen 0.6s ease-out both;
+}</code></pre>
+
+    <p>Statt an der Klickposition könnt ihr die Kopie auch zufällig platzieren:
+      <code>Math.random() * window.innerWidth</code> gibt eine zufällige Zahl zwischen 0 und der Fensterbreite.</p>
+
+    <div class="hint"><strong>Achtung bei IDs:</strong> <code>cloneNode</code> kopiert alles, auch eine ID. Eine
+      ID darf aber nur einmal pro Seite vorkommen. Gebt dem Original darum eine Klasse, keine ID.</div>
+
+    <h3>Baustein 3: Folgen oder fliehen</h3>
+
+    <p>JavaScript misst, wo die Maus ist, und gibt die Position als CSS-Variable weiter. CSS verschiebt damit das
+      Wort. Mit einer <code>transition</code> folgt es nicht sofort, sondern mit Charakter: träge, neugierig,
+      scheu.</p>
+
+    <pre><code>const wort = document.querySelector('.wort');
+
+document.addEventListener('pointermove', (e) => {
+  // Position umrechnen: -0.5 am linken Rand, 0 in der Mitte, 0.5 am rechten Rand
+  const x = e.clientX / window.innerWidth - 0.5;
+  const y = e.clientY / window.innerHeight - 0.5;
+  wort.style.setProperty('--x', x);
+  wort.style.setProperty('--y', y);
+});</code></pre>
+
+    <pre><code>/* Folgen: das Wort bewegt sich in Richtung Maus */
+.wort {
+  translate: calc(var(--x, 0) * 40vw) calc(var(--y, 0) * 40vh);
+  transition: translate 0.8s ease-out;
+}
+
+/* Fliehen: einfach das Vorzeichen umdrehen */
+.wort.scheu {
+  translate: calc(var(--x, 0) * -40vw) calc(var(--y, 0) * -40vh);
+}</code></pre>
+
+    <p>Die Variablen gelten auch für die Buchstaben im Wort. Bekommt jeder Buchstabe eine eigene Verzögerung,
+      ziehen sie wie eine Schlange hinterher:</p>
+
+    <pre><code>.wort span {
+  display: inline-block;
+  translate: calc(var(--x, 0) * 30vw) calc(var(--y, 0) * 30vh);
+  transition: translate 0.6s ease-out;
+  transition-delay: calc(var(--i) * 0.06s);
+}</code></pre>
+
+    <div class="hint"><strong>Warum <code>translate</code> statt <code>transform</code>?</strong> Die eigene
+      Eigenschaft <code>translate</code> kommt sich nicht mit euren Animationen in die Quere, die
+      <code>transform</code> verwenden. So kann ein Buchstabe gleichzeitig hüpfen und der Maus folgen.</div>
+
+    <h3>Für Neugierige: zählen und warten</h3>
+
+    <p>JavaScript kann sich etwas merken. Zum Beispiel, wie oft schon geklickt wurde:</p>
+
+    <pre><code>let klicks = 0;
+
+document.addEventListener('click', () => {
+  klicks++;                         // um eins erhöhen
+  if (klicks === 3) {
+    wort.classList.add('genervt');  // beim dritten Klick reicht es
+  }
+});</code></pre>
+
+    <p>Oder, ob jemand reagiert. <code>setTimeout</code> führt etwas nach einer bestimmten Zeit aus, hier nach
+      zehn Sekunden ohne Mausbewegung:</p>
+
+    <pre><code>let timer = setTimeout(aufgeben, 10000);   // 10000 ms = 10 s
+
+document.addEventListener('pointermove', () => {
+  clearTimeout(timer);                     // jemand ist da: Uhr zurücksetzen
+  wort.classList.remove('aufgegeben');
+  timer = setTimeout(aufgeben, 10000);
+});
+
+function aufgeben() {
+  wort.classList.add('aufgegeben');
+}</code></pre>
+
+    <h3>Wenn etwas nicht funktioniert</h3>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Problem</th>
+          <th>Häufige Ursache</th>
+        </tr>
+        <tr>
+          <td>In der Console steht nichts</td>
+          <td>Das Script ist nicht verbunden: Dateiname oder Pfad in <code>src</code> prüfen.</td>
+        </tr>
+        <tr>
+          <td><code>Cannot read properties of null</code></td>
+          <td><code>querySelector</code> hat nichts gefunden: Selektor falsch geschrieben (Punkt vergessen?), oder
+            das Script steht im <code>&lt;head&gt;</code>.</td>
+        </tr>
+        <tr>
+          <td><code>… is not a function</code></td>
+          <td>Tippfehler bei Gross- und Kleinschreibung: <code>addEventlistener</code> statt
+            <code>addEventListener</code>, <code>queryselector</code> statt <code>querySelector</code>.</td>
+        </tr>
+        <tr>
+          <td>Die Klasse wird gesetzt, aber nichts bewegt sich</td>
+          <td>In den Developer Tools unter <strong>Elements</strong> nachschauen, ob die Klasse erscheint. Wenn ja,
+            liegt das Problem im CSS.</td>
+        </tr>
+      </table>
+    </div>
+
+    <p>Freiwillig zum Weiterspielen: ein
+      <a href="https://codepen.io/Nandugokul-K-N/pen/MWLxWoV" target="_blank">Mouse Follower auf CodePen</a>. Zum
+      Vertiefen: <a href="https://eloquentjavascript.net/15_event.html" target="_blank">Eloquent JavaScript,
+        Kapitel Events</a> (Englisch).</p>
+
+    <div class="exercise-header">
+      <h2>Übung</h2>
+      <ol>
+        <li>Eine <code>script.js</code> einbinden und mit <code>console.log</code> testen.</li>
+        <li>Bei einem Klick die Position <code>e.clientX</code> und <code>e.clientY</code> in der Console
+          ausgeben.</li>
+        <li>Alle drei Bausteine einmal ausprobieren, in einer eigenen Testdatei.</li>
+        <li>Euer Drehbuch und euren Parkplatz anschauen: Welcher Baustein passt zu eurer Szene?</li>
+      </ol>
+    </div>
+
+    <hr>
+
+    <h2>Aufgabe auf 6. November, 18:00: Eine Mini-Begrüssungsszene</h2>
+
+    <p>Setzt eure Szene um: eine <strong>typografische Begrüssung, die den ganzen Bildschirm bespielt</strong> und
+      mit der Person rechnet, die die Seite öffnet.</p>
+
+    <h3>Anforderungen</h3>
+
+    <ul>
+      <li>Ein Begrüssungswort in einer Sprache eurer Wahl, gefolgt von etwas mehr: einem zweiten Satz, einer
+        Stimmung, einer Antwort.</li>
+      <li>Mindestens eine eigene <code>@keyframes</code>-Animation mit mehr als zwei Keyframes.</li>
+      <li>Mindestens eine Reaktion auf die Besucherin, mit CSS oder JavaScript.</li>
+      <li>Reduziert die Mittel: Welche Gestaltungselemente braucht es wirklich?</li>
+      <li>Überprüft die Schriftwahl: Welche Schrift passt zur Bewegung?</li>
+   
+    </ul>
+
+    <h3>Möglichkeiten zur Interaktion</h3>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Die Besucherin …</th>
+          <th>mit CSS</th>
+          <th>mit JavaScript</th>
+        </tr>
+        <tr>
+          <td>nähert sich</td>
+          <td><code>:hover</code></td>
+          <td><code>pointerenter</code>, Baustein 3: Das Wort folgt oder flieht</td>
+        </tr>
+        <tr>
+          <td>verweilt</td>
+          <td><code>transition-delay</code></td>
+          <td><code>setTimeout</code></td>
+        </tr>
+        <tr>
+          <td>antwortet, klickt</td>
+          <td><code>:active</code>, <code>:focus</code></td>
+          <td>Baustein 1: Der Zustand bleibt. Baustein 2: Die Begrüssung vermehrt sich.</td>
+        </tr>
+        <tr>
+          <td>klickt immer wieder</td>
+          <td>–</td>
+          <td>Zähler: Beim dritten Mal passiert etwas anderes</td>
+        </tr>
+        <tr>
+          <td>wendet sich ab</td>
+          <td>Transition zurück</td>
+          <td><code>pointerleave</code></td>
+        </tr>
+        <tr>
+          <td>tut nichts</td>
+          <td><code>animation-iteration-count</code>, <code>animation-fill-mode</code></td>
+          <td><code>setTimeout</code>: Die Begrüssung gibt auf</td>
+        </tr>
+      </table>
+    </div>
+
+    <p>JavaScript ist kein Muss. Eine starke Szene mit reinem CSS ist besser als eine überladene mit allen
+      Bausteinen. Nehmt nur, was eure Szene erzählt. Und denkt an die Frage von clickclickclick: Wie viel darf
+      eine Begrüssung über ihr Gegenüber wissen?</p>
+
+    
+
+  </main>
+</body>
+
+</html>

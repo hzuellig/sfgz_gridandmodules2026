@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workshop: Begrüssungsszenen animieren</title>
+
+  <style>
+    :root {
+      --text: #2b2a27;
+      --text-dim: #6b6a65;
+      --accent: #1be07d;
+      --accent-soft: rgba(215, 220, 221, 0.618);
+      --code-bg: #24262b;
+      --code-text: rgba(56, 255, 156, 1);
+      --border: rgba(215, 220, 221, 0.618);
+      --table-header: rgba(56, 255, 156, 0.45);
+      --ink: #2d2d2d;
+      --paper: #fafaf6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    a {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--text);
+      font-family:
+        "IBM Plex Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+      line-height: 1.65;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 90px;
+    }
+
+    h1.doc-title {
+      font-size: 34px;
+      font-weight: 700;
+      margin: 0 0 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      color: var(--text-dim);
+      font-size: 15px;
+      margin: 0 0 48px;
+      max-width: 56ch;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 56px 0 6px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 32px 0 10px;
+    }
+
+    p {
+      margin: 12px 0;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0.9em;
+      background: var(--accent-soft);
+      color: #9a3d1c;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 18px 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+    }
+
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--table-header);
+      font-weight: 700;
+    }
+
+    .hint {
+      background: var(--table-header);
+      border-left: 3px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+
+    .hint strong {
+      color: var(--ink);
+    }
+
+    ul,
+    ol {
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .exercise-header {
+      background: var(--accent);
+      padding: 22px 26px;
+      border-radius: 12px;
+      margin: 56px 0 24px;
+    }
+
+    .exercise-header h2 {
+      border: none;
+      color: var(--ink);
+      margin: 0 0 6px;
+      padding: 0;
+    }
+
+    .exercise-header p,
+    .exercise-header li {
+      color: var(--ink);
+      font-size: 14.5px;
+    }
+
+    .exercise-header p {
+      margin: 8px 0 0;
+    }
+
+    .exercise-header a {
+      color: var(--ink);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    .metaphor-room {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+
+    figure {
+      margin: 20px 0;
+    }
+
+    figure img {
+      display: block;
+      max-width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    figcaption {
+      color: var(--text-dim);
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .lesson {
+      display: inline-block;
+      background: var(--ink);
+      color: #fff;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 4px;
+      margin-top: 56px;
+    }
+
+    .lesson + h2 {
+      margin-top: 10px;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+      padding: 0;
+      margin: 16px 0;
+    }
+
+    .cards li {
+      margin: 0;
+      padding: 6px 12px;
+      border: 2px solid var(--ink);
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      background: var(--paper);
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+
+    <h1 class="doc-title">Workshop: Begrüssungsszenen animieren</h1>
+    <p class="subtitle">Eine Begrüssung ist nie einseitig. Jemand grüsst, jemand grüsst zurück, oder eben nicht.
+      Heute entwickelt ihr eine kleine animierte Szene, die mit der Person rechnet, die eure Seite öffnet. Ihr
+      arbeitet einzeln, testet aber zu zweit.</p>
+
+   
+
+    <!-- ================================================= -->
+
+    
+    <h2>Teil 1: Was sind CSS-Animationen?</h2>
+
+    <p>Transitions und Transforms kennt ihr schon. Eine Transition kennt nur Zustand A und Zustand B. Bei einer
+      Animation könnt ihr beliebig viele Zustände dazwischen festlegen, sogenannte <strong>Keyframes</strong>.</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th></th>
+          <th>Transition</th>
+          <th>Animation</th>
+        </tr>
+        <tr>
+          <td>Zustände</td>
+          <td>Zwei: vorher und nachher</td>
+          <td>Beliebig viele Keyframes</td>
+        </tr>
+        <tr>
+          <td>Auslöser</td>
+          <td>Eine Zustandsänderung, z.&nbsp;B. <code>:hover</code></td>
+          <td>Läuft von selbst, sobald die Seite lädt</td>
+        </tr>
+        <tr>
+          <td>Wiederholung</td>
+          <td>Nein</td>
+          <td>Beliebig oft, auch endlos</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="metaphor-room">
+      Eine Transition ist ein Schnitt mit Überblendung: Anfangsbild, Endbild, dazwischen rechnet der Browser.
+      Eine Animation ist ein Daumenkino: Ihr zeichnet die wichtigen Seiten selbst, und der Browser füllt die Lücken
+      dazwischen.
+    </div>
+
+    <h3>Animationen sichtbar machen</h3>
+
+    <p>In den Developer Tools von Chrome könnt ihr euch im Tab <strong>Animations</strong> den Verlauf einer
+      Animation anzeigen lassen. Zu finden ist er über die drei Punkte → More tools → Animations. Eine Transition
+      geht von Zustand A zu Zustand B:</p>
+
+    <figure>
+      <img src="../assets/transition-debug.png" width="600" alt="Darstellung einer Transition in den Chrome Developer Tools">
+    </figure>
+
+    <p>Eine Animation mit Keyframes bei 0&nbsp;%, 25&nbsp;% und 50&nbsp;% sieht dagegen so aus:</p>
+
+    <figure>
+      <img src="../assets/anim-keyframes.png" width="600" alt="Darstellung einer Animation mit mehreren Keyframes in den Chrome Developer Tools">
+    </figure>
+
+    <h2>Teil 2: Die Syntax</h2>
+
+    <p>Eine Animation besteht aus zwei Teilen: Zuerst wird sie mit <code>@keyframes</code> entworfen, dann wird sie
+      einem Element zugewiesen.</p>
+
+    <pre><code>/* 1. Animation entwerfen */
+@keyframes hereinschieben {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* 2. Animation zuweisen */
+.wort {
+  animation-name: hereinschieben;
+  animation-duration: 3s;
+}</code></pre>
+
+    <ul>
+      <li>Den Namen nach <code>@keyframes</code> wählt ihr frei. Mit diesem Namen wird die Animation zugewiesen.</li>
+      <li><code>from</code> ist der Keyframe bei 0&nbsp;%, <code>to</code> der bei 100&nbsp;%.</li>
+      <li>Anders als bei <code>transition</code> müsst ihr nicht angeben, welche Eigenschaften animiert werden.
+        Alles, was in den Keyframes steht, wird animiert.</li>
+    </ul>
+
+    <h3>Mehr als zwei Zustände: Prozente</h3>
+
+    <pre><code>@keyframes winken {
+  0%   { transform: rotate(0deg);   color: black; }
+  25%  { transform: rotate(-15deg); }
+  50%  { transform: rotate(15deg);  color: red; }
+  75%  { transform: rotate(-10deg); }
+  100% { transform: rotate(0deg);   color: black; }
+}
+
+/* Keyframes mit gleichem Zustand lassen sich zusammenfassen */
+@keyframes pulsieren {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.2; }
+}</code></pre>
+
+    <h2>Teil 3: Die Animation steuern</h2>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Eigenschaft</th>
+          <th>Was sie macht</th>
+          <th>Beispiel</th>
+        </tr>
+        <tr>
+          <td><code>animation-duration</code></td>
+          <td>Dauer eines Durchgangs</td>
+          <td><code>3s</code>, <code>800ms</code></td>
+        </tr>
+        <tr>
+          <td><code>animation-delay</code></td>
+          <td>Wartezeit vor dem Start</td>
+          <td><code>1s</code></td>
+        </tr>
+        <tr>
+          <td><code>animation-iteration-count</code></td>
+          <td>Wie oft die Animation abgespielt wird, Standard ist 1</td>
+          <td><code>3</code>, <code>infinite</code> (endlos)</td>
+        </tr>
+        <tr>
+          <td><code>animation-direction</code></td>
+          <td><code>normal</code> vorwärts, <code>reverse</code> rückwärts, <code>alternate</code> hin und her,
+            <code>alternate-reverse</code> her und hin</td>
+          <td><code>alternate</code></td>
+        </tr>
+        <tr>
+          <td><code>animation-timing-function</code></td>
+          <td>Beschleunigung, wie <code>transition-timing-function</code></td>
+          <td><code>ease-in-out</code>, <code>linear</code>, <code>steps(5)</code></td>
+        </tr>
+        <tr>
+          <td><code>animation-fill-mode</code></td>
+          <td><code>forwards</code> behält den letzten Keyframe nach dem Ende, <code>backwards</code> zeigt den ersten
+            schon während der Verzögerung, <code>both</code> beides</td>
+          <td><code>both</code></td>
+        </tr>
+        <tr>
+          <td><code>animation-play-state</code></td>
+          <td>Läuft oder ist angehalten. Angehalten und wieder gestartet, läuft sie dort weiter, wo sie stand.</td>
+          <td><code>running</code>, <code>paused</code></td>
+        </tr>
+      </table>
+    </div>
+
+    <h3>Kurzform: animation</h3>
+
+    <pre><code>/* duration | timing-function | delay | iteration-count | direction | fill-mode | play-state | name */
+animation: 3s ease-in 1s 2 reverse both paused hereinschieben;
+
+/* meistens reicht viel weniger */
+animation: hereinschieben 3s ease-in-out both;</code></pre>
+
+    <div class="hint"><strong>Zwei Zeitangaben?</strong> Die Reihenfolge der Werte ist ziemlich frei. Bei den
+      Zeiten aber gilt: Die erste ist immer die Dauer, die zweite die Verzögerung.</div>
+
+    <h2>Teil 4: Buchstabe für Buchstabe</h2>
+
+    <p>Typografische Animationen werden spannend, wenn sich nicht das ganze Wort bewegt, sondern jeder Buchstabe
+      einzeln, leicht versetzt.</p>
+
+    <pre><code>&lt;h1 class="wort" aria-label="Hallo"&gt;
+  &lt;span aria-hidden="true" style="--i: 0"&gt;H&lt;/span&gt;
+  &lt;span aria-hidden="true" style="--i: 1"&gt;a&lt;/span&gt;
+  &lt;span aria-hidden="true" style="--i: 2"&gt;l&lt;/span&gt;
+  &lt;span aria-hidden="true" style="--i: 3"&gt;l&lt;/span&gt;
+  &lt;span aria-hidden="true" style="--i: 4"&gt;o&lt;/span&gt;
+&lt;/h1&gt;</code></pre>
+
+    <pre><code>.wort span {
+  display: inline-block; /* wichtig! */
+  animation: huepfen 1.2s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * 0.12s);
+}
+
+@keyframes huepfen {
+  0%   { transform: translateY(0) rotate(0deg); }
+  60%  { transform: translateY(-24px) rotate(-6deg); }
+  100% { transform: translateY(0) rotate(4deg); }
+}</code></pre>
+
+    <ul>
+      <li>Mit <code>aria-label</code> liest ein Screenreader «Hallo» vor statt «H, a, l, l, o». Die einzelnen
+        Buchstaben sind darum mit <code>aria-hidden</code> ausgeblendet.</li>
+      <li>Die Variable <code>--i</code> ist die Nummer des Buchstabens. <code>calc(var(--i) * 0.12s)</code> rechnet
+        daraus für jeden Buchstaben eine eigene Verzögerung aus: 0s, 0.12s, 0.24s …</li>
+      <li>Ein <code>span</code> ist ein Inline-Element, und darauf wirkt <code>transform</code> nicht. Darum braucht
+        es <code>display: inline-block</code>.</li>
+    </ul>
+
+    <h2>Aufgabe: eine Begrüssung, die den Screen erobert</h2>
+
+    <p>Entwickelt allein eine <strong>typografische Animation mit einem einzigen Begrüssungswort</strong>. Die
+      Animation bespielt wie ein Hero den ganzen Bildschirm. Es ist das Erste, was man sieht, wenn man die Seite
+      öffnet.</p>
+
+    <h3>Anforderungen</h3>
+
+    <ul>
+      <li>Ein Begrüssungswort, in einer Sprache eurer Wahl. Es darf auch eines aus unserer Sammlung sein.</li>
+      <li>Die Animation füllt den ganzen Viewport, ohne Scrollbalken.</li>
+      <li>Mindestens eine eigene <code>@keyframes</code>-Animation mit mehr als zwei Keyframes.</li>
+      <li>Die Bewegung erzählt etwas über die Begrüssung: Ist sie förmlich, herzlich, laut, scheu, aufdringlich
+        wie Spam?</li>
+     <li>Reduziert die Mittel: welche Gestaltungselemente braucht es wirklich?</li>
+     <li>Überprüft die Schriftwahl: welche Schrift passt zur Bewegung?</li>
+  
+    </ul>
+
+ 
+
+
+    <h3>Ideen zum Weiterdenken</h3>
+
+    <ul>
+      <li>Das Wort ist grösser als der Screen und wandert langsam durchs Bild.</li>
+      <li>Die Buchstaben kommen aus verschiedenen Richtungen und finden sich.</li>
+      <li>Mehrere Schichten wie in der Überlagerungs-Übung, die sich gegeneinander verschieben.</li>
+      <li>Die Begrüssung wiederholt sich aufdringlich, wie ein Spam-«Dear».</li>
+      <li><code>steps()</code> statt weicher Bewegung, wie eine Schreibmaschine.</li>
+      <li>Kombination mit einem Bild</li>
+    </ul>
+
+
+    <h2>Teil 5: Animation und Interaktion</h2>
+
+    <p>Eine Animation läuft von selbst. Spannend wird es, wenn sie auf die Person reagiert, die möglicherweise interagiert. Mit CSS
+      allein habt ihr dafür diesen Werkzeugkasten:</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Verhalten in der Begegnung</th>
+          <th>Im Browser</th>
+          <th>CSS</th>
+        </tr>
+        <tr>
+          <td>sich nähern, Interesse zeigen</td>
+          <td>Maus fährt über ein Element</td>
+          <td><code>:hover</code></td>
+        </tr>
+        <tr>
+          <td>verweilen, länger hinschauen</td>
+          <td>Maus bleibt liegen</td>
+          <td><code>transition-delay</code>, langsame Transition</td>
+        </tr>
+        <tr>
+          <td>berühren</td>
+          <td>Maustaste gedrückt halten</td>
+          <td><code>:active</code></td>
+        </tr>
+        <tr>
+          <td>antworten, sich einlassen</td>
+          <td>anklicken, der Zustand bleibt bis zum nächsten Klick daneben</td>
+          <td><code>:focus</code> mit <code>tabindex="0"</code></td>
+        </tr>
+        <tr>
+          <td>sich abwenden</td>
+          <td>Maus verlässt das Element</td>
+          <td>Transition zurück in den Grundzustand</td>
+        </tr>
+        <tr>
+          <td>ignorieren, nichts tun</td>
+          <td>keine Interaktion</td>
+          <td><code>animation-iteration-count</code>, <code>animation-fill-mode</code>: Die Begrüssung gibt irgendwann
+            auf</td>
+        </tr>
+      </table>
+    </div>
+
+    <h3>Beispiele</h3>
+
+    <pre><code>
+/* Die Antwort erscheint erst, wenn man verweilt */
+.antwort {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.hero:hover .antwort {
+  opacity: 1;
+  transition-delay: 1.5s; /* erst nach anderthalb Sekunden */
+}
+
+</code></pre>
+
+    <pre><code>&lt;section class="hero"&gt;
+  &lt;h1 class="wort" tabindex="0" aria-label="Hallo"&gt; … &lt;/h1&gt;
+  &lt;p class="antwort"&gt;Schön, dass du bleibst.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+
+    
+
+   
+
+    <!-- ================================================= -->
+
+    
+    <h2>Teil 6: Die Begrüssung als Szene</h2>
+
+    <p>Bis jetzt war eine Begrüssung ein Wort. Heute wird sie zu einer kleinen <strong>Szene</strong>: Die Seite
+      grüsst, die Person, die sie öffnet, reagiert, und die Seite antwortet darauf. Und vielleicht sagt die
+      Begrüssung mehr als nur «Hallo»:</p>
+
+    <div class="metaphor-room">
+      «Hi.» … «Ich fühle mich heute müde.»<br>
+      «Grüezi.» … «Sie sind spät.»<br>
+      «Dear friend,» … «I have an urgent offer for you.»
+    </div>
+
+    <p>Erst mit dem zweiten Satz entsteht ein Gegenüber mit einer Stimmung. Und die Stimmung gibt der Bewegung
+      einen Grund: Ein müdes «Hallo» kommt langsam, sackt ab und braucht eine Pause, bevor der nächste Satz
+      kommt.</p>
+
+    <h3>Ruf und Antwort</h3>
+
+    <p>Dialoge ohne Worte gibt es überall, wo Menschen gemeinsam etwas aufführen:</p>
+
+    <ul>
+      <li><strong>Call and Response</strong> in Gospel, Blues und Worksongs: Eine Stimme ruft, alle antworten. Die
+        Antwort kann bestätigen, widersprechen oder etwas weiterführen.</li>
+      <li><strong>Trading Fours</strong> im Jazz: Zwei Musiker:innen wechseln sich alle vier Takte ab und greifen
+        auf, was die andere Person gerade gespielt hat.</li>
+      <li><strong>Spiegelübung</strong> im Tanz und Theater: Eine Person führt, die andere folgt, bis man nicht
+        mehr weiss, wer führt.</li>
+      <li><strong>Kontaktimprovisation</strong>: Bewegung entsteht aus dem Kontakt, aus Gewicht geben und Gewicht
+        nehmen.</li>
+      <li><strong>Tango</strong>: Führen und Folgen als Gespräch, mit Einladungen, die man annehmen oder ablehnen
+        kann.</li>
+      <li><strong>Improvisationstheater</strong>: «Ja, und …»: Jedes Angebot wird angenommen und
+        weitergeführt.</li>
+    </ul>
+
+    <p>Für eure Szene heisst das: Was ist das Angebot eurer Begrüssung? Was passiert, wenn es angenommen wird? Und
+      was, wenn nicht?</p>
+
+    <div class="exercise-header">
+      <h2>Inspiration suchen (20 Minuten)</h2>
+      <p>Sucht selbst zwei Beispiele für Ruf und Antwort: eines aus Musik, Tanz, Film oder Alltag und eines aus
+        dem Web oder der Typografie. Haltet fest: Wer ruft, wer antwortet, wie lange dauert die Pause dazwischen?
+        Zeigt sie danach kurz euren Nachbar:innen.</p>
+    </div>
+
+    
+
+  
+
+    <h3>Das Mini Drehbuch</h3>
+
+    <p>Bevor ihr etwas baut, schreibt ihr die Szene auf. Das Mini Drehbuch hat zwei Spalten: links, was die Seite von
+      selbst macht, rechts, was sie tut, wenn die Person etwas tut. Bleibt sehr einfach.</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Zeit</th>
+          <th>Die Seite von selbst</th>
+          <th>Wenn die Person …</th>
+        </tr>
+        <tr>
+          <td>0 s</td>
+          <td>Leerer Screen. Ein Buchstabe nach dem anderen sackt von oben ins Bild: «H a l l o».</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>3 s</td>
+          <td>Das Wort gähnt: Es wird langsam breiter und wieder schmaler.</td>
+          <td>… näher kommt (Hover): Das Wort schreckt auf, die Buchstaben stehen gerade.</td>
+        </tr>
+        <tr>
+          <td>5 s</td>
+          <td></td>
+          <td>… verweilt: Klein darunter erscheint «Ich fühle mich heute müde.»</td>
+        </tr>
+       
+      </table>
+    </div>
+
+
+    <!-- ================================================= -->
+
+   
+    <h2>Teil 7: Paper Prototyping</h2>
+
+    <p>Jetzt baut ihr eure Szene auf Papier und führt sie auf. Das geht schneller als Code, und ihr merkt sofort,
+      ob eure Idee funktioniert.</p>
+
+    <h3>Bauen (15 Minuten)</h3>
+
+    <ul>
+      <li>Die Buchstaben eures Worts gross ausschneiden, auch den zweiten Satz, wenn ihr einen habt. Schichten in
+        verschiedenen Farben sind erlaubt.</li>
+      <li>Einen <strong>Rahmen</strong> bauen: ein Karton mit einem ausgeschnittenen Fenster im Format eines
+        Bildschirms. Das ist euer Viewport. Was ausserhalb liegt, ist unsichtbar, wie bei
+        <code>overflow: hidden</code>.</li>
+      <li>Alles bereitlegen, was von aussen ins Bild kommen soll.</li>
+    </ul>
+
+    <h3>Aufführen zu zweit (2 × 10 Minuten)</h3>
+
+    <p>Eine Person spielt <strong>die Website</strong> und bewegt die Papierbuchstaben im Rahmen, so wie es im
+      Drehbuch steht. Die andere spielt <strong>die Besucherin</strong> und hat nur einen Finger als Mauszeiger.</p>
+
+    <ul>
+      <li><strong>Finger schwebt über dem Papier</strong>: Hover.</li>
+      <li><strong>Finger tippt</strong>: Klick.</li>
+      <li><strong>Finger zieht sich zurück</strong>: sich abwenden.</li>
+      <li><strong>Hände im Schoss</strong>: nichts tun. Probiert auch das mindestens einmal aus!</li>
+    </ul>
+
+    <div class="hint"><strong>Die Regeln:</strong> Die Besucherin kennt das Drehbuch nicht und verhält sich so,
+      wie sie möchte. Die Website darf nichts erklären, sie reagiert nur. Und sie darf nur, was CSS auch kann:
+      keine Buchstaben, die dem Finger folgen, nichts, was sich eine Seite merkt, wenn man sie wieder öffnet.
+      Danach werden die Rollen getauscht.</div>
+
+    <h3>Auswerten (5 Minuten)</h3>
+
+    <p>Die Besucherin erzählt, die Website hört nur zu:</p>
+
+    <ul>
+      <li>Welche Stimmung hast du gespürt? Steht sie auf der Karte?</li>
+      <li>Hast du gemerkt, dass du antworten kannst? Woran?</li>
+      <li>Was hast du erwartet, und was ist passiert? Wo warst du überrascht oder irritiert?</li>
+      <li>Wolltest du bleiben, oder wolltest du weiterklicken?</li>
+    </ul>
+
+    <p>Danach passt ihr euer Drehbuch an. Fotografiert die wichtigsten Momente eurer Papierszene. Das sind eure
+      Keyframes.</p>
+
+    <!-- ================================================= -->
+
+    
+    <h2>Teil 8: Umsetzung beginnen</h2>
+
+    <p>Legt euer Drehbuch und die Fotos neben den Bildschirm und arbeitet in dieser Reihenfolge:</p>
+
+    <ol>
+      <li><strong>Stillstand:</strong> Zuerst die Szene ohne Bewegung: Schrift, Grösse, Farbe, Position. Welche
+        Schrift passt zur Stimmung?</li>
+      <li><strong>Von selbst:</strong> Die Animation, die läuft, wenn niemand etwas tut.</li>
+      <li><strong>Reaktion:</strong> Eine Interaktion nach der anderen, die wichtigste zuerst.</li>
+      <li><strong>Feinschliff:</strong> Timing, Pausen, Verzögerungen. Hier entscheidet sich, ob die Stimmung
+        ankommt.</li>
+    </ol>
+
+    <h3>Startvorlage</h3>
+
+    <pre><code>&lt;section class="hero"&gt;
+  &lt;h1 class="wort" lang="it" tabindex="0" aria-label="Ciao"&gt;
+    &lt;span aria-hidden="true" style="--i: 0"&gt;C&lt;/span&gt;
+    &lt;span aria-hidden="true" style="--i: 1"&gt;i&lt;/span&gt;
+    &lt;span aria-hidden="true" style="--i: 2"&gt;a&lt;/span&gt;
+    &lt;span aria-hidden="true" style="--i: 3"&gt;o&lt;/span&gt;
+  &lt;/h1&gt;
+  &lt;p class="antwort" lang="de"&gt;Ich fühle mich heute grossartig.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+
+    <pre><code>body {
+  margin: 0;
+}
+
+.hero {
+  height: 100vh;
+  height: 100dvh;      /* berücksichtigt die Adressleiste auf dem Handy */
+  display: grid;
+  place-content: center;
+  text-align: center;
+  overflow: hidden;    /* nichts ragt über den Rand hinaus */
+}
+
+.wort {
+  margin: 0;
+  font-size: 25vw;     /* Schriftgrösse wächst mit der Fensterbreite */
+  line-height: 1;
+}
+
+.wort:focus {
+  outline: none;       /* nur wenn ihr den Fokus anders sichtbar macht! */
+}
+
+.wort span {
+  display: inline-block;
+  animation: auftauchen 1s ease-out both;
+  animation-delay: calc(var(--i) * 0.15s);
+}
+
+@keyframes auftauchen {
+  0%   { opacity: 0; transform: translateY(40%) scale(0.6); }
+  70%  { opacity: 1; transform: translateY(-5%) scale(1.05); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.antwort {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.hero:hover .antwort {
+  opacity: 1;
+  transition-delay: 1.5s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wort span {
+    animation: none;
+  }
+}</code></pre>
+
+    <div class="hint"><strong>Viewport-Einheiten:</strong> <code>vw</code> ist ein Hundertstel der Fensterbreite,
+      <code>vh</code> bzw. Damit skaliert die Schrift mit dem
+      Bildschirm. Testet in einem breiten und einem schmalen Fenster, und auf dem Handy.</div>
+
+    <hr>
+
+    <h2>Aufgabe auf 6. November, 18:00: Eine Mini Begrüssungsszene</h2>
+
+    <p>Setzt eure Szene um: eine <strong>typografische Begrüssung, die den ganzen Bildschirm bespielt</strong> und
+      mit der Person rechnet, die die Seite öffnet.</p>
+
+    <p>Am 30. Oktober schauen wir ein bisschen JavaScript an, dann habt ihr noch mehr Möglichkeiten zur Interaktion. </p>
+
+    
+
+
+
+  </main>
+</body>
+
+</html>

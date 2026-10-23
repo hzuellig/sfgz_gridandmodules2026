@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        /* Die Begrüssung wartet unruhig … */
+        .wort span {
+            display: inline-block;
+            animation: warten 2s ease-in-out infinite alternate;
+        }
+
+        /* … und freut sich, wenn man näher kommt: eine andere Animation */
+        .hero:hover .wort span {
+            animation: huepfen 0.6s ease-out both;
+            animation-delay: calc(var(--i) * 0.08s);
+        }
+
+        /* Die Antwort erscheint erst, wenn man verweilt */
+        .antwort {
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .hero:hover .antwort {
+            opacity: 1;
+            transition-delay: 1.5s;
+            /* erst nach anderthalb Sekunden */
+        }
+
+        /* Ein Klick verändert die Szene, bis man woanders hinklickt */
+        .wort:focus span {
+            animation-play-state: paused;
+            color: red;
+        }
+
+        @keyframes huepfen {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            60% {
+                transform: translateY(-24px) rotate(-6deg);
+            }
+
+            100% {
+                transform: translateY(0) rotate(4deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="hero">
+        <h1 class="wort" tabindex="0" aria-label="Hallo"> Hallo … </h1>
+        <p class="antwort">Schön, dass du bleibst.</p>
+    </section>
+
+
+    <section class="hero">
+        <h1 class="wort" aria-label="Hallo">
+            <span aria-hidden="true" style="--i: 0">H</span>
+            <span aria-hidden="true" style="--i: 1">a</span>
+            <span aria-hidden="true" style="--i: 2">l</span>
+            <span aria-hidden="true" style="--i: 3">l</span>
+            <span aria-hidden="true" style="--i: 4">o</span>
+        </h1>
+        <p class="antwort">Schön, dass du bleibst.</p>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workshop: Gemeinsam an einem Repository arbeiten</title>
+
+  <style>
+    :root {
+      --text: #2b2a27;
+      --text-dim: #6b6a65;
+      --accent: #1be07d;
+      --accent-soft: rgba(215, 220, 221, 0.618);
+      --code-bg: #24262b;
+      --code-text: rgba(56, 255, 156, 1);
+      --border: rgba(215, 220, 221, 0.618);
+      --table-header: rgba(56, 255, 156, 0.45);
+      --ink: #2d2d2d;
+      --paper: #fafaf6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    a {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--text);
+      font-family:
+        "IBM Plex Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+      line-height: 1.65;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 90px;
+    }
+
+    h1.doc-title {
+      font-size: 34px;
+      font-weight: 700;
+      margin: 0 0 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      color: var(--text-dim);
+      font-size: 15px;
+      margin: 0 0 48px;
+      max-width: 56ch;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 56px 0 6px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 32px 0 10px;
+    }
+
+    p {
+      margin: 12px 0;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0.9em;
+      background: var(--accent-soft);
+      color: #9a3d1c;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 18px 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 16px 0;
+    }
+
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--table-header);
+      font-weight: 700;
+    }
+
+    .hint {
+      background: var(--table-header);
+      border-left: 3px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+
+    .hint strong {
+      color: var(--ink);
+    }
+
+    ul,
+    ol {
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .ui {
+      font-weight: 700;
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 6px;
+      white-space: nowrap;
+    }
+
+    .exercise-header {
+      background: var(--accent);
+      padding: 22px 26px;
+      border-radius: 12px;
+      margin: 56px 0 24px;
+    }
+
+    .exercise-header h2 {
+      border: none;
+      color: var(--ink);
+      margin: 0 0 6px;
+      padding: 0;
+    }
+
+    .exercise-header p,
+    .exercise-header li {
+      color: var(--ink);
+      font-size: 14.5px;
+    }
+
+    .exercise-header p {
+      margin: 8px 0 0;
+    }
+
+    .exercise-header a {
+      color: var(--ink);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    .metaphor-room {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+
+    .source {
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+
+    .source a {
+      color: var(--text-dim);
+    }
+
+    /* Der Grundrhythmus als Kette */
+    .rhythm {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .rhythm li {
+      margin: 0;
+      padding: 10px 14px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .rhythm li span {
+      display: block;
+      font-weight: 400;
+      font-size: 12.5px;
+      color: var(--text-dim);
+    }
+
+    .rhythm li.git {
+      background: var(--accent);
+    }
+
+    .rhythm li:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+
+    <h1 class="doc-title">Workshop: Gemeinsam an einem Repository arbeiten</h1>
+    <p class="subtitle">Bis jetzt hat jede und jeder am eigenen Projekt gearbeitet. Heute arbeitet ihr zu viert am
+      gleichen: Ihr sammelt Begrüssungen aus allen Sprachen, die ihr kennt, und baut daraus gemeinsam eine
+      Website.</p>
+
+    <div class="hint"><strong>Vor dem Workshop erledigen:</strong>
+      <ol>
+        <li>Einen GitHub-Account anlegen (falls noch nicht vorhanden) und den Benutzernamen der Kursleitung
+          schicken.</li>
+        <li><a href="https://desktop.github.com/" target="_blank">GitHub Desktop</a> und
+          <a href="https://code.visualstudio.com/" target="_blank">VS Code</a> installieren.</li>
+        <li>GitHub Desktop öffnen und anmelden: <span class="ui">Sign in to GitHub.com</span>. Die Anmeldung läuft
+          über den Browser. Name und E-Mail für eure Commits werden dabei gleich übernommen.</li>
+      </ol>
+    </div>
+
+    <h2>Worum es geht</h2>
+
+    <p>Jede Vierergruppe hat ein eigenes Repository. Darin liegen eine <code>index.html</code> mit einer Liste von
+      Begrüssungen und eine <code>style.css</code>. Über GitHub Pages ist die Seite bereits online. Jede Änderung,
+      die auf GitHub landet, ist nach ein, zwei Minuten auf der Website sichtbar.</p>
+
+    <p>Die Herausforderung: Wenn vier Leute gleichzeitig an denselben Dateien arbeiten, darf niemand die Arbeit
+      der anderen überschreiben. Genau dafür ist Git gemacht.</p>
+
+    <div class="metaphor-room">
+      Stellt euch das Projekt wie ein <strong>gemeinsames Manuskript</strong> vor, das im Archiv liegt (GitHub).
+      Jede Person hat eine eigene Abschrift auf dem Tisch (Clone). Bevor ihr weiterschreibt, holt ihr die neusten
+      Seiten aus dem Archiv (Pull). Was ihr geändert habt, haltet ihr mit einer kurzen Notiz fest (Commit) und
+      bringt es zurück ins Archiv (Push). Haben zwei Leute denselben Satz verschieden geändert, müssen sie sich
+      einigen (Konflikt).
+    </div>
+
+    <p>Ihr arbeitet mit zwei Programmen: In <strong>VS Code</strong> schreibt ihr HTML und CSS. In
+      <strong>GitHub Desktop</strong> macht ihr alles, was mit Git zu tun hat.</p>
+
+    <p>Zum Nachschauen: <a href="https://www.youtube.com/watch?v=_NrSWLQsDL4" target="_blank">Daniel Shiffmans
+        Serie zu Git und GitHub</a> (Video, Englisch). Er sammelt dort gemeinsam ein Gedicht, wir sammeln
+      Begrüssungen.</p>
+
+    <hr>
+
+    <h2>Inhalte: Begrüssung als Kontakt</h2>
+
+    <p>Der niederländische Künstler Niels Post zeigte 2014 im Ausstellungsraum The Space in Hastings/St. Leonards
+      (UK) eine Installation aus Begrüssungen: eine Auswahl von Anreden aus Spam-Mails, die alle mit «Dear»
+      beginnen. Post sammelt solche Texte in seinen Spamfiltern und überträgt sie unverändert, mit allen Tipp-
+      und Grammatikfehlern, in der Schrift Arial, einer der Grundschriften des Internets.</p>
+
+    <p>Eine Begrüssung ist der Moment, in dem Kontakt entsteht. Sie zeigt, wie nah wir jemandem stehen, oder wie
+      nah jemand tut: «Dear friend» von einer Maschine an tausend Adressen gleichzeitig. Was macht eine
+      Begrüssung echt? Was verrät sie über die Beziehung?</p>
+
+    <p>Sammelt Begrüssungen in allen Sprachen, die ihr sprecht oder kennt: förmliche und vertraute, gesprochene
+      und geschriebene, auch seltsame. Schreibt bei Bedarf eine kurze Erklärung dazu: Was heisst es wörtlich?
+      Wann sagt man das, und zu wem? Wir werden später mit diesen Begrüssungen weiterarbeiten und sie interaktiv machen.</p>
+
+      <p>
+        <img src="../assets/begruessungen.jpg" alt="" srcset="">
+      </p>
+    <p class="source">Quelle: We Like Art, «Niels Post – nieuwe handgezaagde [SPAM] werken», 11.&nbsp;Oktober 2017,
+      <a href="https://welikeart.nl/niels-post-3/" target="_blank">welikeart.nl/niels-post-3</a>. </p>
+
+    <hr>
+
+    <h2>Einladung annehmen</h2>
+
+    <p>Damit ihr im Repository eurer Gruppe arbeiten dürft, lädt euch die Kursleitung als
+      <strong>Collaborator</strong> ein.</p>
+
+    <ol>
+      <li>GitHub schickt euch eine E-Mail mit der Einladung. Alternativ seht ihr sie auf GitHub oben rechts unter
+        dem Glocken-Symbol.</li>
+      <li>Auf <span class="ui">Accept invitation</span> klicken.</li>
+      <li>Das Repository auf GitHub öffnen und kurz umschauen: Welche Dateien gibt es? Wie sieht die Seite online
+        aus?</li>
+    </ol>
+
+    <hr>
+
+    <h2>Repository auf den Rechner holen</h2>
+
+    <p>Einmalig holt ihr euch eine Kopie des Repositorys auf den Laptop. Das heisst <strong>Clone</strong>.</p>
+
+    <ol>
+      <li>In GitHub Desktop: <span class="ui">File</span> → <span class="ui">Clone repository…</span></li>
+      <li>Im Tab <span class="ui">GitHub.com</span> das Repository eurer Gruppe auswählen.</li>
+      <li>Unter <span class="ui">Local path</span> sehen, wo der Ordner gespeichert wird, dann
+        <span class="ui">Clone</span> klicken.</li>
+      <li>Auf <span class="ui">Open in Visual Studio Code</span> klicken. Der Projektordner öffnet sich in VS
+        Code.</li>
+    </ol>
+
+    <div class="hint"><strong>Kein Button für VS Code?</strong> In GitHub Desktop unter
+      <span class="ui">Settings</span> bzw. <span class="ui">Options</span> → <span class="ui">Integrations</span>
+      → <span class="ui">External Editor</span> «Visual Studio Code» wählen. Den Projektordner danach nicht
+      verschieben, sonst findet GitHub Desktop ihn nicht mehr.</div>
+
+    <p>Oben in GitHub Desktop seht ihr drei Felder: welches Repository, welcher Branch (bei uns immer
+      <code>main</code>) und rechts einen Button, der seine Aufgabe wechselt:</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Button</th>
+          <th>Was er macht</th>
+        </tr>
+        <tr>
+          <td><span class="ui">Fetch origin</span></td>
+          <td>Nachschauen, ob es auf GitHub Neues gibt. Holt noch nichts.</td>
+        </tr>
+        <tr>
+          <td><span class="ui">Pull origin ↓</span></td>
+          <td>Die neuen Commits der anderen holen. Die Zahl zeigt, wie viele.</td>
+        </tr>
+        <tr>
+          <td><span class="ui">Push origin ↑</span></td>
+          <td>Die eigenen Commits zu GitHub hochladen.</td>
+        </tr>
+      </table>
+    </div>
+
+    <hr>
+
+    <h2>Der Grundrhythmus</h2>
+
+    <p>Alle vier arbeiten direkt auf <code>main</code>. Das funktioniert gut, wenn ihr euch an einen festen
+      Rhythmus haltet:</p>
+
+    <ol class="rhythm">
+      <li class="git">Pull<span>neusten Stand holen</span></li>
+      <li>Bearbeiten<span>in VS Code, speichern</span></li>
+      <li class="git">Commit<span>Änderung festhalten</span></li>
+      <li class="git">Pull<span>nochmals nachschauen</span></li>
+      <li class="git">Push<span>hochladen</span></li>
+    </ol>
+
+    <ul>
+      <li><strong>Vor jedem Bearbeiten pullen.</strong> Wer auf einem alten Stand arbeitet, riskiert
+        Konflikte.</li>
+      <li><strong>Kleine Commits, oft pushen.</strong> Lieber drei kleine Commits als ein grosser nach einer
+        Stunde.</li>
+      <li><strong>Nicht verwirrt sein, wenn plötzlich fremde Einträge auftauchen.</strong> Das sind die Commits
+        eurer Gruppe. Genau so soll es sein.</li>
+    </ul>
+
+    <hr>
+
+    <h2>Begrüssungen eintragen</h2>
+
+    <p>Öffnet in VS Code die <code>index.html</code>. Jede Begrüssung ist ein Listenelement mit immer gleichem
+      Aufbau:</p>
+
+    <pre><code>&lt;li class="gruss" lang="gsw"&gt;
+  &lt;p class="wort"&gt;Hoi zäme&lt;/p&gt;
+  &lt;p class="info"&gt;Schweizerdeutsch&lt;/p&gt;
+  &lt;p class="notiz"&gt;Zu mehreren Leuten, wörtlich „Hallo zusammen“&lt;/p&gt;
+  &lt;p class="von"&gt;eingetragen von anna&lt;/p&gt;
+&lt;/li&gt;</code></pre>
+
+    <p>Kopiert einen bestehenden Eintrag und passt ihn an. Tragt zwei bis drei Begrüssungen ein, gerne in
+      verschiedenen Sprachen.</p>
+
+    <div class="hint"><strong>Fügt eure Einträge irgendwo in der Liste ein, nicht alle ganz am Ende.</strong>
+      Wenn alle an genau derselben Stelle etwas einfügen, kann Git nicht entscheiden, was zuerst kommt. </div>
+
+    <h3>Das Attribut <code>lang</code></h3>
+
+    <p>Das Attribut <code>lang</code> sagt dem Browser, in welcher Sprache ein Text geschrieben ist. Für uns sieht
+      es gleich aus, aber für den Computer macht es einen grossen Unterschied:</p>
+
+    <ul>
+      <li><strong>Screenreader</strong> lesen den Text mit der richtigen Aussprache vor, statt „Merci“ mit
+        deutscher Stimme.</li>
+      <li><strong>Schrift:</strong> Chinesisch und Japanisch teilen viele Zeichen, die aber leicht verschieden
+        aussehen. Mit <code>lang</code> wählt der Browser die passende Variante.</li>
+      <li><strong>Silbentrennung</strong> mit <code>hyphens: auto</code> funktioniert nur, wenn die Sprache
+        bekannt ist.</li>
+      <li><strong>Im CSS</strong> könnt ihr Sprachen gezielt gestalten (siehe unten).</li>
+    </ul>
+
+    <p>Sprachcodes, zum Beispiel: <code>de</code> Deutsch, <code>gsw</code> Schweizerdeutsch, <code>fr</code>
+      Französisch, <code>it</code> Italienisch, <code>rm</code> Rätoromanisch, <code>es</code> Spanisch,
+      <code>pt</code> Portugiesisch, <code>tr</code> Türkisch, <code>sq</code> Albanisch, <code>sr</code>
+      Serbisch, <code>uk</code> Ukrainisch, <code>ar</code> Arabisch, <code>fa</code> Persisch, <code>he</code>
+      Hebräisch, <code>ta</code> Tamil, <code>zh</code> Chinesisch, <code>ja</code> Japanisch.</p>
+
+    <h3>Schreibrichtung mit <code>dir</code></h3>
+
+    <p>Arabisch, Persisch und Hebräisch laufen von rechts nach links. Damit das richtig dargestellt wird, kommt
+      zusätzlich <code>dir="rtl"</code> dazu (right to left). Begrüssungen in anderen Schriften tragt ihr direkt
+      so ein, wie man sie schreibt:</p>
+
+    <pre><code>&lt;li class="gruss" lang="ar" dir="rtl"&gt;
+  &lt;p class="wort"&gt;مرحبا&lt;/p&gt;
+  &lt;p class="info"&gt;Arabisch · marhaban&lt;/p&gt;
+  &lt;p class="notiz"&gt;Wörtlich etwa „Willkommen“, alltäglich wie „Hallo“&lt;/p&gt;
+  &lt;p class="von"&gt;eingetragen von mira&lt;/p&gt;
+&lt;/li&gt;</code></pre>
+
+    <h3>So sieht es im CSS aus</h3>
+
+    <p>Mit <code>:lang()</code> und <code>[dir="rtl"]</code> lassen sich Sprachen und Schreibrichtungen gezielt
+      ansprechen:</p>
+
+    <pre><code>/* Alle japanischen Begrüssungen in einer passenden Schrift */
+.gruss:lang(ja) {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+}
+
+/* Arabische Schrift ist bei gleicher Grösse kleiner: etwas grösser setzen */
+.gruss:lang(ar) .wort {
+  font-size: 1.3em;
+}
+
+/* Rechts-nach-links-Einträge bekommen den Akzentstrich rechts */
+.gruss[dir="rtl"] {
+  border-right: 4px solid black;
+}
+
+/* Noch eleganter: "inline-start" ist links bei Deutsch und rechts bei Arabisch */
+.gruss {
+  border-inline-start: 4px solid black;
+}
+
+</code></pre>
+
+ <h3>Schreibrichtung mit <code>writing-mode</code></h3>
+ Die writing-mode CSS-Eigenschaft legt fest, ob Textzeilen horizontal oder vertikal angeordnet werden und in welche Richtung der Text fließt.
+<br/>
+https://developer.mozilla.org/de/docs/Web/CSS/Reference/Properties/writing-mode
+ <pre>
+  <code>
+/* Japanisch senkrecht, von oben nach unten */
+.gruss:lang(ja) .wort {
+  writing-mode: vertical-rl;
+}
+  </code>
+ </pre>
+
+    <hr>
+
+    <h2>Commit und Push</h2>
+
+    <ol>
+      <li>In VS Code speichern (<code>Cmd + S</code> bzw. <code>Strg + S</code>). Ein weisser Punkt im Tab bedeutet:
+        noch nicht gespeichert.</li>
+      <li>Zu GitHub Desktop wechseln. Links unter <span class="ui">Changes</span> steht die
+        <code>index.html</code>. Das Häkchen davor heisst: Diese Datei kommt in den Commit.</li>
+      <li>Auf die Datei klicken: Rechts seht ihr, was sich geändert hat. Neue Zeilen sind grün, gelöschte rot. Das
+        ist ein <strong>Diff</strong>.</li>
+      <li>Unten links ins Feld <span class="ui">Summary</span> eine kurze Commit Message schreiben, z.&nbsp;B.
+        „Begrüssungen auf Albanisch ergänzt“.</li>
+      <li>Auf <span class="ui">Commit to main</span> klicken. Der Commit ist jetzt auf eurem Rechner gespeichert,
+        aber noch nicht auf GitHub.</li>
+      <li>Oben auf <span class="ui">Fetch origin</span> klicken: Gibt es Neues? Falls ja, zuerst
+        <span class="ui">Pull origin</span>.</li>
+      <li>Auf <span class="ui">Push origin</span> klicken.</li>
+    </ol>
+
+    <p>Jetzt ist euer Commit auf GitHub. Im Repository unter dem Tab <span class="ui">Actions</span> seht ihr, wie
+      die Website neu gebaut wird. Grüner Haken: Eure Begrüssungen sind online. Unter
+      <span class="ui">History</span> in GitHub Desktop seht ihr die gemeinsame Geschichte des Projekts, mit den
+      Commits aller.</p>
+
+    <hr>
+
+    <h2>Wenn jemand schneller war</h2>
+
+    <p>Das passiert ständig: Ihr habt committet, aber in der Zwischenzeit hat jemand aus eurer Gruppe auch
+      gepusht. Wenn ihr dann auf <span class="ui">Push origin</span> klickt, meldet GitHub Desktop, dass es auf
+      GitHub neuere Commits gibt.</p>
+
+    <ol>
+      <li><span class="ui">Fetch</span> bzw. <span class="ui">Pull origin</span> klicken.</li>
+      <li>Git führt die Änderungen der anderen mit euren zusammen. Haben alle an verschiedenen Stellen gearbeitet,
+        passiert das automatisch. In der History erscheint ein Commit „Merge branch 'main' …“.</li>
+      <li>Danach <span class="ui">Push origin</span> klicken.</li>
+    </ol>
+
+    <div class="hint"><strong>Erst committen, dann pullen.</strong> Wenn ihr Änderungen habt, die noch nicht
+      committet sind, fragt GitHub Desktop beim Pullen, was damit passieren soll. Am einfachsten: zuerst
+      committen, dann pullen.</div>
+
+    <hr>
+
+    <h2>Runde 2 – Gemeinsam gestalten</h2>
+
+    <p>Jetzt bekommt die Seite ihr Aussehen. Jede Person in der Gruppe übernimmt einen Block in der
+      <code>style.css</code>:</p>
+
+    <pre><code>/* ===== 1 · Seitenkopf: header, h1 ===== */
+
+/* ===== 2 · Liste: .liste ===== */
+
+/* ===== 3 · Eintrag: .gruss, .wort, .info, .notiz, .von ===== */
+
+/* ===== 4 · Sprachen und Schriften: :lang(), [dir="rtl"] ===== */</code></pre>
+
+    <p>Sprecht euch kurz ab: Welche Stimmung soll die Seite haben? Förmlich wie ein Brief, laut wie eine
+      Spam-Mail, nah wie eine Nachricht an eine Freundin? Schrift, Grösse, Farbe, Abstände, Rahmen,
+      Rundungen – alles ist erlaubt.</p>
+
+    <ol>
+      <li><strong>Zuerst pullen.</strong> Inzwischen sind viele Begrüssungen dazugekommen.</li>
+      <li>Nur im eigenen Block arbeiten.</li>
+      <li>Der Rhythmus bleibt derselbe wie in Teil 5: Pull, Bearbeiten, Commit, Pull, Push.</li>
+      <li>Nach jedem Push die Website anschauen: Wie spielen die vier Blöcke zusammen?</li>
+    </ol>
+
+    <div class="hint"><strong>Warum funktioniert das ohne Chaos?</strong> Jede Person ändert andere Zeilen in
+      derselben Datei. Git kann solche Änderungen problemlos zusammenführen. Schwierig wird es nur, wenn zwei
+      Leute <em>dieselbe</em> Zeile ändern.</div>
+
+    <hr>
+
+    <h2>Ein Konflikt mit Absicht</h2>
+
+    <p>Und genau das probieren wir jetzt aus. Ganz oben in der <code>style.css</code> steht:</p>
+
+    <pre><code>:root {
+  --hintergrund: #fafaf6;
+}</code></pre>
+
+    <ol>
+      <li>Alle pullen. Dann ändern zwei Personen aus der Gruppe, A und B, diese Zeile auf eine andere Farbe.
+        Beide speichern und committen, aber noch niemand pusht.</li>
+      <li>A klickt auf <span class="ui">Push origin</span>. Das klappt.</li>
+      <li>B klickt auf <span class="ui">Push origin</span>. GitHub Desktop meldet neuere Commits auf GitHub. Also
+        <span class="ui">Pull origin</span>.</li>
+      <li>Jetzt erscheint ein Fenster: <strong>Resolve conflicts before merging</strong>. Dort steht
+        <code>style.css</code> mit einem Konflikt. <strong>Nicht</strong> auf den Button im Fenster klicken,
+        sondern zum offenen VS-Code-Fenster wechseln und dort die <code>style.css</code> öffnen. Sie steht auch
+        links in <strong>Source Control</strong> unter «Merge Changes».</li>
+      <li>In VS Code ist die betroffene Stelle markiert:</li>
+     
+    </ol>
+
+    <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+  --hintergrund: #ffe8f0;
+=======
+  --hintergrund: #e8f4ff;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 3f9c2e1d…</code></pre>
+
+    <p>Oben (<code>HEAD</code>) steht eure eigene Version, VS Code nennt sie <strong>Current Change</strong>.
+      Unten steht die Version, die schon auf GitHub ist, die <strong>Incoming Change</strong>. Die Zahl am Ende
+      ist die Nummer des Commits von A.</p>
+
+    <ol start="6">
+      <li>Gemeinsam entscheiden. Über der Markierung bietet VS Code kleine Links an:
+        <span class="ui">Accept Current Change</span>, <span class="ui">Accept Incoming Change</span> oder
+        <span class="ui">Accept Both Changes</span>. Oder ihr löscht von Hand alle Markierungszeilen
+        (<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>,
+        <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>) und schreibt eine ganz neue Farbe hin.</li>
+      <li>Speichern.</li>
+      <li>Zurück in GitHub Desktop: Dort steht jetzt, dass keine Konflikte mehr übrig sind. Auf
+        <span class="ui">Continue merge</span> klicken.</li>
+      <li><span class="ui">Push origin</span>. Danach pullen alle anderen und sehen die neue Farbe.</li>
+    </ol>
+
+    <p>Ein Konflikt ist kein Fehler. Git weigert sich nur, für euch zu entscheiden, wenn zwei Menschen
+      Unterschiedliches wollen. Das ist eine Frage, die Menschen klären müssen.</p>
+
+    <h3>Wenn etwas nicht funktioniert</h3>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Problem</th>
+          <th>Häufige Ursache</th>
+        </tr>
+        <tr>
+          <td>Die Änderung erscheint nicht in GitHub Desktop</td>
+          <td>Die Datei ist in VS Code noch nicht gespeichert. Oder in VS Code ist ein anderer Ordner geöffnet: in
+            GitHub Desktop nochmals <span class="ui">Open in Visual Studio Code</span> klicken.</td>
+        </tr>
+        <tr>
+          <td>Der Commit-Button ist grau</td>
+          <td>Das Feld <span class="ui">Summary</span> ist leer, oder bei keiner Datei ist ein Häkchen gesetzt.</td>
+        </tr>
+        <tr>
+          <td>Push klappt nicht, es erscheint <span class="ui">Pull origin</span></td>
+          <td>Jemand war schneller. Zuerst pullen, dann pushen (Teil 8).</td>
+        </tr>
+        <tr>
+          <td>Pull klappt nicht wegen lokaler Änderungen</td>
+          <td>Änderungen sind noch nicht committet. Zuerst committen, dann pullen.</td>
+        </tr>
+        <tr>
+          <td>Online sind <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> oder <code>=======</code> zu sehen</td>
+          <td>Beim Konflikt wurden nicht alle Markierungszeilen gelöscht. Entfernen, speichern, committen,
+            pushen.</td>
+        </tr>
+        <tr>
+          <td>Eintrag zerstört das Layout</td>
+          <td>Ein Tag ist nicht geschlossen. Im Diff in GitHub Desktop nachschauen, was sich geändert hat.</td>
+        </tr>
+        <tr>
+          <td>Website zeigt die alte Version</td>
+          <td>Im Tab <span class="ui">Actions</span> prüfen, ob der Build fertig ist. Dann neu laden mit
+            <code>Cmd + Shift + R</code> bzw. <code>Strg + F5</code>.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="exercise-header">
+      <h2>Für heute</h2>
+      <ol>
+        <li>Einladung annehmen, Repository und Website anschauen.</li>
+        <li>Repository mit GitHub Desktop klonen und in VS Code öffnen.</li>
+        <li>Zwei bis drei Begrüssungen eintragen, mit dem richtigen <code>lang</code>.</li>
+        <li>Commit und Push, im Rhythmus Pull, Bearbeiten, Commit, Pull, Push.</li>
+        <li>Runde 2: Zu viert die Seite gestalten, jede Person ihren Block.</li>
+        <li>Den Konflikt gemeinsam lösen – und das Resultat online anschauen.</li>
+      </ol>
+    </div>
+
+    <h2>Für später</h2>
+
+    <p>In grösseren Projekten arbeitet nicht mehr alle auf <code>main</code>: Man legt eigene Branches an und
+      schlägt Änderungen über Pull Requests vor. Das Prinzip bleibt dasselbe.</p>
+
+    <ul>
+      <li><a href="https://docs.github.com/de/desktop" target="_blank">Dokumentation zu GitHub Desktop</a></li>
+      <li><a href="https://www.youtube.com/watch?v=_NrSWLQsDL4" target="_blank">Daniel Shiffman: Git und GitHub für
+          Poets</a> (Video, Englisch)</li>
+    </ul>
+
+  </main>
+</body>
+
+</html>
