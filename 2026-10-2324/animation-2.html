@@ -250,9 +250,8 @@
   <main>
 
     <h1 class="doc-title">Workshop: Begrüssungsszenen animieren</h1>
-    <p class="subtitle">Eine Begrüssung ist nie einseitig. Jemand grüsst, jemand grüsst zurück, oder eben nicht.
-      Heute entwickelt ihr eine kleine animierte Szene, die mit der Person rechnet, die eure Seite öffnet. Ihr
-      arbeitet einzeln, testet aber zu zweit.</p>
+    <p class="subtitle">Eine Begrüssung ist nie einseitig. Jemand grüsst, jemand grüsst zurück, oder eben nicht. Oder es folgt eine Botschaft auf die Begrüssung.
+      Heute entwickelt ihr eine kleine animierte Szene.</p>
 
 
     <!-- ================================================= -->
@@ -262,66 +261,28 @@
 
     <p>Eine Begrüssung ist mehr als ein Wort. Sie ist eine kleine <strong>Szene</strong>: Die Seite grüsst, die
       Person, die sie öffnet, reagiert, und die Seite antwortet darauf. Und vielleicht sagt die Begrüssung mehr als
-      nur «Hallo»:</p>
+      nur «Hallo», Songtexte sind kleine Geschichten, auf das Hallo folgt etwas.</p>
 
     <div class="metaphor-room">
       «Hi.» … «Ich fühle mich heute müde.»<br>
       «Grüezi.» … «Sie sind spät.»<br>
-      «Dear friend,» … «I have an urgent offer for you.»
+      «Dear friend,» … «I have an urgent offer for you.»<br>
+      «You say goodby» … «And I say hello.»<br/>
+      «Hello from the other side» … «
+I must have called a thousand times.»
     </div>
+
+    <div><a href="https://www.siriusxm.com/blog/world-hello-day-songs">Songs, die mit Hello beginnen</a> </div>
+
 
     <p>Erst mit dem zweiten Satz entsteht ein Gegenüber mit einer Stimmung. Und die Stimmung gibt der Bewegung
       einen Grund: Ein müdes «Hallo» kommt langsam, sackt ab und braucht eine Pause, bevor der nächste Satz
       kommt.</p>
 
-    <h3>Ruf und Antwort</h3>
-
-    <p>Dialoge ohne Worte gibt es überall, wo Menschen gemeinsam etwas aufführen:</p>
-
-    <ul>
-      <li><strong>Call and Response</strong> in Gospel, Blues und Worksongs: Eine Stimme ruft, alle antworten. Die
-        Antwort kann bestätigen, widersprechen oder etwas weiterführen.</li>
-      <li><strong>Trading Fours</strong> im Jazz: Zwei Musiker:innen wechseln sich alle vier Takte ab und greifen
-        auf, was die andere Person gerade gespielt hat.</li>
-      <li><strong>Spiegelübung</strong> im Tanz und Theater: Eine Person führt, die andere folgt, bis man nicht
-        mehr weiss, wer führt.</li>
-      <li><strong>Kontaktimprovisation</strong>: Bewegung entsteht aus dem Kontakt, aus Gewicht geben und Gewicht
-        nehmen.</li>
-      <li><strong>Tango</strong>: Führen und Folgen als Gespräch, mit Einladungen, die man annehmen oder ablehnen
-        kann.</li>
-      <li><strong>Improvisationstheater</strong>: «Ja, und …»: Jedes Angebot wird angenommen und
-        weitergeführt.</li>
-    </ul>
-
-    <p>Für eure Szene heisst das: Was ist das Angebot eurer Begrüssung? Was passiert, wenn es angenommen wird? Und
-      was, wenn nicht?</p>
-
-    <h3>Wenn die Website zurückredet</h3>
-
-    <p>Auch eine Website kann ein Gegenüber sein. Das Projekt <a href="https://clickclickclick.click"
-        target="_blank" rel="noopener">click click click</a> von Studio Moniker beobachtet, was ihr mit der Maus
-      macht, und kommentiert es. Plötzlich merkt man: Jede Bewegung ist eine Antwort, auch das Nichtstun.</p>
-
-    <div class="exercise-header">
-      <h2>Mini-Dialoge schreiben (10 Minuten)</h2>
-      <p>Schreibt zwei kurze Dialoge, höchstens zweimal hin und her, also vier Zeilen:</p>
-      <ul>
-        <li>einen zwischen <strong>zwei Menschen</strong>, die sich über Technologie begegnen: Chat, SMS,
-          Videocall, E-Mail …</li>
-        <li>einen zwischen <strong>Mensch und Technologie</strong>: Website, Sprachassistent, Fehlermeldung,
-          Cookie-Banner …</li>
-      </ul>
-      <p>Wer spricht zuerst? Welche Stimmung hat A, welche B? Lest euch die Dialoge zu zweit laut vor.</p>
-    </div>
-
-    <div class="metaphor-room">
-      A: Ping. Bist du da?<br>
-      B: Online. Seit Stunden schon.<br>
-      A: Schön, dass sich unsere Bildschirme treffen.<br>
-      B: Schön, dass du tippst.
-    </div>
-
-    <p>Eure Dialoge sind das Rohmaterial für die Szene, die ihr später baut. Zuerst braucht ihr aber das Werkzeug,
+   
+    
+   
+    <p>Zwei Sätze sind das Rohmaterial für die Szene, die ihr später baut. Zuerst braucht ihr aber das Werkzeug,
       um Wörter in Bewegung zu bringen.</p>
 
 
@@ -490,11 +451,11 @@ animation: hereinschieben 3s ease-in-out both;</code></pre>
       einzeln, leicht versetzt.</p>
 
     <pre><code>&lt;h1 class="wort" aria-label="Hallo"&gt;
-  &lt;span aria-hidden="true" style="--i: 0"&gt;H&lt;/span&gt;
-  &lt;span aria-hidden="true" style="--i: 1"&gt;a&lt;/span&gt;
-  &lt;span aria-hidden="true" style="--i: 2"&gt;l&lt;/span&gt;
-  &lt;span aria-hidden="true" style="--i: 3"&gt;l&lt;/span&gt;
-  &lt;span aria-hidden="true" style="--i: 4"&gt;o&lt;/span&gt;
+  &lt;span style="--i: 0"&gt;H&lt;/span&gt;
+  &lt;span  style="--i: 1"&gt;a&lt;/span&gt;
+  &lt;span  style="--i: 2"&gt;l&lt;/span&gt;
+  &lt;span  style="--i: 3"&gt;l&lt;/span&gt;
+  &lt;span  style="--i: 4"&gt;o&lt;/span&gt;
 &lt;/h1&gt;</code></pre>
 
     <pre><code>.wort span {
@@ -524,8 +485,9 @@ animation: hereinschieben 3s ease-in-out both;</code></pre>
 
     <h2>Teil 6: Animation und Interaktion</h2>
 
-    <p>Eine Animation läuft von selbst. Das ist der Ruf, Zeile A eures Dialogs. Spannend wird es, wenn die Person
-      antwortet, die die Seite öffnet. Ihre Antwort besteht nicht aus Worten, sondern aus Bewegungen der Maus. Mit
+    <p>Eine Animation läuft von selbst. Spannend wird es, wenn eine Szene entsteht. Wie wird die Interaktion eingebunden? 
+      Wie die Zeit? 
+      Ihre Antwort besteht nicht aus Worten, sondern aus Bewegungen der Maus. Mit
       CSS allein habt ihr dafür diesen Werkzeugkasten:</p>
 
     <div class="table-wrap">
@@ -569,196 +531,6 @@ animation: hereinschieben 3s ease-in-out both;</code></pre>
       </table>
     </div>
 
-    <h3>Beispiel</h3>
-
-    <pre><code>/* Die Antwort erscheint erst, wenn man verweilt */
-.antwort {
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-
-.hero:hover .antwort {
-  opacity: 1;
-  transition-delay: 1.5s; /* erst nach anderthalb Sekunden */
-}</code></pre>
-
-    <pre><code>&lt;section class="hero"&gt;
-  &lt;h1 class="wort" tabindex="0" aria-label="Hallo"&gt; … &lt;/h1&gt;
-  &lt;p class="antwort"&gt;Schön, dass du bleibst.&lt;/p&gt;
-&lt;/section&gt;</code></pre>
-
-
-    <!-- ================================================= -->
-
-
-    <h2>Teil 7: Vom Dialog zur Szene</h2>
-
-    <p>Jetzt wird aus eurem Mini-Dialog eine Szene. Zuerst auf Papier als Drehbuch, dann als Papierprototyp, den ihr
-      zu zweit aufführt. Das geht schneller als Code, und ihr merkt sofort, ob eure Idee funktioniert.</p>
-
-    <div class="exercise-header">
-      <h2>Mini-Drehbuch und Papierprototyp</h2>
-      <ol>
-        <li><strong>Drehbuch schreiben (10 Minuten):</strong> Wählt einen eurer Mini-Dialoge. Die Seite spricht A,
-          die Person antwortet als B, aber mit Hover, Klick, Verweilen oder Nichtstun statt mit Worten.</li>
-        <li><strong>Bauen (15 Minuten):</strong> Wort und Sätze aus Papier, dazu ein Rahmen als Viewport.</li>
-        <li><strong>Aufführen zu zweit (2 × 10 Minuten):</strong> Eine Person ist die Website, die andere die
-          Besucherin.</li>
-        <li><strong>Auswerten und anpassen (5 Minuten):</strong> Drehbuch überarbeiten, Keyframes fotografieren.</li>
-      </ol>
-    </div>
-
-    <h3>1. Das Mini-Drehbuch</h3>
-
-    <p>Das Drehbuch hat zwei Spalten: links, was die Seite von selbst macht, rechts, was sie tut, wenn die Person
-      etwas tut. Bleibt sehr einfach. Und denkt auch an die leere Zeile: Was passiert, wenn niemand antwortet?</p>
-
-    <div class="table-wrap">
-      <table>
-        <tr>
-          <th>Zeit</th>
-          <th>Die Seite von selbst</th>
-          <th>Wenn die Person …</th>
-        </tr>
-        <tr>
-          <td>0 s</td>
-          <td>Leerer Screen. Ein Buchstabe nach dem anderen sackt von oben ins Bild: «H a l l o».</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>3 s</td>
-          <td>Das Wort gähnt: Es wird langsam breiter und wieder schmaler.</td>
-          <td>… näher kommt (Hover): Das Wort schreckt auf, die Buchstaben stehen gerade.</td>
-        </tr>
-        <tr>
-          <td>5 s</td>
-          <td></td>
-          <td>… verweilt: Klein darunter erscheint «Ich fühle mich heute müde.»</td>
-        </tr>
-      </table>
-    </div>
-
-    <h3>2. Bauen</h3>
-
-    <ul>
-      <li>Die Buchstaben eures Worts gross ausschneiden, auch den zweiten Satz, wenn ihr einen habt. Schichten in
-        verschiedenen Farben sind erlaubt.</li>
-      <li>Einen <strong>Rahmen</strong> bauen: ein Karton mit einem ausgeschnittenen Fenster im Format eines
-        Bildschirms. Das ist euer Viewport. Was ausserhalb liegt, ist unsichtbar, wie bei
-        <code>overflow: hidden</code>.</li>
-      <li>Alles bereitlegen, was von aussen ins Bild kommen soll.</li>
-    </ul>
-
-    <h3>3. Aufführen zu zweit</h3>
-
-    <p>Eine Person spielt <strong>die Website</strong> und bewegt die Papierbuchstaben im Rahmen, so wie es im
-      Drehbuch steht. Die andere spielt <strong>die Besucherin</strong> und hat nur einen Finger als Mauszeiger.</p>
-
-    <ul>
-      <li><strong>Finger schwebt über dem Papier</strong>: Hover.</li>
-      <li><strong>Finger tippt</strong>: Klick.</li>
-      <li><strong>Finger zieht sich zurück</strong>: sich abwenden.</li>
-      <li><strong>Hände im Schoss</strong>: nichts tun. Probiert auch das mindestens einmal aus!</li>
-    </ul>
-
-    <div class="hint"><strong>Die Regeln:</strong> Die Besucherin kennt das Drehbuch nicht und verhält sich so,
-      wie sie möchte. Die Website darf nichts erklären, sie reagiert nur. Und sie darf nur, was CSS auch kann:
-      keine Buchstaben, die dem Finger folgen, nichts, was sich eine Seite merkt, wenn man sie wieder öffnet.
-      Danach werden die Rollen getauscht.</div>
-
-    <h3>4. Auswerten</h3>
-
-    <p>Die Besucherin erzählt, die Website hört nur zu:</p>
-
-    <ul>
-      <li>Welche Stimmung hast du gespürt? Steht sie im Drehbuch?</li>
-      <li>Hast du gemerkt, dass du antworten kannst? Woran?</li>
-      <li>Was hast du erwartet, und was ist passiert? Wo warst du überrascht oder irritiert?</li>
-      <li>Wolltest du bleiben, oder wolltest du weiterklicken?</li>
-    </ul>
-
-    <p>Danach passt ihr euer Drehbuch an. Fotografiert die wichtigsten Momente eurer Papierszene. Das sind eure
-      Keyframes.</p>
-
-
-    <!-- ================================================= -->
-
-
-    <h2>Teil 8: Umsetzung beginnen</h2>
-
-    <p>Legt euer Drehbuch und die Fotos neben den Bildschirm und arbeitet in dieser Reihenfolge:</p>
-
-    <ol>
-      <li><strong>Stillstand:</strong> Zuerst die Szene ohne Bewegung: Schrift, Grösse, Farbe, Position. Welche
-        Schrift passt zur Stimmung?</li>
-      <li><strong>Von selbst:</strong> Die Animation, die läuft, wenn niemand etwas tut.</li>
-      <li><strong>Reaktion:</strong> Eine Interaktion nach der anderen, die wichtigste zuerst.</li>
-      <li><strong>Feinschliff:</strong> Timing, Pausen, Verzögerungen. Hier entscheidet sich, ob die Stimmung
-        ankommt.</li>
-    </ol>
-
-    <h3>Startvorlage</h3>
-
-    <pre><code>&lt;section class="hero"&gt;
-  &lt;h1 class="wort" lang="it" tabindex="0" aria-label="Ciao"&gt;
-    &lt;span aria-hidden="true" style="--i: 0"&gt;C&lt;/span&gt;
-    &lt;span aria-hidden="true" style="--i: 1"&gt;i&lt;/span&gt;
-    &lt;span aria-hidden="true" style="--i: 2"&gt;a&lt;/span&gt;
-    &lt;span aria-hidden="true" style="--i: 3"&gt;o&lt;/span&gt;
-  &lt;/h1&gt;
-  &lt;p class="antwort" lang="de"&gt;Ich fühle mich heute grossartig.&lt;/p&gt;
-&lt;/section&gt;</code></pre>
-
-    <pre><code>body {
-  margin: 0;
-}
-
-.hero {
-  height: 100vh;
-  height: 100dvh;      /* berücksichtigt die Adressleiste auf dem Handy */
-  display: grid;
-  place-content: center;
-  text-align: center;
-  overflow: hidden;    /* nichts ragt über den Rand hinaus */
-}
-
-.wort {
-  margin: 0;
-  font-size: 25vw;     /* Schriftgrösse wächst mit der Fensterbreite */
-  line-height: 1;
-}
-
-.wort:focus {
-  outline: none;       /* nur wenn ihr den Fokus anders sichtbar macht! */
-}
-
-.wort span {
-  display: inline-block;
-  animation: auftauchen 1s ease-out both;
-  animation-delay: calc(var(--i) * 0.15s);
-}
-
-@keyframes auftauchen {
-  0%   { opacity: 0; transform: translateY(40%) scale(0.6); }
-  70%  { opacity: 1; transform: translateY(-5%) scale(1.05); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.antwort {
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-
-.hero:hover .antwort {
-  opacity: 1;
-  transition-delay: 1.5s;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .wort span {
-    animation: none;
-  }
-}</code></pre>
 
     <div class="hint"><strong>Viewport-Einheiten:</strong> <code>vw</code> ist ein Hundertstel der Fensterbreite,
       <code>vh</code> ein Hundertstel der Fensterhöhe. Damit skaliert die Schrift mit dem Bildschirm. Testet in
@@ -768,16 +540,24 @@ animation: hereinschieben 3s ease-in-out both;</code></pre>
 
     <h2>Aufgabe auf 6. November, 18:00: Eine Mini-Begrüssungsszene</h2>
 
-    <h2>Aufgabe auf 29. Oktober, 18:00</h2>
-    <p>Layout (noch statisch) eurer Mini-Begrüssungszene. Typografie? Welches Wort steht wo? Grösse? </p>
-
     <p>Setzt eure Szene um: eine <strong>typografische Begrüssung, die den ganzen Bildschirm bespielt</strong> und
       mit der Person rechnet, die die Seite öffnet.</p>
 
+    <h3>Anforderungen</h3>
 
+    <ul>
+      <li>Ein Begrüssungswort in einer Sprache eurer Wahl, gefolgt von etwas mehr: einem zweiten Satz, einer
+        Stimmung, einer Antwort.</li>
+      <li>Mindestens eine eigene <code>@keyframes</code>-Animation mit mehr als zwei Keyframes.</li>
+      <li>Reduziert die Mittel: Welche Gestaltungselemente braucht es wirklich?</li>
+      <li>Überprüft die Schriftwahl: Welche Schrift passt zur Bewegung?</li>
+   
+    </ul>
 
-    <p>Am 30. Oktober schauen wir ein bisschen JavaScript an, dann habt ihr noch mehr Möglichkeiten zur Interaktion.</p>
+    <h3>Ausblick</h3>
 
+    <p>Am 7.11. schauen wir ein bisschen JavaScript an, dann werden wir die Szene noch interaktiver machen. </p>
+   
   </main>
 </body>
 

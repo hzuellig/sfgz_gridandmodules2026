@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        section {
+            height: 100vh;
+            padding-top: 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+        }
+
+        body {
+            font-family: "Montserrat", sans-serif;
+        }
+
+        .hellohello {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .wort span {
+            font-size: 6rem;
+            display: inline-block;
+            /* wichtig! */
+            animation: huepfen 1.2s ease-in-out 2 alternate;
+            animation-delay: calc(var(--i) * 0.12s);
+        }
+
+        .goodby {
+            font-size: 6rem;
+            font-weight: 100;
+            animation-name: by;
+            animation-duration: 5s;
+            animation-iteration-count: 1;
+            display: flex;
+            justify-content: center;
+            animation-fill-mode: both;
+
+        }
+
+        .hello {
+            font-size: 1rem;
+            font-weight: 600;
+            animation-name: grow;
+            animation-fill-mode: both;
+            animation-duration: 3s;
+            animation-delay: 4s;
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .form{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .kreis{
+            border-radius: 50%;
+            background-color: blue;
+            width: 80vh;
+            height:80vh;
+            animation-name: formanim;
+            animation-fill-mode: both;
+            animation-iteration-count: 1;
+            animation-duration: 5s;
+        }
+
+        .form, .talking{
+            grid-column: 1/1;
+            grid-row: 1/1;
+        }
+        @keyframes huepfen {
+            0% {
+                transform: translateY(0);
+            }
+
+            60% {
+                transform: translateY(-24px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+
+        @keyframes by {
+            0% {
+                transform: translate(-100vw, 0);
+            }
+
+            30% {
+                transform: translate(0, 0);
+            }
+
+            40% {
+                transform: scale(-1, 1);
+            }
+
+            70% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(100vw, 0);
+            }
+        }
+
+        @keyframes grow {
+            0% {
+                font-size: 1rem;
+                transform: translate(0, 80vh);
+            }
+
+            80% {
+                font-size: 6rem;
+                transform: translate(0, 0);
+            }
+
+            100% {
+                font-size: 6rem;
+                transform: translate(0px, 0);
+            }
+        }
+
+        @keyframes formanim{
+            0%{
+                transform: translate(0,-60vh) scale(0.2) ;
+            }
+            60%{
+                transform: scale(1.5) translate(0,30vh);
+            }
+            100%{
+                transform: scale(1) translate(0,0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+
+        <!-- <div class="hellohello">
+            <h1 class="wort" aria-label="Hello, Hello">
+                <span aria-hidden="true" style="--i: 0">H</span>
+                <span aria-hidden="true" style="--i: 1">e</span>
+                <span aria-hidden="true" style="--i: 2">l</span>
+                <span aria-hidden="true" style="--i: 3">l</span>
+                <span aria-hidden="true" style="--i: 4">o</span>
+            </h1>
+            <h1 class="wort" aria-label="Hello, Hello">
+                <span aria-hidden="true" style="--i: 5">H</span>
+                <span aria-hidden="true" style="--i: 6">e</span>
+                <span aria-hidden="true" style="--i: 7">l</span>
+                <span aria-hidden="true" style="--i: 8">l</span>
+                <span aria-hidden="true" style="--i: 9">o</span>
+            </h1>
+        </div>
+        -->
+
+        <!--<div class="form">
+            <div class="kreis">
+
+            </div>
+        </div>-->
+
+
+        <div class="talking">
+            <div class="goodby">
+                <div>You say Goodbye </div>
+            </div>
+
+            <div class="hello">
+                <div>And I say Hello</div>
+            </div>
+        </div>
+
+
+    </section>
+</body>
+
+</html>
