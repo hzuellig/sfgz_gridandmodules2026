@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+body{
+    font-family: "Montserrat", sans-serif;
+}
+
+.goodbye{
+    animation-name: saygoodbye;
+    animation-duration: 3s;
+    animation-delay: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    font-size: 3rem;
+    font-weight: 100;
+}
+
+.hello{
+    font-size: 4rem;
+    font-weight: 200;
+    animation-name: hello;
+    animation-duration: 2s;
+    animation-iteration-count: 1; 
+    animation-delay: 3s;
+    animation-fill-mode: both;
+}
+
+
+@keyframes saygoodbye{
+    0%{
+        transform: translate(-100vw,0);
+        opacity: 1;
+    }
+    40%{
+        transform: translate(0,0);
+    }
+    60%{
+        transform: translate(0,0);
+    }
+    100%{
+        transform: translate(100vw,0);
+        opacity: 0.5;
+    }
+
+}
+
+
+@keyframes hello{
+    0%{
+        transform: translate(100vw,0);
+    }
+    50%{
+        transform: translate(0,0);
+    }
+    100%{
+        font-weight: 800;
+    }
+
+}
