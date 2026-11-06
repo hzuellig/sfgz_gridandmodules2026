@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schlussprojekt: «Web-Visitenkarte»</title>
+
+  <style>
+    :root {
+      --text: #2b2a27;
+      --text-dim: #6b6a65;
+      --accent: #1be07d;
+      --accent-soft: rgba(215, 220, 221, 0.618);
+      --border: rgba(215, 220, 221, 0.618);
+      --table-header: rgba(56, 255, 156, 0.45);
+      --ink: #2d2d2d;
+      --paper: #fafaf6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    a {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--text);
+      font-family:
+        "IBM Plex Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+      line-height: 1.65;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 90px;
+    }
+
+    h1.doc-title {
+      font-size: 34px;
+      font-weight: 700;
+      margin: 0 0 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      color: var(--text-dim);
+      font-size: 15px;
+      margin: 0 0 48px;
+      max-width: 56ch;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 56px 0 6px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 32px 0 10px;
+    }
+
+    p {
+      margin: 12px 0;
+    }
+
+    ul,
+    ol {
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .hint {
+      background: var(--table-header);
+      border-left: 3px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+
+    .hint strong {
+      color: var(--ink);
+    }
+
+    .metaphor-room {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+
+    .leitsatz {
+      border: 2px solid var(--ink);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+
+    .leitsatz-kern {
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .exercise-header {
+      background: var(--accent);
+      padding: 22px 26px;
+      border-radius: 12px;
+      margin: 56px 0 24px;
+    }
+
+    .exercise-header h2 {
+      border: none;
+      color: var(--ink);
+      margin: 0 0 6px;
+      padding: 0;
+    }
+
+    .exercise-header p,
+    .exercise-header li {
+      color: var(--ink);
+      font-size: 14.5px;
+    }
+
+    .exercise-header p {
+      margin: 8px 0 0;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    /* Leitplanken als Karten */
+    .rules {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .rules li {
+      margin: 0;
+      padding: 14px 16px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .rules li span {
+      display: block;
+      margin-top: 6px;
+      font-weight: 400;
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    /* Vier Einstiege */
+    .entries {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .entry {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+    }
+
+    .entry h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+
+    .entry p {
+      margin: 0;
+      font-size: 14.5px;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+
+    <h1 class="doc-title">Schlussprojekt: «Web-Visitenkarte»</h1>
+    <p class="subtitle">Listen, Sammlungen, Begrüssungen, Songtexte, Animation, ein Button, der wartet. Jetzt
+      bringt ihr zusammen, was ihr im Modul gelernt habt, und stellt euch vor.</p>
+
+    <h2>Worum es geht</h2>
+
+    <p>Eine «Web-Visitenkarte» ist der Moment, in dem ihr euch vorstellt. Im Web kann sie mehr als Name und
+      Adresse: Sie kann erzählen, zeigen, fragen, warten, antworten. Eure Webpage ist eine kleine Szene, in der
+      jemand euch begegnet.</p>
+
+    <p>Sie soll etwas mit euch zu tun haben. Persönlich heisst nicht privat: Die Szene kann von einer Vorliebe
+      erzählen, von einem Tick, von eurem Humor oder von etwas, das euch begleitet.</p>
+
+    <p>Lotet aus, was ihr über Web Crafting gelernt habt. Gesucht ist nichts Grosses, sondern etwas Kleines, das
+      hängen bleibt. Ein Hingucker, genau gebaut.</p>
+
+    <div class="leitsatz">
+      <p class="leitsatz-kern">Klein, persönlich, genau gebaut.</p>
+    </div>
+
+    <hr>
+
+    <h2>Leitplanken</h2>
+
+    <ul class="rules">
+      <li>Eine Seite, ein Bildschirm<span>Entscheidet euch für ein Format: Hochformat fürs Handy, Querformat für
+          den Laptop, oder beides.</span></li>
+      <li>Eine Szene<span>Interaktion, Dialog oder kleines Spiel: offen. Aber eine Szene, nicht drei.</span></li>
+      <li> Maximal zwei Schriftarten<span>Farben sind frei.</span></li>
+      <li>Von euch<span>Selbst geschrieben, fotografiert, gezeichnet, oder etwas, zu dem ihr einen echten Bezug
+          habt.</span></li>
+    </ul>
+
+   
+
+    <hr>
+
+    <h2>Mögliche Einstiege</h2>
+
+    <p>Wählt einen als Ausgangspunkt, oder bringt einen eigenen mit.</p>
+
+    <div class="entries">
+      <div class="entry">
+        <h3>Die Sammlung</h3>
+        <p>Was erzählen Dinge über euch? Wörter, Bilder, Gegenstände.</p>
+      </div>
+      <div class="entry">
+        <h3>Der Dialog</h3>
+        <p>Eure Webpage fragt etwas und wartet. Was antwortet sie, wenn man antwortet?</p>
+      </div>
+      <div class="entry">
+        <h3>Das Versteckte</h3>
+        <p>Auf den ersten Blick sieht man wenig. Erst durch Interaktion zeigt sich etwas über euch.</p>
+      </div>
+      <div class="entry">
+        <h3>Das Lied</h3>
+        <p>Eine Zeile, die euch begleitet, und wie sie sich bewegt.</p>
+      </div>
+      <div class="entry">
+        <h3>Eine Idee von euch?</h3>
+       
+      </div>
+    </div>
+
+    <hr>
+
+    <h2>Die Stimme</h2>
+
+    <p>Egal welchen Einstieg ihr wählt: Eure Szene spricht. Wie klingt sie?</p>
+
+    <div class="metaphor-room">
+      Förmlich wie ein Brief: «Dearest gentle reader …» · vertraut wie eine Nachricht an eine Freundin ·
+      schüchtern · laut · verspielt · geheimnisvoll · ungeduldig · zärtlich
+    </div>
+
+    <p>Die Stimme zeigt sich in der Wortwahl, aber genauso in Schrift, Grösse und Tempo, und darin, wie die
+      Webpage auf die Besuchenden reagiert. Ein Button, der sich nach einem Klick sehnt, spricht anders als einer,
+      der befiehlt.</p>
+
+    <hr>
+
+    <h2>Der erste Schritt</h2>
+
+    <p>Bevor ihr Code schreibt, ein Satz auf Papier:</p>
+
+    <div class="leitsatz">
+      <p class="leitsatz-kern">Wer meine Webpage anschaut, soll merken, dass ich …</p>
+    </div>
+
+    <p>Ein paar Beispiele:</p>
+
+<ul>
+  <li>… mich nie entscheiden kann und das eigentlich ganz gern mag.</li>
+  <li>… jeden Morgen dieselbe Zeile im Kopf habe, seit ich zwölf bin.</li>
+  <li>… zu viele Fotos von Himmeln mache.</li>
+  <li>… zuerst schüchtern bin, aber dann nicht mehr aufhöre zu reden.</li>
+  <li>… in drei Sprachen träume und in keiner ganz zu Hause bin.</li>
+  <li>… Dinge sammle, die andere wegwerfen.</li>
+  <li>… immer zu spät komme, aber mit einer guten Geschichte.</li>
+</ul>
+
+<div class="hint"><strong>Konkret und klein.</strong> Sätze wie «… kreativ bin» oder «… gern gestalte» stimmen
+  zwar, aber daraus entsteht kaum eine Szene. Je genauer der Satz, desto leichter findet ihr die Form dazu.</div>
+
+    <p>Dieser Satz ist euer Kompass. Wenn ihr später nicht weiterwisst, ob etwas dazugehört oder nicht: zurück
+      zum Satz.</p>
+
+    <div class="exercise-header">
+      <h2>Auf 14. November, 8:00</h2>
+      <p>Notiert und skizziert <strong>zwei Ideen</strong> für eure «Web-Visitenkarte». Für jede Idee:</p>
+      <ul>
+        <li><strong>Der Satz:</strong> «Wer meine Webpage anschaut, soll merken, dass ich …»</li>
+        <li><strong>Der Einstieg:</strong> Sammlung, Dialog, Versteckte, Lied oder ein eigener</li>
+        <li><strong>Die Stimme:</strong> Wie spricht die Szene? Zwei, drei Wörter reichen.</li>
+        <li><strong>Eine Skizze:</strong> auf Papier, im gewählten Format. Was sieht man zuerst? Was passiert,
+          wenn man interagiert? Gerne als kleine Abfolge von zwei, drei Bildern.</li>
+        <li><strong>Eine Referenz:</strong> etwas, das die Stimmung trifft. Es muss keine Website sein: ein
+          Plakat, eine Buchseite, ein Brief, ein Foto, ein Geräusch.</li>
+      </ul>
+      <p>Ihr stellt beide Ideen in einer Kleingruppe vor, je etwa zwei Minuten. Danach entscheidet ihr euch für
+        eine.</p>
+    </div>
+
+   
+
+    <hr>
+
+    <h2>Ablauf</h2>
+
+    <p>Für das Projekt habt ihr zwei Tage in der Schule. Rechnet mit zwei weiteren Tagen selbständiger Arbeit.</p>
+
+    <ul>
+      <li><strong>Ideen:</strong> zwei Ideen skizzieren, vorstellen, eine wählen</li>
+      <li><strong>Inhalte:</strong> Texte, Bilder, Fundstücke sammeln</li>
+      <li><strong>Prototyp:</strong> roh und schnell, zuerst die Szene, dann die Gestaltung</li>
+      <li><strong>Verfeinern:</strong> Typografie, Timing, Details</li>
+      <li><strong>Testen:</strong> auf verschiedenen Geräten und mit Peers</li>
+    </ul>
+
+    <div class="hint"><strong>Klein bleiben.</strong> Lieber eine Geste, die genau sitzt, als drei, die halb
+      funktionieren. Wenn ihr Zeit übrig habt, verfeinert, statt Neues hinzuzufügen.</div>
+
+    
+  </main>
+</body>
+
+</html>
