@@ -190,6 +190,7 @@ a:hover {
   display: flex;
   align-items: baseline;
   padding: 0.5rem 0;
+  
 }
 
 .archive-list li::before {
@@ -203,7 +204,8 @@ a:hover {
 
 .archive-list li span {
   flex-shrink: 0;
-
+padding-left: 1rem;;
+padding-right: 1rem;
   max-width: 80%;
   font-size: 1.1rem;
   color: var(--ink);
