@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop: Responsive – vom Papier ins Web</title>
+
+    <style>
+        :root {
+            --text: #2b2a27;
+            --text-dim: #6b6a65;
+            --accent: #1be07d;
+            --accent-soft: rgba(215, 220, 221, 0.618);
+            --code-bg: #24262b;
+            --code-text: rgba(56, 255, 156, 1);
+            --border: rgba(215, 220, 221, 0.618);
+            --table-header: rgba(56, 255, 156, 0.45);
+            --ink: #2d2d2d;
+            --paper: #fafaf6;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        a {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        body {
+            margin: 0;
+            background: #ffffff;
+            color: var(--text);
+            font-family:
+                "IBM Plex Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+            line-height: 1.65;
+        }
+
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 56px 24px 90px;
+        }
+
+        h1.doc-title {
+            font-size: 34px;
+            font-weight: 700;
+            margin: 0 0 6px;
+            letter-spacing: -0.3px;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 15px;
+            margin: 0 0 48px;
+            max-width: 56ch;
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 56px 0 6px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin: 32px 0 10px;
+        }
+
+        p {
+            margin: 12px 0;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+            font-size: 0.9em;
+            background: var(--accent-soft);
+            color: #9a3d1c;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 18px 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+            font-size: 13.5px;
+            line-height: 1.6;
+            margin: 16px 0;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        .file {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 700;
+            background: var(--ink);
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 6px 6px 0 0;
+            margin: 16px 0 -16px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14.5px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        th {
+            background: var(--table-header);
+            font-weight: 700;
+        }
+
+        .hint {
+            background: var(--table-header);
+            border-left: 3px solid var(--accent);
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .hint strong {
+            color: var(--ink);
+        }
+
+        ul,
+        ol {
+            padding-left: 22px;
+        }
+
+        li {
+            margin: 6px 0;
+        }
+
+        .exercise-header {
+            background: var(--accent);
+            padding: 22px 26px;
+            border-radius: 12px;
+            margin: 56px 0 24px;
+        }
+
+        .exercise-header h2 {
+            border: none;
+            color: var(--ink);
+            margin: 0 0 6px;
+            padding: 0;
+        }
+
+        .exercise-header p,
+        .exercise-header li {
+            color: var(--ink);
+            font-size: 14.5px;
+        }
+
+        .exercise-header p {
+            margin: 8px 0 0;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 40px 0;
+        }
+
+        .metaphor-room {
+            background: var(--paper);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 14.5px;
+        }
+
+        .excursus {
+            border: 2px dashed var(--ink);
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin: 24px 0;
+        }
+
+        .excursus h3 {
+            margin-top: 0;
+        }
+
+        figure {
+            margin: 24px 0;
+        }
+
+        figure svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        figure img {
+            display: block;
+            width: 100%;
+            max-width: 380px;
+            border: 1px solid var(--border);
+        }
+
+        figcaption {
+            color: var(--text-dim);
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        blockquote {
+            margin: 24px 0;
+            padding: 0 0 0 20px;
+            border-left: 3px solid var(--ink);
+            font-style: italic;
+        }
+
+        /* Ablauf als Kette */
+        .rhythm {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .rhythm li {
+            margin: 0;
+            padding: 10px 14px;
+            border: 2px solid var(--ink);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .rhythm li span {
+            display: block;
+            font-weight: 400;
+            font-size: 12.5px;
+            color: var(--text-dim);
+        }
+
+        .rhythm li.aktiv {
+            background: var(--accent);
+        }
+
+        .rhythm li:not(:last-child)::after {
+            content: "→";
+            position: absolute;
+            right: -14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 700;
+        }
+
+        /* Aufklappbare Hinweise */
+        details {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 16px;
+            margin: 16px 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+
+        <h1 class="doc-title">Workshop: Responsive – vom Papier ins Web</h1>
+        <p class="subtitle">Media Queries, Breakpoints und ein Umschlag von 1925, der zügeln muss.</p>
+
+        <ol class="rhythm">
+            <li class="aktiv">Block 1<span>vom Format zum Fluss</span></li>
+            <li class="aktiv">Block 2<span>Media Queries</span></li>
+            <li class="aktiv">Block 3<span>Plakat aufbauen</span></li>
+            <li>Nachmittag<span>Reduktion zu Mobile</span></li>
+            <li>Optional<span>Ausbau zu Desktop</span></li>
+            <li>Zeigen<span>Lösungen vergleichen</span></li>
+        </ol>
+
+        <img src="../assets/digital.png" alt="devices mit verschiedenen groessen" />
+        <!-- ============================================================ -->
+        <h2>Block 1 · Vom Format zum Fluss</h2>
+
+        <p>Ein Plakat hat ein Format. Es ist A1 oder A3, hoch oder quer, und es bleibt so. Wer für Papier gestaltet,
+            kennt die Fläche, bevor die erste Linie gezogen wird.</p>
+
+        <p>Eine Webseite kennt ihre Fläche nicht. Sie erscheint auf einem Handy, einem Tablet, einem breiten
+            Bildschirm, in einem halb zugezogenen Browserfenster. Sie wird gedreht, gezoomt, vergrössert.</p>
+
+        <blockquote>
+            “We should embrace the fact that the web doesn’t have the same constraints (as the print medium), and
+            design for this flexibility. But first, we must ‘accept the ebb and flow of things.’”
+            <br>– Ethan Marcotte, Responsive Web Design, 2010
+        </blockquote>
+
+        <p>Ethan Marcotte hat 2010 auf <a href="https://alistapart.com/article/responsive-web-design"
+                target="_blank">A List Apart</a> den Begriff <strong>Responsive Web Design</strong> geprägt. Er
+            nannte drei Zutaten: ein flexibles Raster, flexible Bilder und <strong>Media Queries</strong>. Die Konzepte
+            gelten bis heute. Inzwischen kommt oft der grösste Teil des Traffics von mobilen Geräten.</p>
+
+        <div class="hint"><strong>Gut zu wissen:</strong> Das «ebb and flow» hat Marcotte selbst zitiert. Es stammt aus
+            John Allsopps Text <a href="https://alistapart.com/article/dao/" target="_blank">A Dao of Web Design</a>
+            aus dem Jahr 2000. Die Idee, dass das Web keine Seite aus Papier ist, ist also fast so alt wie das Web.
+        </div>
+
+        <div class="metaphor-room">
+            Stellt euch Responsive Design wie <strong>Zügeln</strong> vor. Ihr nehmt dieselben Dinge mit in eine
+            andere Wohnung: ein Studio, eine 2½-Zimmer-Wohnung, ein grosses Loft. Die Möbel bleiben dieselben, aber sie
+            stehen anders. Manches kommt in den Keller. Und manchmal merkt man erst beim Packen, was man wirklich
+            braucht.
+        </div>
+
+        <h3>Zwei Werkzeuge: Fluidität und Media Queries</h3>
+
+        <p><strong>Fluidität</strong> heisst: Elemente passen sich stufenlos an, wenn das Fenster grösser oder kleiner
+            wird. Dafür kennt ihr schon einige Mittel:</p>
+
+        <div class="table-wrap">
+            <table>
+                <tr>
+                    <th>Mittel</th>
+                    <th>Was es tut</th>
+                </tr>
+                <tr>
+                    <td><code>%</code>, <code>vw</code>, <code>vh</code></td>
+                    <td>Grössen relativ zum Elternelement oder zum Viewport. <code>1vw</code> = 1&nbsp;% der Fensterbreite.</td>
+                </tr>
+                <tr>
+                    <td><code>fr</code> in Grid</td>
+                    <td>Ein Anteil am verfügbaren Platz.</td>
+                </tr>
+                <tr>
+                    <td><code>flex-wrap</code>, <code>flex-grow</code>, <code>flex-shrink</code></td>
+                    <td>Flex-Elemente brechen um, wachsen oder schrumpfen.</td>
+                </tr>
+            </table>
+        </div>
+
+        <p>Fluidität allein reicht aber nicht. Irgendwann wird eine Zeile zu lang, eine Spalte zu eng, ein Titel zu
+            klein. Dann braucht es einen Wechsel: ein anderes Layout ab einer bestimmten Breite. Dafür gibt es
+            <strong>Media Queries</strong>.
+        </p>
+
+        <h3>Media Queries</h3>
+
+        <p>Eine Media Query ist eine Bedingung. Das CSS darin gilt nur, wenn die Bedingung erfüllt ist:</p>
+
+        <pre><code>body {
+  background-color: black;
+}
+
+@media (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+}</code></pre>
+
+        <p>Auf grossen Bildschirmen ist der Hintergrund schwarz. Ist das Fenster höchstens 600px breit, wird er
+            hellblau. Abgefragt werden kann vieles:</p>
+
+        <div class="table-wrap">
+            <table>
+                <tr>
+                    <th>Query</th>
+                    <th>Fragt nach</th>
+                </tr>
+                <tr>
+                    <td><code>min-width</code> / <code>max-width</code></td>
+                    <td>Breite des Viewports. Das ist die wichtigste.</td>
+                </tr>
+                <tr>
+                    <td><code>orientation: portrait</code> / <code>landscape</code></td>
+                    <td>Hochformat oder Querformat.</td>
+                </tr>
+                <tr>
+                    <td><code>print</code></td>
+                    <td>Die Seite wird gedruckt.</td>
+                </tr>
+                <tr>
+                    <td><code>prefers-color-scheme: dark</code></td>
+                    <td>Die User haben den Dark Mode eingeschaltet.</td>
+                </tr>
+                <tr>
+                    <td><code>prefers-reduced-motion</code></td>
+                    <td>Die User möchten weniger Bewegung.</td>
+                </tr>
+            </table>
+        </div>
+
+        <p>Bedingungen lassen sich kombinieren:</p>
+
+        <pre><code>@media (min-width: 30em) and (orientation: landscape) {
+  /* … */
+}</code></pre>
+
+        <h3>Breakpoints</h3>
+
+        <p>Ein <strong>Breakpoint</strong> ist die Breite, an der das Layout wechselt. Oft orientiert man sich an
+            Gerätegruppen. Diese Werte verwenden auch Frameworks wie Tailwind:</p>
+
+        <div class="table-wrap">
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>ab Breite</th>
+                    <th>ungefähr</th>
+                </tr>
+                <tr>
+                    <td>sm</td>
+                    <td><code>40em</code> (640px)</td>
+                    <td>grosse Handys quer</td>
+                </tr>
+                <tr>
+                    <td>md</td>
+                    <td><code>48em</code> (768px)</td>
+                    <td>Tablet hochkant</td>
+                </tr>
+                <tr>
+                    <td>lg</td>
+                    <td><code>64em</code> (1024px)</td>
+                    <td>Tablet quer, kleiner Laptop</td>
+                </tr>
+                <tr>
+                    <td>xl</td>
+                    <td><code>80em</code> (1280px)</td>
+                    <td>Desktop</td>
+                </tr>
+            </table>
+        </div>
+
+        <figure>
+            <svg viewBox="0 0 720 290" xmlns="http://www.w3.org/2000/svg" role="img"
+                aria-label="Skizze: Derselbe Inhalt aus drei Teilen. Mobile: drei Teile untereinander. Tablet: zwei nebeneinander, einer darunter. Desktop: drei nebeneinander. Darunter eine Achse der Viewport-Breite mit zwei Breakpoints.">
+                <defs>
+                    <marker id="pfeil1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8"
+                        orient="auto-start-reverse">
+                        <path d="M0 0 L10 5 L0 10 z" fill="#2d2d2d" />
+                    </marker>
+                </defs>
+
+                <g stroke="#2d2d2d" stroke-width="2">
+                    <!-- Mobile -->
+                    <rect x="40" y="30" width="90" height="160" rx="8" fill="#fafaf6" />
+                    <rect x="50" y="45" width="70" height="40" fill="rgba(56, 255, 156, 0.45)" />
+                    <rect x="50" y="95" width="70" height="40" fill="rgba(56, 255, 156, 0.45)" />
+                    <rect x="50" y="145" width="70" height="35" fill="rgba(56, 255, 156, 0.45)" />
+
+                    <!-- Tablet -->
+                    <rect x="190" y="30" width="150" height="160" rx="8" fill="#fafaf6" />
+                    <rect x="200" y="45" width="60" height="60" fill="rgba(56, 255, 156, 0.45)" />
+                    <rect x="270" y="45" width="60" height="60" fill="rgba(56, 255, 156, 0.45)" />
+                    <rect x="200" y="115" width="130" height="60" fill="rgba(56, 255, 156, 0.45)" />
+
+                    <!-- Desktop -->
+                    <rect x="400" y="30" width="280" height="160" rx="8" fill="#fafaf6" />
+                    <rect x="410" y="45" width="80" height="130" fill="rgba(56, 255, 156, 0.45)" />
+                    <rect x="500" y="45" width="80" height="130" fill="rgba(56, 255, 156, 0.45)" />
+                    <rect x="590" y="45" width="80" height="130" fill="rgba(56, 255, 156, 0.45)" />
+
+                    <!-- Achse -->
+                    <line x1="40" y1="245" x2="690" y2="245" marker-end="url(#pfeil1)" />
+                    <line x1="160" y1="235" x2="160" y2="255" />
+                    <line x1="370" y1="235" x2="370" y2="255" />
+                </g>
+
+                <g fill="#2d2d2d" font-size="13">
+                    <text x="85" y="212" text-anchor="middle">mobile</text>
+                    <text x="265" y="212" text-anchor="middle">tablet</text>
+                    <text x="540" y="212" text-anchor="middle">desktop</text>
+                    <text x="160" y="275" text-anchor="middle" font-weight="700">breakpoint</text>
+                    <text x="370" y="275" text-anchor="middle" font-weight="700">breakpoint</text>
+                    <text x="690" y="275" text-anchor="end" fill="#6b6a65">Viewport-Breite</text>
+                </g>
+            </svg>
+            <figcaption>Derselbe Inhalt in drei Räumen. An den Breakpoints wird umgestellt.</figcaption>
+        </figure>
+
+        <div class="hint"><strong>Wo gehört ein Breakpoint hin?</strong> Die Tabelle ist eine Daumenregel. Besser ist
+            die Frage: Wo beginnt <em>mein Inhalt</em> zu klemmen? Zieht das Fenster langsam auf und zu. Wo eine Zeile
+            zu lang wird oder etwas zu eng wirkt, gehört der Breakpoint hin, egal welches Gerät gerade diese Breite
+            hat.</div>
+
+        <h3>Mobile First oder Desktop First</h3>
+
+        <p>Media Queries haben eine Richtung.</p>
+
+        <ul>
+            <li><strong>Mobile First:</strong> Das CSS ohne Media Query gilt für schmale Bildschirme. Mit
+                <code>min-width</code> wird Schritt für Schritt für breitere ergänzt.
+            </li>
+            <li><strong>Desktop First:</strong> Das CSS ohne Media Query gilt für breite Bildschirme. Mit
+                <code>max-width</code> wird für schmalere überschrieben.
+            </li>
+        </ul>
+
+        <pre><code>/* Mobile First */
+.beispiel { display: block; }
+
+@media (min-width: 40em) {
+  .beispiel { display: flex; }
+}
+
+/* Desktop First: dasselbe Layout */
+.beispiel { display: flex; }
+
+@media (max-width: 40em) {
+  .beispiel { display: block; }
+}</code></pre>
+
+        <div class="excursus">
+            <h3>Exkurs: Testen</h3>
+            <p>Firefox und Chrome haben in den Entwicklertools einen <strong>Gerätemodus</strong> (Rechtsklick →
+                Untersuchen → Symbol mit Handy und Tablet). Dort könnt ihr Gerätegrössen auswählen oder eigene Masse
+                eingeben. Das testet die Breite, nicht aber, wie ein echtes Gerät Schriften rendert. Dafür gibt es
+                Dienste wie <a href="https://www.browserstack.com/" target="_blank">BrowserStack</a>, oder ihr schaut
+                es euch auf dem eigenen Handy an.</p>
+        </div>
+
+        <hr>
+
+        <!-- ============================================================ -->
+        <h2>Block 2 · Media Queries: etwas wechselt</h2>
+
+        <p>Eine kleine Seite, die bei einer bestimmten Breite drei Dinge wechselt: die
+            <strong>Hintergrundfarbe</strong>, die <strong>Spalten</strong> des Grids und die
+            <strong>Schreibrichtung</strong> des Titels.
+        </p>
+
+        <span class="file">index.html</span>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="de"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;ebb and flow&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;main class="flut"&gt;
+    &lt;h1&gt;ebb and flow&lt;/h1&gt;
+    &lt;p class="feld"&gt;accept&lt;/p&gt;
+    &lt;p class="feld"&gt;the ebb&lt;/p&gt;
+    &lt;p class="feld"&gt;and flow&lt;/p&gt;
+    &lt;p class="feld"&gt;of things&lt;/p&gt;
+  &lt;/main&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        <span class="file">style.css</span>
+        <pre><code>/* Ohne Media Query: gilt immer (Mobile First) */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #efe6d2;
+  color: #1f1f1f;
+}
+
+.flut {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.feld {
+  margin: 0;
+  padding: 1rem;
+  background: white;
+  font-size: 1.5rem;
+}
+
+/* Ab 48em Breite: drei Dinge wechseln */
+@media (min-width: 48em) {
+  body {
+    background: #d7342b;
+  }
+
+  .flut {
+    grid-template-columns: auto 1fr 1fr;
+  }
+
+  h1 {
+    grid-row: 1 / 3;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+}</code></pre>
+
+        <div class="hint"><strong>Ohne Viewport-Tag geht es nicht.</strong> Die Zeile
+            <code>&lt;meta name="viewport" …&gt;</code> im <code>&lt;head&gt;</code> sagt dem Handy, dass es die
+            echte Bildschirmbreite verwenden soll. Fehlt sie, tut das Handy so, als wäre es ein breiter Bildschirm, und
+            eure Media Queries greifen nicht.</div>
+
+        <h3>Schreibrichtung: writing-mode</h3>
+
+        <div class="table-wrap">
+            <table>
+                <tr>
+                    <th>Wert</th>
+                    <th>Wirkung</th>
+                </tr>
+                <tr>
+                    <td><code>horizontal-tb</code></td>
+                    <td>Standard: Zeilen von links nach rechts, von oben nach unten.</td>
+                </tr>
+                <tr>
+                    <td><code>vertical-rl</code></td>
+                    <td>Der Text läuft von oben nach unten, Buchstaben um 90° nach rechts gedreht.</td>
+                </tr>
+                <tr>
+                    <td><code>vertical-rl</code> + <code>transform: rotate(180deg)</code></td>
+                    <td>Der Text läuft von unten nach oben. Das brauchen wir gleich beim Plakat.</td>
+                </tr>
+                <tr>
+                    <td><code>sideways-lr</code></td>
+                    <td>Ebenfalls von unten nach oben, ohne Drehung. Wird nur von neueren Browsern unterstützt.</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="hint"><strong>Warum em und nicht px?</strong> <code>em</code> in Media Queries bezieht sich auf
+            die Standardschriftgrösse des Browsers, meist 16px. <code>48em</code> sind also 768px. Wer im Browser die
+            Schrift grösser stellt, bekommt das schmalere Layout früher, und das ist gewollt: Grössere Schrift braucht
+            mehr Platz.</div>
+
+        <h3>Aufgaben</h3>
+
+        <ol>
+            <li>Die zwei Dateien in einem Ordner anlegen und im Browser öffnen.</li>
+            <li>Das Fenster langsam schmaler und breiter ziehen. Bei welcher Breite passiert der Wechsel? Prüft es im
+                Gerätemodus der Entwicklertools.</li>
+            <li>Ist <code>48em</code> der richtige Ort? Verschiebt den Breakpoint dahin, wo es für den Inhalt passt,
+                und schreibt in einem Kommentar dazu, warum.</li>
+            <li>Setzt einen zweiten Breakpoint bei <code>64em</code>: Die vier Felder stehen nebeneinander, der Titel
+                steht wieder waagrecht darüber, der Hintergrund wird schwarz.</li>
+            <li>Baut dasselbe Verhalten mit Desktop First (<code>max-width</code>). Welche Variante ist kürzer?</li>
+        </ol>
+
+        <details>
+            <summary>Hinweis zu Aufgabe 4</summary>
+            <p>Der Titel braucht eine ganze Zeile für sich: <code>grid-column: 1 / -1;</code> heisst «von der ersten
+                bis zur letzten Linie». Und <code>grid-row</code> aus dem ersten Breakpoint muss zurückgesetzt werden:
+                <code>grid-row: auto;</code>
+            </p>
+        </details>
+
+        <details>
+            <summary>Lösung zu Aufgabe 4</summary>
+            <pre><code>@media (min-width: 64em) {
+  body {
+    background: #1f1f1f;
+  }
+
+  .flut {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  h1 {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    writing-mode: horizontal-tb;
+    transform: none;
+    color: white;
+  }
+}</code></pre>
+            <p>Dieser Block muss <strong>nach</strong> dem 48em-Block stehen. Bei Mobile First gilt: Die Breakpoints
+                steigen von oben nach unten, die späteren überschreiben die früheren.</p>
+        </details>
+
+        <h3>Bonus</h3>
+        <ul>
+            <li>Schreibt eine <code>@media print</code>-Regel und schaut die Druckvorschau an (Ctrl/Cmd + P). Die Seite
+                weiss, wann sie auf Papier landet.</li>
+            <li>Probiert <code>@media (orientation: landscape)</code> im Gerätemodus aus und dreht das Gerät.</li>
+        </ul>
+
+        <h3>Wenn etwas nicht funktioniert</h3>
+
+        <div class="table-wrap">
+            <table>
+                <tr>
+                    <th>Problem</th>
+                    <th>Häufige Ursache</th>
+                </tr>
+                <tr>
+                    <td>Die Media Query greift nie</td>
+                    <td>Eine geschweifte Klammer fehlt. Jede Media Query braucht zwei Ebenen: die der Query und die der
+                        Regel darin.</td>
+                </tr>
+                <tr>
+                    <td>Auf dem Handy wechselt nichts</td>
+                    <td>Das Viewport-Tag im <code>&lt;head&gt;</code> fehlt.</td>
+                </tr>
+                <tr>
+                    <td>Der zweite Breakpoint wird ignoriert</td>
+                    <td>Die Reihenfolge stimmt nicht. Bei <code>min-width</code> steigen die Werte von oben nach unten.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Syntaxfehler, obwohl alles richtig aussieht</td>
+                    <td>Leerzeichen bei <code>and</code> fehlen: <code>screen and (min-width: 48em)</code>.</td>
+                </tr>
+            </table>
+        </div>
+
+        <hr>
+
+        <!-- ============================================================ -->
+        <h2>Block 3 · Das Plakat aufbauen</h2>
+
+        <p>Jetzt zügeln wir. Unsere Vorlage ist der Umschlag des Sonderhefts <em>elementare typographie</em> der
+            Zeitschrift <em>typographische mitteilungen</em> aus dem Jahr 1925. Wir bauen ihn zuerst für ein
+            <strong>iPad hochkant</strong> (768 × 1024px). Das Seitenverhältnis von 3:4 liegt sehr nahe beim Heft: Hier
+            zieht das Papier fast ohne Verlust ins Web.
+        </p>
+
+        <figure>
+            <img src="../assets/C.ElementalType1925-1.png"
+                alt="Umschlag der typographischen mitteilungen, Sonderheft elementare typographie, Oktober 1925: zwei rote Balken, der Titel teils senkrecht, eine Namensliste mit schwarzem Balken.">
+            <figcaption>typographische mitteilungen, Sonderheft «elementare typographie», Leipzig, Oktober 1925.
+            </figcaption>
+        </figure>
+
+        <div>
+            <a href="https://desiandina.github.io/modul_webtech/Tag8/desireeandina.html" target="_blank">Eine Studierenden Arbeit aus den Vorjahren</a>
+        </div>
+
+        <div class="excursus">
+            <h3>Exkurs: Die neue Typographie</h3>
+            <p>Jan Tschichold (1902–1974), damals noch Iwan bzw. Ivan, stellte für dieses Sonderheft Arbeiten von
+                Lissitzky, Moholy-Nagy, Bayer, Schwitters und anderen zusammen. Daraus entstand 1928 sein Buch <em>Die
+                    neue Typographie</em>. Die Grundsätze: Asymmetrie statt Mittelachse, Groteskschriften, wenige
+                Farben (meist Schwarz und Rot), Balken und Flächen als Gliederung, Hierarchie über Grösse, Gewicht und
+                Position. Oft auch durchgehende Kleinschreibung.</p>
+            <p>Und Tschichold setzte sich für die <strong>DIN-Normformate</strong> ein, also für feste, genormte
+                Papiergrössen. Heute bauen wir seine Gestaltung in ein Medium, das gar kein Format hat.</p>
+            <p>1933 wurde Tschichold von den Nationalsozialisten verhaftet und emigrierte nach Basel. Später wandte er
+                sich von der strengen neuen Typographie ab und arbeitete wieder klassisch.</p>
+        </div>
+
+        <h3>1 · Hinschauen: das Raster finden</h3>
+
+        <p>Bevor wir Code schreiben, schauen wir hin. Legt gedanklich ein Raster über das Heft: <strong>12 Spalten und
+                16 Zeilen</strong>. Bei 3:4 sind die Zellen dann quadratisch.</p>
+
+        <figure>
+            <svg viewBox="0 0 360 480" xmlns="http://www.w3.org/2000/svg" role="img" style="max-width: 380px"
+                aria-label="Rasterskizze 12 mal 16: Der waagrechte rote Balken endet unten in Zeile 3. Darunter mitteilungen in Zeile 4. Der senkrechte rote Balken und typographische beginnen erst in Zeile 5, dazwischen bleibt eine leere Zelle. Themenblock in Spalte 5 bis 8, Zeile 8 bis 11. Namensliste und Kopfzeile grau als Bonus.">
+                <defs>
+                    <pattern id="raster" width="30" height="30" patternUnits="userSpaceOnUse">
+                        <path d="M30 0 L0 0 0 30" fill="none" stroke="#d7dcdd" stroke-width="1" />
+                    </pattern>
+                </defs>
+
+                <rect width="360" height="480" fill="url(#raster)" stroke="#2d2d2d" stroke-width="2" />
+
+                <!-- Die leere Zelle zwischen den Balken -->
+                <rect x="60" y="90" width="30" height="30" fill="rgba(215, 52, 43, 0.15)" />
+
+                <!-- Rote Balken -->
+                <rect x="0" y="85" width="270" height="5" fill="#d7342b" />
+                <rect x="60" y="120" width="5" height="360" fill="#d7342b" />
+
+                <!-- Elemente der Übung -->
+                <g fill="none" stroke="#2d2d2d" stroke-width="1.5" stroke-dasharray="4 3">
+                    <rect x="90" y="90" width="210" height="30" />
+                    <rect x="65" y="120" width="26" height="210" />
+                    <rect x="120" y="210" width="90" height="90" />
+                </g>
+
+                <!-- Bonus: grau -->
+                <g fill="none" stroke="#9a9a9a" stroke-width="1.5" stroke-dasharray="4 3">
+                    <rect x="210" y="330" width="84" height="90" />
+                    <rect x="285" y="0" width="15" height="300" />
+                </g>
+                <rect x="296" y="330" width="4" height="90" fill="#9a9a9a" />
+
+                <g fill="#2d2d2d" font-size="11" font-family="monospace">
+                    <text x="96" y="110">mitteilungen</text>
+                    <text x="82" y="270" transform="rotate(-90 82 270)">typographische</text>
+                    <text x="125" y="250">sonderheft</text>
+                    <text x="125" y="265">elementare</text>
+                    <text x="125" y="280">typographie</text>
+                </g>
+
+                <g fill="#9a9a9a" font-size="11" font-family="monospace">
+                    <text x="216" y="380">namen</text>
+                    <text x="290" y="20" transform="rotate(90 290 20)">kopfzeile</text>
+                </g>
+            </svg>
+            <figcaption>Raster aus 12 × 16 quadratischen Zellen. Zwischen den zwei roten Balken bleibt genau eine Zelle
+                frei (hell markiert). Grau: Bonus-Elemente.</figcaption>
+        </figure>
+
+        <p>Fragen zum Hinschauen:</p>
+        <ul>
+            <li>Welche Elemente gibt es? Was ist Text, was ist Form?</li>
+            <li>Berühren sich die zwei roten Balken? Was bewirkt die Lücke?</li>
+            <li>Wo greifen Elemente ineinander? Schaut euch die Ecke an, wo die zwei Titelwörter sich treffen.</li>
+            <li>Was ist am wichtigsten, was am unwichtigsten? Woran seht ihr das?</li>
+        </ul>
+
+        <h3>2 · HTML: die Bausteine</h3>
+
+        <p>Wir schreiben den Text, wie er im Heft steht: klein. Die Balken sind reine Gestaltung, deshalb leere
+            <code>div</code>s mit <code>aria-hidden</code>, damit Screenreader sie überspringen.
+        </p>
+
+        <span class="file">tschichold.html</span>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="de"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;elementare typographie&lt;/title&gt;
+  &lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+  &lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+  &lt;link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;500;600&amp;display=swap" rel="stylesheet"&gt;
+  &lt;link rel="stylesheet" href="tschichold.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;main class="plakat"&gt;
+
+    &lt;div class="balken-waagrecht" aria-hidden="true"&gt;&lt;/div&gt;
+    &lt;div class="balken-senkrecht" aria-hidden="true"&gt;&lt;/div&gt;
+
+    &lt;div class="typographische"&gt;typographische&lt;/div&gt;
+    &lt;div class="mitteilungen"&gt;mitteilungen&lt;/div&gt;
+
+    &lt;div class="thema"&gt;
+      &lt;p class="sonderheft"&gt;sonderheft&lt;/p&gt;
+      &lt;h2 class="elementare"&gt;
+        &lt;span&gt;elementare&lt;/span&gt;
+        &lt;span&gt;typographie&lt;/span&gt;
+      &lt;/h2&gt;
+    &lt;/div&gt;
+
+  &lt;/main&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        <h3>3 · Das Raster: CSS Grid</h3>
+
+        <p>Zuerst Farben, Schrift und das Raster selbst. Das Plakat ist so breit wie das Fenster und hat immer das
+            Verhältnis 3:4, wie ein Blatt Papier.</p>
+
+        <span class="file">tschichold.css</span>
+        <pre><code>:root {
+  --papier: #efe6d2;
+  --rot: #d7342b;
+  --schwarz: #1f1f1f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--papier);
+  color: var(--schwarz);
+  font-family: "Jost", sans-serif;
+}
+
+/* Abstände der Browser zurücksetzen */
+.plakat h1,
+.plakat h2,
+.plakat p,
+.plakat ul {
+  margin: 0;
+  line-height: 1;
+}
+
+.plakat {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: repeat(16, minmax(0, 1fr));
+}</code></pre>
+
+        <div class="hint"><strong>Das Raster sichtbar machen:</strong> In den Entwicklertools steht im Elements-Panel
+            neben <code>&lt;main class="plakat"&gt;</code> ein kleines Feld <strong>grid</strong>. Ein Klick darauf
+            blendet die Rasterlinien mit ihren Nummern ein. Lasst es während der ganzen Übung eingeschaltet.</div>
+
+        <div class="hint"><strong>Warum minmax(0, 1fr)?</strong> Ein reines <code>1fr</code> darf wachsen, wenn der
+            Inhalt grösser ist als die Zelle, und dann verzieht sich das ganze Raster. Mit <code>minmax(0, 1fr)</code>
+            bleiben alle Zellen gleich gross.</div>
+
+        <h3>4 · Balken und Titel</h3>
+
+        <p>Jetzt platzieren wir den waagrechten Balken und die zwei Titelwörter über die Rasterlinien.</p>
+
+        <span class="file">tschichold.css</span>
+        <pre><code>.balken-waagrecht {
+  grid-column: 1 / 10;
+  grid-row: 3;
+  align-self: end;
+  height: 1.6vw;
+  background: var(--rot);
+}
+
+.mitteilungen {
+  grid-column: 4 / 11;
+  grid-row: 4;
+  font-size: 7.5vw;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.typographische {
+  grid-column: 3 / 5;
+  grid-row: 5 / 12;
+  justify-self: start;
+  align-self: start;
+  margin-left: 1.6vw;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 7.5vw;
+  font-weight: 600;
+  line-height: 1;
+}</code></pre>
+
+        <div class="hint"><strong>Rasterlinien, nicht Zellen:</strong> <code>grid-column: 1 / 10</code> heisst «von
+            Linie 1 bis Linie 10», also über neun Spalten. <code>-1</code> ist immer die letzte Linie.</div>
+
+        <div class="hint"><strong>Überlagern ist erlaubt:</strong> Im Grid dürfen sich Elemente Zellen teilen. Mit
+            <code>justify-self</code> und <code>align-self</code> bestimmt ihr, wo in ihrem Bereich sie stehen.
+        </div>
+
+        <p><strong>Aufgabe:</strong> Der senkrechte rote Balken fehlt noch. Schreibt die Regel für
+            <code>.balken-senkrecht</code> selbst. Schaut dazu in die Skizze.
+        </p>
+
+        <details>
+            <summary>Hinweis 1</summary>
+            <p>Der waagrechte Balken hat eine <code>height</code>. Was braucht der senkrechte stattdessen? Und welche
+                Farbe?</p>
+        </details>
+
+        <details>
+            <summary>Hinweis 2</summary>
+            <p>Der Balken liegt in derselben Spalte wie der Anfang von «typographische». Er beginnt nicht direkt unter
+                dem waagrechten Balken: Eine Zelle bleibt frei. Und er läuft bis ganz nach unten.</p>
+        </details>
+
+        <h3>5 · Flexbox im Kleinen: das Thema</h3>
+
+        <p>Grid ordnet das Ganze, Flexbox ordnet kleine Gruppen. «sonderheft» und die zwei Zeilen von «elementare
+            typographie» stehen rechtsbündig untereinander.</p>
+
+        <span class="file">tschichold.css</span>
+        <pre><code>.thema {
+  display: flex;
+  flex-direction: column;
+}
+
+.sonderheft {
+  font-size: 4.2vw;
+  font-weight: 300;
+  align-self: flex-end;
+}
+
+.elementare {
+  font-size: 4.2vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.elementare span {
+  display: block;
+  align-self: flex-end;
+}</code></pre>
+
+        <div class="hint"><strong>Flexbox-Repetition:</strong> <code>flex-direction: column</code> stellt die
+            Elemente untereinander. Damit wird die Querachse waagrecht, und <code>align-self: flex-end</code> schiebt
+            ein einzelnes Element nach rechts. Weil «elementare» und «typographie» je in einem <code>span</code>
+            stehen, lassen sie sich einzeln ausrichten.</div>
+
+        <p><strong>Aufgabe:</strong> Der Block <code>.thema</code> hängt noch irgendwo im Raster. Platziert ihn so,
+            wie es die Skizze zeigt.</p>
+
+        <details>
+            <summary>Hinweis</summary>
+            <p>Es sind dieselben zwei Eigenschaften wie bei den anderen Elementen. Zählt in der Skizze die
+                <em>Linien</em>, nicht die Kästchen, und prüft das Ergebnis mit dem Grid-Overlay in den
+                Entwicklertools.
+            </p>
+        </details>
+
+        <h3>Bonus: Namen und Kopfzeile</h3>
+
+        <p>Wer fertig ist, ergänzt die zwei grauen Elemente aus der Skizze: die Namensliste mit dem schwarzen Balken
+            und die senkrechte Kopfzeile «zeitschrift des bildungsverbandes der deutschen buchdrucker leipzig ●
+            oktoberheft 1925».</p>
+
+        <details>
+            <summary>Hinweise</summary>
+            <ul>
+                <li>Welches HTML-Element passt zu einer Liste von Namen? Die Aufzählungspunkte braucht es nicht.</li>
+                <li>Der schwarze Balken muss kein eigenes Element sein. Was kann eine Box an ihrem rechten Rand haben?
+                </li>
+                <li>Die Kopfzeile läuft von oben nach unten. Braucht sie die Drehung?</li>
+                <li>Schaut, an welcher Linie die Kopfzeile und der schwarze Balken enden.</li>
+            </ul>
+        </details>
+
+        <h3>Wenn etwas nicht funktioniert</h3>
+
+        <div class="table-wrap">
+            <table>
+                <tr>
+                    <th>Problem</th>
+                    <th>Häufige Ursache</th>
+                </tr>
+                <tr>
+                    <td>Das Raster verzieht sich, Zeilen werden unterschiedlich hoch</td>
+                    <td><code>1fr</code> statt <code>minmax(0, 1fr)</code>, oder ein Text ist zu gross für seinen
+                        Bereich.</td>
+                </tr>
+                <tr>
+                    <td>«typographische» läuft von oben nach unten</td>
+                    <td>Die Drehung <code>transform: rotate(180deg)</code> fehlt.</td>
+                </tr>
+                <tr>
+                    <td>«typographische» ist so breit wie zwei Spalten</td>
+                    <td><code>justify-self: start</code> fehlt. Ohne wird das Element auf den ganzen Bereich gestreckt.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ein Balken ist unsichtbar</td>
+                    <td>Ein leeres <code>div</code> hat keine Grösse. Es braucht eine <code>height</code> oder
+                        <code>width</code> und eine Hintergrundfarbe.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Die Schrift sieht aus wie Arial</td>
+                    <td>Der Google-Fonts-Link im <code>&lt;head&gt;</code> fehlt oder ist falsch geschrieben.</td>
+                </tr>
+                <tr>
+                    <td>Es gibt einen horizontalen Scrollbalken</td>
+                    <td><code>body</code> hat noch <code>margin</code>, oder das Plakat hat <code>width: 100vw</code>
+                        statt <code>100%</code>.</td>
+                </tr>
+            </table>
+        </div>
+
+        <h3>Und jetzt: das Fenster aufziehen</h3>
+
+        <p>Euer Plakat sitzt auf dem iPad. Zieht jetzt das Fenster schmal wie ein Handy und breit wie ein Desktop.
+            Beobachtet, ohne etwas zu ändern:</p>
+
+        <ul>
+            <li>Was passiert mit den Schriften, wenn das Fenster schmal wird? Sind sie noch lesbar?</li>
+            <li>Was passiert mit dem ganzen Plakat auf einem breiten Bildschirm, wenn es immer 3:4 bleibt?</li>
+            <li>Was davon ist ein Problem, was vielleicht sogar schön?</li>
+        </ul>
+
+        <p>Noch ist euer Plakat ein Blatt Papier. Am Nachmittag lernt es zügeln.</p>
+
+        <div class="exercise-header">
+            <h2>Für heute Morgen</h2>
+            <ol>
+                <li>Block 1 lesen: Was sind Fluidität, Media Queries und Breakpoints?</li>
+                <li>Die Mini-Übung «ebb and flow» bauen und mindestens Aufgabe 1 bis 4 lösen.</li>
+                <li>Das Plakat im Raster analysieren.</li>
+                <li>Das Plakat für iPad hochkant aufbauen, Schritt 2 bis 5, mit den zwei Aufgaben.</li>
+                <li>Das Fenster aufziehen und die Beobachtungen notieren. Sie sind der Ausgangspunkt für den
+                    Nachmittag.</li>
+            </ol>
+        </div>
+
+        <h2>Zum Nachschlagen</h2>
+
+        <ul>
+            <li><a href="https://alistapart.com/article/responsive-web-design" target="_blank">Ethan Marcotte:
+                    Responsive Web Design (A List Apart, 2010)</a></li>
+            <li><a href="https://alistapart.com/article/dao/" target="_blank">John Allsopp: A Dao of Web Design (A
+                    List Apart, 2000)</a></li>
+            <li><a href="https://developer.mozilla.org/de/docs/Web/CSS/CSS_media_queries/Using_media_queries"
+                    target="_blank">MDN: Media Queries verwenden</a></li>
+            <li><a href="https://developer.mozilla.org/de/docs/Web/CSS/writing-mode" target="_blank">MDN:
+                    writing-mode</a></li>
+            <li><a href="https://css-tricks.com/snippets/css/complete-guide-grid/" target="_blank">CSS-Tricks: A
+                    Complete Guide to Grid</a></li>
+            <li><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank">CSS-Tricks: A
+                    Complete Guide to Flexbox</a></li>
+        </ul>
+
+    </main>
+</body>
+
+</html>

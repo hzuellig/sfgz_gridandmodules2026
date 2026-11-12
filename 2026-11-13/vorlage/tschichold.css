@@ -1,0 +1,129 @@
+:root {
+  --papier: #efe6d2;
+  --rot: #d7342b;
+  --schwarz: #1f1f1f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--papier);
+  color: var(--schwarz);
+  font-family: "Jost", sans-serif;
+}
+
+/* Abstände der Browser zurücksetzen */
+.plakat h1,
+.plakat h2,
+.plakat p,
+.plakat ul {
+  margin: 0;
+  line-height: 1;
+}
+
+/* Das Blatt: 12 × 16 quadratische Zellen, immer 3:4 */
+.plakat {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: repeat(16, minmax(0, 1fr));
+}
+
+/* ---------- Balken ---------- */
+
+.balken-waagrecht {
+  grid-column: 1 / 10;
+  grid-row: 3;
+  align-self: end;
+  height: 1.6vw;
+  background: var(--rot);
+}
+
+.balken-senkrecht {
+  grid-column: 3;
+  grid-row: 5 / -1;
+  width: 1.6vw;
+  background: var(--rot);
+}
+
+/* ---------- Titel ---------- */
+
+.mitteilungen {
+  grid-column: 4 / 11;
+  grid-row: 4;
+  font-size: 7.5vw;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1;
+}
+
+.typographische {
+  grid-column: 3 / 5;
+  grid-row: 5 / 12;
+  justify-self: start;
+  align-self: start;
+  margin: 0;
+  margin-left: 1.6vw;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 7.5vw;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* ---------- Thema ---------- */
+
+.thema {
+  grid-column: 5 / 8;
+  grid-row: 8 / 11;
+  display: flex;
+  flex-direction: column;
+}
+
+.sonderheft {
+  font-size: 4.2vw;
+  font-weight: 300;
+  align-self: flex-end;
+}
+
+.elementare {
+  font-size: 4.2vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.elementare span {
+  display: block;
+  align-self: flex-end;
+}
+
+/* ---------- Das Kleingedruckte ---------- */
+
+.kopf {
+  grid-column: 10 / 11;
+  grid-row: 1 / 11;
+  padding-top: 1.5vw;
+  writing-mode: vertical-rl;
+  font-size: 1.7vw;
+  letter-spacing: 0.02em;
+}
+
+.namen {
+  grid-column: 8 / 11;
+  grid-row: 12 / 16;
+  justify-self: end;
+  align-self: start;
+  list-style: none;
+  padding: 0 1.2vw 0 0;
+  border-right: 1.6vw solid var(--schwarz);
+  font-size: 1.85vw;
+  font-weight: 500;
+}
+
+.namen li {
+  line-height: 1.3;
+}

@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop: Responsive – das Plakat zügelt</title>
+
+    <style>
+        :root {
+            --text: #2b2a27;
+            --text-dim: #6b6a65;
+            --accent: #1be07d;
+            --accent-soft: rgba(215, 220, 221, 0.618);
+            --code-bg: #24262b;
+            --code-text: rgba(56, 255, 156, 1);
+            --border: rgba(215, 220, 221, 0.618);
+            --table-header: rgba(56, 255, 156, 0.45);
+            --ink: #2d2d2d;
+            --paper: #fafaf6;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        a {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        body {
+            margin: 0;
+            background: #ffffff;
+            color: var(--text);
+            font-family:
+                "IBM Plex Mono", "Fira Code", "Source Code Pro", Menlo, Consolas, monospace;
+            line-height: 1.65;
+        }
+
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 56px 24px 90px;
+        }
+
+        h1.doc-title {
+            font-size: 34px;
+            font-weight: 700;
+            margin: 0 0 6px;
+            letter-spacing: -0.3px;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 15px;
+            margin: 0 0 48px;
+            max-width: 56ch;
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 56px 0 6px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin: 32px 0 10px;
+        }
+
+        p {
+            margin: 12px 0;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+            font-size: 0.9em;
+            background: var(--accent-soft);
+            color: #9a3d1c;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 18px 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+            font-size: 13.5px;
+            line-height: 1.6;
+            margin: 16px 0;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        .file {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 700;
+            background: var(--ink);
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 6px 6px 0 0;
+            margin: 16px 0 -16px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14.5px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        th {
+            background: var(--table-header);
+            font-weight: 700;
+        }
+
+        .hint {
+            background: var(--table-header);
+            border-left: 3px solid var(--accent);
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .hint strong {
+            color: var(--ink);
+        }
+
+        ul,
+        ol {
+            padding-left: 22px;
+        }
+
+        li {
+            margin: 6px 0;
+        }
+
+        .exercise-header {
+            background: var(--accent);
+            padding: 22px 26px;
+            border-radius: 12px;
+            margin: 56px 0 24px;
+        }
+
+        .exercise-header h2 {
+            border: none;
+            color: var(--ink);
+            margin: 0 0 6px;
+            padding: 0;
+        }
+
+        .exercise-header p,
+        .exercise-header li {
+            color: var(--ink);
+            font-size: 14.5px;
+        }
+
+        .exercise-header p {
+            margin: 8px 0 0;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 40px 0;
+        }
+
+        .metaphor-room {
+            background: var(--paper);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 14.5px;
+        }
+
+        .excursus {
+            border: 2px dashed var(--ink);
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin: 24px 0;
+        }
+
+        .excursus h3 {
+            margin-top: 0;
+        }
+
+        figure {
+            margin: 24px 0;
+        }
+
+        figure svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        figcaption {
+            color: var(--text-dim);
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        /* Ablauf als Kette */
+        .rhythm {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .rhythm li {
+            margin: 0;
+            padding: 10px 14px;
+            border: 2px solid var(--ink);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .rhythm li span {
+            display: block;
+            font-weight: 400;
+            font-size: 12.5px;
+            color: var(--text-dim);
+        }
+
+        .rhythm li.aktiv {
+            background: var(--accent);
+        }
+
+        .rhythm li:not(:last-child)::after {
+            content: "→";
+            position: absolute;
+            right: -14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 700;
+        }
+
+        /* Aufklappbare Hinweise */
+        details {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 16px;
+            margin: 16px 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+
+        <h1 class="doc-title">Workshop: Responsive – das Plakat zügelt</h1>
+        <p class="subtitle">Nachmittag: Das Blatt aufgeben, die Schreibrichtung drehen, das Kleingedruckte retten.</p>
+
+        <ol class="rhythm">
+            <li>Block 1<span>vom Format zum Fluss</span></li>
+            <li>Block 2<span>Media Queries</span></li>
+            <li>Block 3<span>Plakat aufbauen</span></li>
+            <li class="aktiv">Block 4<span>Reduktion zu Mobile</span></li>
+            <li class="aktiv">Optional<span>Ausbau zu Desktop</span></li>
+            <li class="aktiv">Zeigen<span>Lösungen vergleichen</span></li>
+        </ol>
+
+        <!-- ============================================================ -->
+        <h2>Ausgangslage</h2>
+
+        <p>Ihr arbeitet mit der Vorlage <code>tschichold.html</code> und <code>tschichold.css</code>. Darin ist das
+            Plakat vom Morgen komplett aufgebaut, mit Namensliste und Kopfzeile. Wer lieber mit dem eigenen Plakat
+            weiterarbeitet, darf das.</p>
+        <p><a href="vorlage.zip" target="_blank">Download Vorlage</a></p>
+
+        <p>An der Vorlage ändert ihr nichts. Alles, was ihr am Nachmittag schreibt, kommt in eine neue Datei
+            <code>mediaqueries.css</code>. Verknüpft sie im <code>&lt;head&gt;</code>, und zwar <strong>nach</strong>
+            der ersten:
+        </p>
+
+        <span class="file">tschichold.html</span>
+        <pre><code>&lt;link rel="stylesheet" href="tschichold.css"&gt;
+&lt;link rel="stylesheet" href="mediaqueries.css"&gt;</code></pre>
+
+        <div class="hint"><strong>Warum nach?</strong> In den Media Queries verwendet ihr dieselben Selektoren wie in
+            der Vorlage, zum Beispiel <code>.mitteilungen</code>. Bei gleicher Spezifität gewinnt die Regel, die später
+            kommt. Steht <code>mediaqueries.css</code> zuerst, überschreibt die Vorlage alles wieder.</div>
+
+        <hr>
+
+        <!-- ============================================================ -->
+        <h2>Block 4 · Reduktion zu Mobile</h2>
+
+        <h3>Hinschauen: Was passiert auf dem Handy?</h3>
+
+        <p>Öffnet das Plakat im Gerätemodus der Entwicklertools und wählt ein iPhone. Bevor ihr etwas ändert:</p>
+
+        <ul>
+            <li>Wie gross sind die Namen und die Kopfzeile? Könnt ihr sie lesen?</li>
+            <li>Was passiert unter dem Plakat?</li>
+            <li>Was bleibt von der Komposition erhalten, was geht verloren?</li>
+        </ul>
+
+        <p>Alles skaliert mit, weil alle Grössen in <code>vw</code> angegeben sind. Die grossen Titel überstehen das,
+            das Kleingedruckte nicht: Es schrumpft auf etwa 7px. Und das Plakat ist immer noch ein Blatt im Format 3:4,
+            obwohl das Handy viel höher ist.</p>
+
+        <h3>Die Leitidee: Der Text folgt der langen Seite</h3>
+
+        <p>Ein Handy ist hoch und schmal. Die lange Seite ist senkrecht. Waagrechter Text hat dort kaum Platz,
+            senkrechter Text dagegen viel. Tschicholds Umschlag mischt beide Richtungen, weil das Blatt zwischen hoch und
+            quer liegt. Beim Zügeln aufs Handy entscheidet der Bildschirm, welche Richtung gewinnt.</p>
+
+        <div class="metaphor-room">
+            Wer in ein schmales Studio zügelt, stellt das Büchergestell hoch statt breit. Die Bücher sind dieselben,
+            aber sie stehen anders. Und plötzlich liest man die Titel auf den Buchrücken.
+        </div>
+
+        <figure>
+            <svg viewBox="0 0 470 450" xmlns="http://www.w3.org/2000/svg" role="img"
+                aria-label="Zwei Rasterskizzen. Links das Plakat auf dem iPad hochkant, wie am Morgen gebaut. Rechts dieselben Elemente auf dem Handy: Das Raster hat gleich viele Zellen, die Zellen sind aber hoch und schmal. typographische und mitteilungen stehen beide senkrecht nebeneinander, das Thema rechts oben, die Namen rechts unten mit dem schwarzen Balken darunter, die Kopfzeile über die ganze Höhe am rechten Rand.">
+                <defs>
+                    <pattern id="raster-ipad" width="15" height="15" patternUnits="userSpaceOnUse" x="20" y="50">
+                        <path d="M15 0 L0 0 0 15" fill="none" stroke="#d7dcdd" stroke-width="1" />
+                    </pattern>
+                    <pattern id="raster-handy" width="12" height="24" patternUnits="userSpaceOnUse" x="300" y="50">
+                        <path d="M12 0 L0 0 0 24" fill="none" stroke="#d7dcdd" stroke-width="1" />
+                    </pattern>
+                    <marker id="pfeil-n" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8"
+                        orient="auto-start-reverse">
+                        <path d="M0 0 L10 5 L0 10 z" fill="#2d2d2d" />
+                    </marker>
+                </defs>
+
+                <!-- Titel -->
+                <g fill="#2d2d2d" font-size="11" font-family="monospace" font-weight="700">
+                    <text x="20" y="35">iPad hoch · Morgen</text>
+                    <text x="300" y="35">Handy · Nachmittag</text>
+                </g>
+
+                <!-- ===== iPad ===== -->
+                <rect x="20" y="50" width="180" height="240" fill="url(#raster-ipad)" stroke="#2d2d2d"
+                    stroke-width="1.5" />
+                <rect x="20" y="92" width="135" height="3" fill="#d7342b" />
+                <rect x="50" y="110" width="3" height="180" fill="#d7342b" />
+                <rect x="167" y="215" width="3" height="60" fill="#2d2d2d" />
+
+                <g fill="none" stroke="#2d2d2d" stroke-width="1" stroke-dasharray="3 2">
+                    <rect x="65" y="95" width="105" height="15" />
+                    <rect x="53" y="110" width="12" height="105" />
+                    <rect x="80" y="155" width="45" height="45" />
+                    <rect x="125" y="215" width="42" height="60" />
+                    <rect x="163" y="50" width="7" height="150" />
+                </g>
+
+                <g fill="#2d2d2d" font-size="8" font-family="monospace">
+                    <text x="68" y="106">mitteilungen</text>
+                    <text x="62" y="165" text-anchor="middle" transform="rotate(-90 62 165)">typographische</text>
+                    <text x="82" y="170" font-size="6">sonderheft</text>
+                    <text x="82" y="179" font-size="6">elementare</text>
+                    <text x="82" y="188" font-size="6">typographie</text>
+                    <text x="129" y="248">namen</text>
+                    <text x="165" y="58" font-size="6" transform="rotate(90 165 58)">kopfzeile</text>
+                </g>
+
+                <!-- Pfeil -->
+                <line x1="215" y1="240" x2="285" y2="240" stroke="#2d2d2d" stroke-width="2"
+                    marker-end="url(#pfeil-n)" />
+                <text x="250" y="230" text-anchor="middle" font-size="10" font-family="monospace"
+                    fill="#2d2d2d">zügeln</text>
+
+                <!-- ===== Handy ===== -->
+                <rect x="300" y="50" width="144" height="384" fill="url(#raster-handy)" stroke="#2d2d2d"
+                    stroke-width="1.5" />
+                <rect x="300" y="95" width="120" height="3" fill="#d7342b" />
+                <rect x="324" y="122" width="3" height="312" fill="#d7342b" />
+                <rect x="374" y="407" width="58" height="3" fill="#2d2d2d" />
+
+                <g fill="none" stroke="#2d2d2d" stroke-width="1" stroke-dasharray="3 2">
+                    <rect x="327" y="122" width="18" height="230" />
+                    <rect x="350" y="122" width="18" height="200" />
+                    <rect x="374" y="122" width="46" height="120" />
+                    <rect x="374" y="330" width="58" height="77" />
+                    <rect x="433" y="50" width="10" height="384" />
+                </g>
+
+                <g fill="#2d2d2d" font-size="8" font-family="monospace">
+                    <text x="339" y="237" text-anchor="middle" transform="rotate(-90 339 237)">typographische</text>
+                    <text x="362" y="222" text-anchor="middle" transform="rotate(-90 362 222)">mitteilungen</text>
+                    <text x="377" y="140" font-size="6.5">sonderheft</text>
+                    <text x="377" y="150" font-size="6.5">elementare</text>
+                    <text x="377" y="160" font-size="6.5">typographie</text>
+                    <text x="380" y="372">namen</text>
+                    <text x="436" y="60" transform="rotate(90 436 60)">kopfzeile</text>
+                </g>
+            </svg>
+            <figcaption>Das Raster bleibt 12 × 16, aber auf dem Handy werden die Zellen hoch und schmal.
+                «mitteilungen» dreht in die Senkrechte, die Kopfzeile nutzt die ganze Höhe, der schwarze Balken wandert
+                unter die Namen.</figcaption>
+        </figure>
+
+        <div class="table-wrap">
+            <table>
+                <tr>
+                    <th>Element</th>
+                    <th>iPad hoch</th>
+                    <th>Handy</th>
+                </tr>
+                <tr>
+                    <td>Balken</td>
+                    <td>wie im Original</td>
+                    <td>bleiben, Dicke richtet sich nach der Höhe</td>
+                </tr>
+                <tr>
+                    <td>typographische</td>
+                    <td>senkrecht</td>
+                    <td>senkrecht, über die ganze Höhe</td>
+                </tr>
+                <tr>
+                    <td>mitteilungen</td>
+                    <td>waagrecht</td>
+                    <td><strong>dreht in die Senkrechte</strong>, neben typographische</td>
+                </tr>
+                <tr>
+                    <td>Thema</td>
+                    <td>Mitte</td>
+                    <td>rechts oben, lesbare Grösse</td>
+                </tr>
+                <tr>
+                    <td>Namen</td>
+                    <td>rechts unten, Balken daneben</td>
+                    <td>rechts unten, <strong>Balken darunter</strong></td>
+                </tr>
+                <tr>
+                    <td>Kopfzeile</td>
+                    <td>senkrecht, bis etwa zur Mitte</td>
+                    <td>senkrecht, <strong>über die ganze Höhe</strong></td>
+                </tr>
+            </table>
+        </div>
+
+        <h3>1 · Das Blatt aufgeben</h3>
+
+        <p>Der erste Schritt ist der wichtigste: Das Plakat soll auf dem Handy kein kleines Blatt mehr sein, sondern
+            den Bildschirm füllen.</p>
+
+        <span class="file">mediaqueries.css</span>
+        <pre><code>@media (max-width: 40em) {
+
+  .plakat {
+    aspect-ratio: auto;
+    height: 100vh;   /* Fallback für ältere Browser */
+    height: 100svh;
+  }
+
+}</code></pre>
+
+        <p>Schaut euch das Ergebnis an, bevor ihr weitermacht. Was passiert mit den Zellen des Rasters? Was mit den
+            Elementen?</p>
+
+        <div class="hint"><strong>Was ist svh?</strong> <code>svh</code> heisst «small viewport height»: 1&nbsp;% der
+            kleinsten sichtbaren Höhe. Auf dem Handy blenden sich Adressleiste und Menüs ein und aus. Mit
+            <code>100svh</code> passt das Plakat auch dann ganz auf den Bildschirm, wenn sie sichtbar sind.
+        </div>
+
+        <h3>2 · Die Balken</h3>
+
+        <p>Die Balken sind in <code>vw</code> angegeben und auf dem Handy dünn wie Haarlinien. Gebt ihnen eine Dicke,
+            die zur neuen Form passt, und prüft, ob die freie Zelle zwischen den zwei roten Balken noch stimmt.</p>
+
+        <details>
+            <summary>Hinweis</summary>
+            <p>Auf dem Handy ist die Höhe die lange Seite. Welche Einheit richtet sich nach der Höhe? Ihr müsst nur
+                <code>height</code> bzw. <code>width</code> überschreiben, die Farbe bleibt aus der Vorlage.
+            </p>
+        </details>
+
+        <h3>3 · Die grossen Wörter drehen</h3>
+
+        <p>«mitteilungen» passt auf dem Handy nicht mehr waagrecht in die Breite. Dreht es in die Senkrechte, sodass es
+            neben «typographische» steht und ebenfalls von unten nach oben läuft. Gebt beiden Wörtern eine Grösse, die
+            sich nach der Höhe richtet.</p>
+
+        <details>
+            <summary>Hinweis 1: drehen</summary>
+            <p>Schaut in der Vorlage nach, wie «typographische» gedreht ist. «mitteilungen» braucht dieselben zwei
+                Eigenschaften.</p>
+        </details>
+
+        <details>
+            <summary>Hinweis 2: platzieren</summary>
+            <p>Beide Wörter beginnen jetzt in derselben Zeile und laufen bis ganz nach unten. In der Skizze seht ihr,
+                welche Spalten sie belegen. Vergesst <code>justify-self</code> und <code>align-self</code> nicht, sonst
+                wird «mitteilungen» auf seinen ganzen Bereich gestreckt.</p>
+        </details>
+
+        <details>
+            <summary>Hinweis 3: Grösse</summary>
+            <p><code>vw</code> ist auf dem Handy klein, <code>svh</code> gross. Probiert Werte zwischen 7 und 8 aus und
+                prüft, ob «typographische» noch auf den Bildschirm passt.</p>
+        </details>
+
+        <h3>4 · Das Kleingedruckte retten</h3>
+
+        <p>Thema und Kopfzeile müssen lesbar werden. Hier hilft weder <code>vw</code> noch <code>svh</code>, denn
+            beide hängen vom Bildschirm ab. Kleingedrucktes braucht eine feste Grösse, unter die es nicht fallen darf.
+        </p>
+
+        <details>
+            <summary>Hinweis: Einheit</summary>
+            <p><code>rem</code> bezieht sich auf die Grundschrift des Browsers, meist 16px. <code>0.75rem</code> sind
+                also 12px, egal wie gross der Bildschirm ist. Eine Faustregel: <strong>grosse Schrift in Viewport-Einheiten,
+                    kleine Schrift in rem</strong>.</p>
+        </details>
+
+        <details>
+            <summary>Hinweis: Kopfzeile</summary>
+            <p>Die Kopfzeile ist schon senkrecht. Sie braucht nur mehr Höhe: Lasst sie über alle Zeilen laufen, und
+                zwar in der letzten Spalte.</p>
+        </details>
+
+        <details>
+            <summary>Hinweis: Thema</summary>
+            <p>Rechts neben den zwei grossen Wörtern ist Platz. Platziert das Thema dort, auf der Höhe, wo die Wörter
+                beginnen.</p>
+        </details>
+
+        <h3>5 · Die Namen: eine Entscheidung</h3>
+
+        <p>Die Namen kommen rechts unten hin. Wie sie dort stehen, entscheidet ihr:</p>
+
+        <ul>
+            <li><strong>Als Liste</strong> wie im Original, aber mit dem schwarzen Balken darunter statt daneben.</li>
+            <li><strong>Als Buchrücken:</strong> Der ganze Block dreht, jeder Name wird eine senkrechte Spalte.</li>
+        </ul>
+
+        <details>
+            <summary>Hinweis: der Balken</summary>
+            <p>Der Balken ist in der Vorlage ein <code>border-right</code>. Den müsst ihr entfernen und durch einen
+                anderen Rand ersetzen. Und das Padding wandert mit.</p>
+        </details>
+
+        <details>
+            <summary>Hinweis: Buchrücken</summary>
+            <p>Probiert <code>writing-mode</code> auf der ganzen Liste <code>.namen</code>, nicht auf den einzelnen
+                Namen. Vergleicht <code>vertical-rl</code> und <code>vertical-lr</code>: In welcher Reihenfolge stehen
+                die Namen?</p>
+        </details>
+
+        <h3>Prüfen</h3>
+
+        <p>Testet im Gerätemodus mit mindestens zwei Handys: einem grossen (z.&nbsp;B. iPhone 14 Pro Max) und einem
+            kleinen (z.&nbsp;B. iPhone SE). Ist alles lesbar? Passt alles auf den Bildschirm? Und dann: Zieht das
+            Fenster langsam breiter. Wo springt das Layout um? Ist <code>40em</code> der richtige Ort?</p>
+
+        <h3>Wenn etwas nicht funktioniert</h3>
+
+        <div class="table-wrap">
+            <table>
+                <tr>
+                    <th>Problem</th>
+                    <th>Häufige Ursache</th>
+                </tr>
+                <tr>
+                    <td>Nichts aus <code>mediaqueries.css</code> wirkt</td>
+                    <td>Die Datei ist nicht verlinkt, oder sie steht im <code>&lt;head&gt;</code> vor
+                        <code>tschichold.css</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>«mitteilungen» läuft von oben nach unten</td>
+                    <td>Die Drehung um 180° fehlt.</td>
+                </tr>
+                <tr>
+                    <td>«mitteilungen» ist breit wie zwei Spalten</td>
+                    <td><code>justify-self: start</code> fehlt.</td>
+                </tr>
+                <tr>
+                    <td>Ein grosses Wort ragt unten aus dem Bildschirm</td>
+                    <td>Die Schrift ist zu gross für die Höhe. Wert in <code>svh</code> verkleinern.</td>
+                </tr>
+                <tr>
+                    <td>Unter den Namen sind zwei Balken oder gar keiner</td>
+                    <td>Der <code>border-right</code> aus der Vorlage ist noch da, oder der neue Rand hat keine Dicke
+                        oder Farbe.</td>
+                </tr>
+                <tr>
+                    <td>Auf dem Handy quer sieht alles aus wie am Morgen</td>
+                    <td>Das ist kein Fehler: Ein Handy quer ist breiter als <code>40em</code>. Braucht es dafür eine
+                        eigene Query?</td>
+                </tr>
+            </table>
+        </div>
+
+        <h3>Selbständig: eure eigene Reduktion</h3>
+
+        <p>Wer die gemeinsame Lösung hat, baut eine zweite, ganz andere Reduktion. Kopiert dazu
+            <code>mediaqueries.css</code> in eine neue Datei, etwa <code>mediaqueries-2.css</code>, und verlinkt diese
+            stattdessen. Die Frage ist: <strong>Was ist das Handgepäck dieses Plakats?</strong>
+        </p>
+
+        <p>Einige Richtungen:</p>
+        <ul>
+            <li><strong>Weglassen:</strong> Was bleibt, wenn die Namen fehlen? Ist es noch dasselbe Plakat?</li>
+            <li><strong>Ausschnitt:</strong> Das Plakat wird nicht verkleinert, sondern beschnitten wie ein Foto. Man
+                sieht nur die Ecke mit den Balken und dem Titel, dafür gross.</li>
+            <li><strong>Das Heft aufschlagen:</strong> Das Plakat ist der Umschlag, die Namen kommen darunter wie die
+                erste Innenseite. Man scrollt vom Umschlag ins Heft.</li>
+            <li><strong>Namen als Fliesstext:</strong> «natan altman · otto baumberger · …» als eine Zeile, die
+                umbricht.</li>
+        </ul>
+
+        <div class="hint"><strong>Zu jeder Lösung gehören zwei Sätze</strong> als Kommentar in der CSS-Datei:
+            «Der Breakpoint liegt bei …, weil …» und «Weggelassen bzw. verändert habe ich …, weil …».</div>
+
+        <hr>
+
+        <!-- ============================================================ -->
+        <h2>Optional · Ausbau zu Desktop</h2>
+
+        <p>Für alle, die schneller sind: Diesmal ohne Code, nur als Konzept. Am Schluss steht eine Skizze im Raster,
+            keine CSS-Datei.</p>
+
+        <h3>Das Problem</h3>
+
+        <p>Öffnet das Plakat auf einem breiten Bildschirm. Es ist ein riesiges Blatt im Hochformat, durch das man
+            scrollen muss. Die Komposition sieht man nie als Ganzes. Und das Kleingedruckte ist über 30px gross: Es ist
+            gar nicht mehr klein. Dadurch geht der Kontrast verloren, und mit ihm die Spannung.</p>
+
+        <h3>Die Leitidee, umgekehrt</h3>
+
+        <p>Auf dem Desktop ist die lange Seite waagrecht. Wenn der Text der langen Seite folgt, welche Elemente drehen
+            dann in die Waagrechte? Und was heisst das für die Komposition?</p>
+
+        <p>Fragen zum Weiterdenken:</p>
+        <ul>
+            <li><strong>Das Raster:</strong> 12 Spalten und 16 Zeilen passen zum Hochformat. Wie viele passen zum
+                Querformat? Dreht das Raster mit?</li>
+            <li><strong>Die Balken:</strong> Im Original laufen sie bis an den Rand des Papiers. Wohin laufen sie auf
+                dem Desktop: bis an den Rand des Plakats oder bis an den Rand des Fensters?</li>
+            <li><strong>Die Titelwörter:</strong> Wenn beide waagrecht stehen, wie greifen sie ineinander? Untereinander,
+                versetzt, als Treppe?</li>
+            <li><strong>Das Kleingedruckte:</strong> Wie bleibt es klein, wenn der Bildschirm wächst?</li>
+            <li><strong>Der Weissraum:</strong> Zentrieren oder asymmetrisch setzen? Was passiert mit der Spannung?</li>
+            <li><strong>Die Diagonale:</strong> Die neue Typografie liebt Diagonalen. Hat sie auf dem breiten
+                Bildschirm Platz?</li>
+            <li><strong>Die Query:</strong> Reicht <code>min-width</code>? Oder braucht es zusätzlich
+                <code>orientation: landscape</code>, damit ein breites, aber hohes Fenster nicht gedreht wird?
+            </li>
+        </ul>
+
+        <h3>Zwei Beispiele</h3>
+
+        <p>Zwei ehemalige Studierende haben die Übung für den Desktop gelöst. Öffnet beide in einem breiten Fenster
+            und vergleicht:</p>
+
+        <ul>
+            <li><a href="https://desiandina.github.io/modul_webtech/Tag8/desireeandina.html" target="_blank">Beispiel
+                    1</a></li>
+            <li><a href="https://sarahbonavia.github.io/modul_webtech/poster_typo_uebung_grid5/typo_uebung_grid5.html"
+                    target="_blank">Beispiel 2</a></li>
+        </ul>
+
+        <ul>
+            <li>Wo bleibt die Spannung erhalten, wo geht sie verloren?</li>
+            <li>Was passiert mit den Balken? Mit dem Kleingedruckten?</li>
+            <li>Sieht man die Komposition als Ganzes, ohne zu scrollen?</li>
+            <li>Welche Entscheidung würdet ihr übernehmen, welche nicht?</li>
+        </ul>
+
+        <h3>Skizzieren</h3>
+
+        <p>Zeichnet eure Desktop-Komposition auf Papier oder digital in ein Raster. Hier ist ein Vorschlag mit 16 × 8
+            Zellen, ihr dürft aber auch ein anderes wählen.</p>
+
+        <figure>
+            <svg viewBox="0 0 480 240" xmlns="http://www.w3.org/2000/svg" role="img"
+                aria-label="Leeres Raster mit 16 Spalten und 8 Zeilen zum Skizzieren.">
+                <defs>
+                    <pattern id="raster-desktop" width="30" height="30" patternUnits="userSpaceOnUse">
+                        <path d="M30 0 L0 0 0 30" fill="none" stroke="#d7dcdd" stroke-width="1" />
+                    </pattern>
+                </defs>
+                <rect width="480" height="240" fill="url(#raster-desktop)" stroke="#2d2d2d" stroke-width="2" />
+            </svg>
+            <figcaption>Leeres Raster, 16 × 8. Zum Ausdrucken oder als Vorlage für eine digitale Skizze.</figcaption>
+        </figure>
+
+        <div class="hint"><strong>Was die Skizze zeigen soll:</strong> Wo stehen die Elemente? Welche drehen? Wohin
+            laufen die Balken? Und in einem Satz: Woher kommt die Spannung?</div>
+
+        <hr>
+
+        <!-- ============================================================ -->
+        <h2>Zeigen</h2>
+
+        <p>Zum Schluss zeigen einige Gruppen ihre Lösungen nebeneinander: die gemeinsame Mobile-Lösung, eure eigenen
+            Reduktionen und, wer hat, die Desktop-Skizzen. Jede Gruppe beantwortet kurz:</p>
+
+        <ul>
+            <li>Wo liegt euer Breakpoint, und warum genau dort?</li>
+            <li>Was dreht, was wandert, was fällt weg?</li>
+            <li>Was ist vom Plakat übrig geblieben? Ist es noch Tschichold?</li>
+        </ul>
+
+        <div class="metaphor-room">
+            Zurück zum Anfang: «accept the ebb and flow of things». Am Morgen war das Plakat ein Blatt mit einem festen
+            Format. Jetzt hat es mehrere Wohnungen. Was in jeder davon gleich geblieben ist, ist vielleicht das, was die
+            Gestaltung wirklich ausmacht.
+        </div>
+
+        <div class="exercise-header">
+            <h2>Für heute Nachmittag</h2>
+            <ol>
+                <li><code>mediaqueries.css</code> anlegen und nach <code>tschichold.css</code> verlinken.</li>
+                <li>Die Reduktion zu Mobile bauen, Schritt 1 bis 5.</li>
+                <li>Mit zwei Handygrössen testen und den Breakpoint begründen.</li>
+                <li>Eine zweite, eigene Reduktion bauen, mit zwei Sätzen als Kommentar.</li>
+                <li>Optional: eine Desktop-Komposition im Raster skizzieren.</li>
+                <li>Lösungen in der Gruppe zeigen und vergleichen.</li>
+            </ol>
+        </div>
+
+        <h2>Zum Nachschlagen</h2>
+
+        <ul>
+            <li><a href="https://developer.mozilla.org/de/docs/Web/CSS/CSS_media_queries/Using_media_queries"
+                    target="_blank">MDN: Media Queries verwenden</a></li>
+            <li><a href="https://developer.mozilla.org/de/docs/Web/CSS/writing-mode" target="_blank">MDN:
+                    writing-mode</a></li>
+            <li><a href="https://developer.mozilla.org/de/docs/Web/CSS/length" target="_blank">MDN: Längeneinheiten
+                    (vw, svh, rem)</a></li>
+            <li><a href="https://css-tricks.com/snippets/css/complete-guide-grid/" target="_blank">CSS-Tricks: A
+                    Complete Guide to Grid</a></li>
+        </ul>
+
+    </main>
+</body>
+
+</html>
